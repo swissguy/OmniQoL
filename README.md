@@ -1,8 +1,29 @@
 # OmniQoL — All-In-One Quality of Life Mod Suite
 
-**OmniQoL** is a comprehensive, modular Quality of Life (QoL) suite built for Pokémon engine recreations, targeting **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`) and its subsequent generations.
+<p align="left">
+  <a href="https://github.com/bryanthaboi/gen1recomp"><img src="https://img.shields.io/badge/Target%20Engine-Gen1Recomp%20%2F%20G1R%20Deluxe-2680eb?style=for-the-badge&logo=nintendogameboy&logoColor=white" alt="Target Engine"></a>
+  <img src="https://img.shields.io/badge/Mod%20API-v2-00b4d8?style=for-the-badge" alt="API Version">
+  <img src="https://img.shields.io/badge/Environment-LÖVE2D%20%2F%20Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge" alt="MIT License"></a>
+</p>
+
+**OmniQoL** is a comprehensive, modular Quality of Life (QoL) suite built for Pokémon native engine recreations, targeting **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`) and its subsequent generations.
 
 Every feature is designed as an independent module that can be individually toggled directly within the game's Start Menu, with preferences saved per save file.
+
+---
+
+## 🎮 Compatibility & Target Matrix
+
+| Generation | Game | Status | Badge |
+| :--- | :--- | :---: | :--- |
+| **Gen 1** | Pokémon Red & Blue | **Active** | ![Red & Blue](https://img.shields.io/badge/Red%20%26%20Blue-Compatible-brightgreen?style=flat-square) |
+| **Gen 1** | Pokémon Yellow | **Next Up** | ![Yellow](https://img.shields.io/badge/Yellow-Planned-yellow?style=flat-square) |
+| **Gen 2** | Pokémon Gold & Silver | **Planned** | ![Gold & Silver](https://img.shields.io/badge/Gold%20%26%20Silver-Planned-lightgrey?style=flat-square) |
+| **Gen 2** | Pokémon Crystal | **Planned** | ![Crystal](https://img.shields.io/badge/Crystal-Planned-lightgrey?style=flat-square) |
+| **Gen 3** | Pokémon FireRed & LeafGreen | **Planned** | ![FireRed & LeafGreen](https://img.shields.io/badge/FR%20%26%20LG-Planned-lightgrey?style=flat-square) |
+| **Gen 3** | Pokémon Ruby & Sapphire | **Planned** | ![Ruby & Sapphire](https://img.shields.io/badge/Ruby%20%26%20Sapphire-Planned-lightgrey?style=flat-square) |
+| **Gen 3** | Pokémon Emerald | **Planned** | ![Emerald](https://img.shields.io/badge/Emerald-Planned-lightgrey?style=flat-square) |
 
 ---
 

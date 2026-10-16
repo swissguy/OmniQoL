@@ -1,5 +1,11 @@
 # OmniQoL — Pokémon Red & Blue
 
+<p align="left">
+  <img src="https://img.shields.io/badge/Game-Pokémon%20Red%20%26%20Blue-red?style=flat-square&logo=nintendogameboy&logoColor=white" alt="Red and Blue">
+  <img src="https://img.shields.io/badge/Engine-Gen1Recomp-blue?style=flat-square" alt="Gen1Recomp">
+  <img src="https://img.shields.io/badge/Status-Fully%20Functional-brightgreen?style=flat-square" alt="Status">
+</p>
+
 ## Overview
 **OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). It features in-game toggleable modules configured directly from the overworld Start Menu, per-save configuration persistence, and Running Shoes.
 
