@@ -1,0 +1,13 @@
+{
+  "id": "g1r_deluxe",
+  "name": "G1R Deluxe QoL",
+  "version": "1.0.0",
+  "entry": "init.lua",
+  "api": 2,
+  "games": [
+    "red",
+    "blue"
+  ],
+  "priority": 10,
+  "description": "G1R Deluxe Quality of Life Mod Suite for Pokémon Red & Blue. Includes modular toggleable features, Start Menu configuration, and Running Shoes."
+}
