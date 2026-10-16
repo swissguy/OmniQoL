@@ -48,3 +48,9 @@ OmniQoL/
 - **Fair Encounters**: Preserves standard wild encounter rates.
 - **Cutscene Protection**: Automatically restores normal walking duration when idle and during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
 - **In-Game Start Menu**: Injects an interactive `MODS` screen to toggle features on or off per save.
+
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
+
