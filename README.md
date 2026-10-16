@@ -13,17 +13,27 @@ Every feature is designed as an independent module that can be individually togg
 
 ---
 
-## 🎮 Compatibility & Target Matrix
+## 🎮 Per-Module Compatibility Matrix
 
-| Generation | Game | Status | Badge |
-| :--- | :--- | :---: | :--- |
-| **Gen 1** | Pokémon Red & Blue | **Active** | ![Red & Blue](https://img.shields.io/badge/Red%20%26%20Blue-Compatible-brightgreen?style=flat-square) |
-| **Gen 1** | Pokémon Yellow | **Next Up** | ![Yellow](https://img.shields.io/badge/Yellow-Planned-yellow?style=flat-square) |
-| **Gen 2** | Pokémon Gold & Silver | **Planned** | ![Gold & Silver](https://img.shields.io/badge/Gold%20%26%20Silver-Planned-lightgrey?style=flat-square) |
-| **Gen 2** | Pokémon Crystal | **Planned** | ![Crystal](https://img.shields.io/badge/Crystal-Planned-lightgrey?style=flat-square) |
-| **Gen 3** | Pokémon FireRed & LeafGreen | **Planned** | ![FireRed & LeafGreen](https://img.shields.io/badge/FR%20%26%20LG-Planned-lightgrey?style=flat-square) |
-| **Gen 3** | Pokémon Ruby & Sapphire | **Planned** | ![Ruby & Sapphire](https://img.shields.io/badge/Ruby%20%26%20Sapphire-Planned-lightgrey?style=flat-square) |
-| **Gen 3** | Pokémon Emerald | **Planned** | ![Emerald](https://img.shields.io/badge/Emerald-Planned-lightgrey?style=flat-square) |
+| Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 1: Running Shoes</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, start menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Adapting for Pikachu follower engine hooks |
+| **Pokémon Gold & Silver** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
 
 ---
 
