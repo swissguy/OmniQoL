@@ -2,7 +2,7 @@
 
 <p align="left">
   <img src="https://img.shields.io/badge/Game-Pokémon%20Red%20%26%20Blue-red?style=flat-square&logo=nintendogameboy&logoColor=white" alt="Red and Blue">
-  <img src="https://img.shields.io/badge/Engine-Gen1Recomp-blue?style=flat-square" alt="Gen1Recomp">
+  <a href="https://github.com/bryanthaboi/gen1recomp"><img src="https://img.shields.io/badge/Engine-bryanthaboi%2Fgen1recomp-blue?style=flat-square&logo=github&logoColor=white" alt="bryanthaboi/gen1recomp"></a>
   <img src="https://img.shields.io/badge/Status-Fully%20Functional-brightgreen?style=flat-square" alt="Status">
 </p>
 

@@ -1,7 +1,7 @@
 # OmniQoL — All-In-One Quality of Life Mod Suite
 
 <p align="left">
-  <a href="https://github.com/bryanthaboi/gen1recomp"><img src="https://img.shields.io/badge/Target%20Engine-Gen1Recomp%20%2F%20G1R%20Deluxe-2680eb?style=for-the-badge&logo=nintendogameboy&logoColor=white" alt="Target Engine"></a>
+  <a href="https://github.com/bryanthaboi/gen1recomp"><img src="https://img.shields.io/badge/Target%20Engine-bryanthaboi%2Fgen1recomp-2680eb?style=for-the-badge&logo=github&logoColor=white" alt="Target Engine: bryanthaboi/gen1recomp"></a>
   <img src="https://img.shields.io/badge/Mod%20API-v2-00b4d8?style=for-the-badge" alt="API Version">
   <img src="https://img.shields.io/badge/Environment-LÖVE2D%20%2F%20Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge" alt="MIT License"></a>
