@@ -54,3 +54,9 @@ OmniQoL/
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
 
+---
+
+## 🤖 AI Disclaimer
+Portions of this codebase, architecture, and documentation were developed with the assistance of AI coding tools, paired with and reviewed by human developers. While every module is structured and tested for compatibility with the target recompilation engines, please report any issues or unexpected behaviors.
+
+
