@@ -1,7 +1,7 @@
-# G1R Deluxe QoL Mod — Pokémon Red & Blue
+# OmniQoL — Pokémon Red & Blue
 
 ## Overview
-**G1R Deluxe** is a modular Quality of Life (QoL) suite built for **Gen1Recomp** (`bryanthaboi/gen1recomp`). It features in-game toggleable modules configured directly from the overworld Start Menu, per-save configuration persistence, and an implementation of Running Shoes.
+**OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). It features in-game toggleable modules configured directly from the overworld Start Menu, per-save configuration persistence, and Running Shoes.
 
 ---
 
@@ -42,6 +42,6 @@ mods/gen1_red_blue/
 ---
 
 ## Installation in Gen1Recomp
-1. Copy or symlink the `mods/gen1_red_blue` directory into your `gen1recomp/mods/` folder (or run directly in this workspace).
+1. Copy or symlink the `mods/gen1_red_blue` directory into your `gen1recomp/mods/` folder.
 2. Launch Gen1Recomp with a Pokémon Red or Blue ROM.
 3. In-game, hold **B** to run, or press **START -> MODS** to configure active modules!

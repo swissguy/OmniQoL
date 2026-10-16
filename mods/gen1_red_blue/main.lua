@@ -18,5 +18,5 @@ return function(mod)
   end
   local chunk = loadfile and loadfile("mods/gen1_red_blue/init.lua")
   if chunk then return chunk()(mod) end
-  error("[G1R Deluxe] Unable to locate init.lua from main.lua shim")
+  error("[OmniQoL] Unable to locate init.lua from main.lua shim")
 end

@@ -1,14 +1,14 @@
-# G1R Deluxe — Quality of Life Mod Suite
+# OmniQoL — All-In-One Quality of Life Mod Suite
 
-**G1R Deluxe** is a modular, high-performance Quality of Life (QoL) suite built for Pokémon engine recreations, targeting **Gen1Recomp** (`bryanthaboi/gen1recomp`) and its subsequent generations.
+**OmniQoL** is a comprehensive, modular Quality of Life (QoL) suite built for Pokémon engine recreations, targeting **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`) and its subsequent generations.
 
-Each feature is built as an independent, toggleable module configured directly within the game via the Start Menu and saved per-save file.
+Every feature is designed as an independent module that can be individually toggled directly within the game's Start Menu, with preferences saved per save file.
 
 ---
 
-## 🗺️ Roadmap & Target Workflow
+## 🗺️ Multi-Game Rollout Roadmap
 
-For every module, development follows a strict multi-generation workflow:
+For each module, development follows a structured multi-generation workflow:
 1. **Gen 1**: Pokémon Red & Blue ➔ Pokémon Yellow
 2. **Gen 2**: Pokémon Gold & Silver ➔ Pokémon Crystal
 3. **Gen 3**: Pokémon FireRed & LeafGreen ➔ Pokémon Ruby & Sapphire ➔ Pokémon Emerald
@@ -18,7 +18,7 @@ For every module, development follows a strict multi-generation workflow:
 ## 📦 Repository Structure
 
 ```
-G1R/
+OmniQoL/
 ├── mods/
 │   ├── gen1_red_blue/          # Active Target: Pokémon Red & Blue
 │   │   ├── manifest.json       # Mod metadata & loader config
@@ -45,6 +45,6 @@ G1R/
 ### Module 1: Running Shoes (Pokémon Red & Blue)
 - **Hold B to Run**: Doubles player walking speed (from 16 to 8 frames/tile), matching the Bicycle.
 - **Everywhere**: Fully permitted indoors, outdoors, in caves, and in buildings.
-- **Fair Encounters**: Preserves vanilla wild encounter calculations.
-- **Cutscene Protection**: Automatically restores standard step duration when idle and during NPC escorts (e.g., Professor Oak) to prevent cutscene desyncs.
-- **Start Menu Integration**: Injects an interactive `MODS` menu into the Start Menu to toggle features on or off at any time.
+- **Fair Encounters**: Preserves standard wild encounter rates.
+- **Cutscene Protection**: Automatically restores normal walking duration when idle and during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
+- **In-Game Start Menu**: Injects an interactive `MODS` screen to toggle features on or off per save.

@@ -59,8 +59,8 @@ return function(mod)
 
   -- Log successful boot
   if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("G1R Deluxe QoL suite loaded successfully (1 module active: Running).")
+    mod.log:info("OmniQoL suite loaded successfully (1 module active: Running).")
   else
-    print("[G1R Deluxe] Loaded successfully for Pokémon Red & Blue.")
+    print("[OmniQoL] Loaded successfully for Pokémon Red & Blue.")
   end
 end

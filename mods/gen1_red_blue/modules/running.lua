@@ -1,5 +1,5 @@
 -- ============================================================================
--- G1R Deluxe: Running Module (Pokémon Red & Blue)
+-- OmniQoL: Running Module (Pokémon Red & Blue)
 --
 -- Features:
 -- - Hold B to run at 2x walking speed (8 frames per tile instead of 16).

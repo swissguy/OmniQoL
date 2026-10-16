@@ -66,7 +66,7 @@ function SettingsMenu.setup(mod, moduleManager)
 
           -- Full-screen Gen 1 tile dimensions: 20 columns x 18 rows
           Font.drawBox(0, 0, 20, 18)
-          Font.draw("G1R DELUXE MODS", 16, 12)
+          Font.draw("OMNIQOL MODS", 16, 12)
 
           -- Divider line
           Font.draw("==================", 8, 24)
