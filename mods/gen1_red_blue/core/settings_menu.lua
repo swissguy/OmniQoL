@@ -59,49 +59,68 @@ function SettingsMenu.setup(mod, moduleManager)
           end
         end
 
+        local function wrapDesc(text, maxLen)
+          if not text or #text == 0 then return "", "" end
+          if #text <= maxLen then return text, "" end
+          local splitIdx = maxLen
+          while splitIdx > 0 and text:sub(splitIdx, splitIdx) ~= " " do
+            splitIdx = splitIdx - 1
+          end
+          if splitIdx == 0 then splitIdx = maxLen end
+          local l1 = text:sub(1, splitIdx):gsub("%s+$", "")
+          local l2 = text:sub(splitIdx + 1):gsub("^%s+", ""):sub(1, maxLen)
+          return l1, l2
+        end
+
         function state:draw()
           local modules = moduleManager:getAll()
           if not Font or type(Font.drawBox) ~= "function" then
             return
           end
 
-          -- Full-screen Gen 1 tile dimensions: 20 columns x 18 rows
-          Font.drawBox(0, 0, 20, 18)
-          Font.draw("OMNIQOL MODS", 16, 12)
-
-          -- Divider line
-          Font.draw("==================", 8, 24)
+          -- Main module list box: 20 columns x 11 rows (y: 0 to 88)
+          Font.drawBox(0, 0, 20, 11)
+          Font.draw("OMNIQOL MODS", 16, 10)
+          Font.draw("================", 16, 18)
 
           -- List modules
-          local startY = 38
+          local startY = 32
           for i, modDef in ipairs(modules) do
             local yPos = startY + (i - 1) * 16
             local isSelected = (i == selectedIndex)
-            local prefix = isSelected and ">" or " "
             local enabled = moduleManager:isEnabled(modDef.id)
             local statusTag = enabled and "[ON ]" or "[OFF]"
 
-            -- Format row: e.g. "> RUNNING    [ON ]"
+            -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
+            if isSelected then
+              if type(Font.drawCode) == "function" then
+                Font.drawCode(0xED, 8, yPos)
+              else
+                Font.draw(">", 8, yPos)
+              end
+            end
+
+            -- Label at x=16 (fits within 10 characters -> max x=96)
             local label = modDef.label:sub(1, 10)
-            local padding = string.rep(" ", 11 - #label)
-            local lineText = string.format("%s%-10s%s%s", prefix, label, padding, statusTag)
-            Font.draw(lineText, 12, yPos)
+            Font.draw(label, 16, yPos)
+
+            -- Status badge at x=104 (safely inside screen, ends at x=136)
+            Font.draw(statusTag, 104, yPos)
           end
 
-          -- Bottom info box
-          Font.drawBox(0, 12, 20, 6)
+          -- Bottom info box: 20 columns x 7 rows (y: 88 to 144)
+          Font.drawBox(0, 11, 20, 7)
           local activeDef = modules[selectedIndex]
           if activeDef and activeDef.desc and #activeDef.desc > 0 then
-            -- Wrap / slice description to fit two 18-character lines
-            local descLine1 = activeDef.desc:sub(1, 18)
-            local descLine2 = activeDef.desc:sub(19, 36)
-            Font.draw(descLine1, 12, 106)
-            if #descLine2 > 0 then
-              Font.draw(descLine2, 12, 118)
+            local line1, line2 = wrapDesc(activeDef.desc, 16)
+            Font.draw(line1, 16, 98)
+            if #line2 > 0 then
+              Font.draw(line2, 16, 112)
             end
           end
 
-          Font.draw("A:TOGGLE  B:EXIT", 12, 132)
+          -- Bottom controls prompt: y=126 ends at y=134 (safely above bottom border at 136)
+          Font.draw("A:TOGGLE  B:EXIT", 16, 126)
         end
 
         return state
