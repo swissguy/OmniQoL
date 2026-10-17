@@ -20,6 +20,7 @@ Every feature is designed as an independent module that can be individually togg
 | **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **✨ Catch All 151** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -67,6 +68,21 @@ Every feature is designed as an independent module that can be individually togg
 
 </details>
 
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 4: Catch All 151</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Wild starters, version exclusives, Safari mons outside Safari, mutually exclusive fossils & Hitmons, wild Eevee, room-reentry legendary respawns & Mew #151 |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 151 wild availability, Weedle/Koffing/Meowth/Magmar/Electabuzz restorations, wild Raichu, room-reentry legendary respawns & Mew #151 |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
 ---
 
 ## 🗺️ Multi-Game Rollout Roadmap
@@ -93,7 +109,8 @@ OmniQoL/
 │   │   └── modules/
 │   │       ├── running.lua         # Running Shoes with Pikachu Follower sync
 │   │       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
-│   │       └── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
+│   │       ├── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
+│   │       └── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
 │   ├── gen2_gold_silver/       # Gen 2 Target (Next)
 │   ├── gen2_crystal/
 │   ├── gen3_fire_red_leaf_green/
@@ -128,6 +145,15 @@ OmniQoL/
 - **Link Trade Coexistence**: Normal link-cable trading continues to function as an alternative trigger.
 - **Vanilla NPC Trades**: In-game NPC trades (e.g., Machoke in Underground Path/Route 11) do not auto-evolve immediately upon receipt, evolving on their subsequent level-up instead.
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`TRADE EVOS`), enabled by default.
+
+### Module 4: Catch All 151 Pokémon (Pokémon Red, Blue & Yellow)
+- **Wild Starters**: Bulbasaur, Charmander, and Squirtle can be encountered and caught in the wild across thematic Kanto routes.
+- **Version Exclusives & Missing Pokémon**: All version-locked Pokémon from Red, Blue, and Yellow are cross-available in counterpart wild habitats.
+- **Safari Zone Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes, allowing conventional battle and capture without fleeing or Safari Balls.
+- **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their map/room if defeated or fled without catching.
+- **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, respawning on room re-entry if not caught.
+- **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
 
 
 ---

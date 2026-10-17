@@ -28,6 +28,15 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Trade Coexistence**: Traditional link-trading continues to trigger evolution normally.
 - **Vanilla NPC Trades**: In-game NPC trades (e.g., Machoke in Pokémon Blue/Yellow) do not immediately auto-evolve upon receipt; they evolve upon their next level-up to 40+.
 
+### ✨ Module 4: Catch All 151 Pokémon (Pokémon Red, Blue & Yellow)
+- **Wild Starters**: Bulbasaur, Charmander, and Squirtle appear in the wild in thematic habitats across Kanto.
+- **Cross-Version Exclusives**: All missing and version-exclusive Pokémon from Red, Blue, and Yellow are catchable across all three games in counterpart routes.
+- **Safari Zone Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes for standard battles and captures with regular Pokéballs.
+- **Mutually Exclusive & Single-Choice Pokémon**: Wild encounters for unchosen fossils (Omanyte/Kabuto), Dojo fighters (Hitmonlee/Hitmonchan), wild Eevee (enabling all 3 Eeveelutions), and trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon).
+- **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their room or map if defeated or fled without catching.
+- **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequence, respawning on room re-entry if not caught.
+- **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
+
 ### ⚙️ Native Options Menu Integration (`OMNIQOL`)
 - Injects an `OMNIQOL` entry directly into the native **Options Menu** (`OPTION`), accessible both in the overworld and on the Title Screen.
 - Custom interactive UI screen allows toggling modules `[ON ]` or `[OFF]` at any time with an authentic Pokémon arrow cursor.

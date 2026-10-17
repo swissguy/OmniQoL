@@ -84,9 +84,10 @@ function SettingsMenu.setup(mod, moduleManager)
           Font.draw("================", 16, 18)
 
           -- List modules
-          local startY = 32
+          local startY = #modules > 3 and 26 or 32
+          local stepY = #modules > 3 and 13 or 16
           for i, modDef in ipairs(modules) do
-            local yPos = startY + (i - 1) * 16
+            local yPos = startY + (i - 1) * stepY
             local isSelected = (i == selectedIndex)
             local enabled = moduleManager:isEnabled(modDef.id)
             local statusTag = enabled and "[ON ]" or "[OFF]"

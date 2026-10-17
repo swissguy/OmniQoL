@@ -60,13 +60,16 @@ return function(mod)
   local TradeEvosModule = loadModule("modules/trade_evos.lua")
   TradeEvosModule.register(manager)
 
+  local Catch151Module = loadModule("modules/catch_151.lua")
+  Catch151Module.register(manager)
+
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
   -- Log successful boot
   if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes, EXP Share & Trade Evos active).")
+    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes, EXP Share, Trade Evos & Catch 151 active).")
   else
-    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes, EXP Share & Trade Evos active).")
+    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes, EXP Share, Trade Evos & Catch 151 active).")
   end
 end
