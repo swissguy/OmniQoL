@@ -41,7 +41,7 @@ return function(mod)
       if ok and res then return res end
     end
 
-    error(string.format("[G1R Deluxe] Could not load module: %s", relPath))
+    error(string.format("[OmniQoL] Could not load module: %s", relPath))
   end
 
   -- Initialize Core Framework
@@ -54,7 +54,7 @@ return function(mod)
   local RunningModule = loadModule("modules/running.lua")
   RunningModule.register(manager)
 
-  -- Setup Start Menu injection & In-Game UI screen
+  -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
   -- Log successful boot

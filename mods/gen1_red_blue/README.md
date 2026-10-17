@@ -22,13 +22,15 @@
   - Ledges are jumped cleanly at 2x speed when running.
   - Automatically restores normal walking duration during cutscenes/scripted escort movements (e.g., Professor Oak escorting the player to the lab) to prevent NPC desyncs.
 
-### 2. In-Game Mod Menu (`MODS`)
-- Injects a **`MODS`** option directly into the main overworld **Start Menu** (positioned right before `OPTION`).
-- Selecting `MODS` opens an interactive options screen:
+### 2. Options Menu Integration (`OMNIQOL`)
+- Injects an **`OMNIQOL`** row directly into the native **Options Menu** (`OPTION`).
+- Accessible both in the overworld (Start Menu ➔ `OPTION`) and on the Title Screen (`OPTION`).
+- Selecting `OMNIQOL` opens the module management screen:
   - **Up / Down**: Navigate through available modules.
   - **A / Left / Right**: Toggle the selected module `[ON ]` or `[OFF]`.
   - **B**: Save and return to the game.
-- Settings are saved **per save file** alongside your game save.
+- Restores the top-level overworld Start Menu to pure vanilla.
+- Settings are saved **per save file** during gameplay, and saved as **global defaults** when configured from the Title Screen.
 
 ---
 
@@ -39,8 +41,8 @@ mods/gen1_red_blue/
 ├── init.lua                 # Primary mod entry point
 ├── main.lua                 # Fallback compatibility entry shim
 ├── core/
-│   ├── module_manager.lua   # Module registry, lifecycle & per-save storage
-│   └── settings_menu.lua    # Start Menu injection & custom UI screen
+│   ├── module_manager.lua   # Module registry, lifecycle & persistence
+│   └── settings_menu.lua    # Options Menu injection & custom UI screen
 └── modules/
     └── running.lua          # Running module hooks & speed calculation
 ```

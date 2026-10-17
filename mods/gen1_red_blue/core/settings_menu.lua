@@ -1,7 +1,8 @@
 -- ============================================================================
--- G1R Deluxe: Start Menu & Settings Screen Integration
--- Injects 'MODS' entry into the overworld Start Menu and provides a custom
--- interactive UI screen to toggle modules on/off per save file.
+-- OmniQoL: Options Menu & Settings Screen Integration
+-- Injects 'OMNIQOL' entry into the native Options Menu (accessible both
+-- during gameplay and on the Title Screen), while leaving the top-level
+-- overworld Start Menu clean and vanilla.
 -- ============================================================================
 
 local SettingsMenu = {}
@@ -21,7 +22,7 @@ function SettingsMenu.setup(mod, moduleManager)
     pcall(function() mod.options:define(optionDefs) end)
   end
 
-  -- 2. Register custom UI screen for in-game Start Menu
+  -- 2. Register custom UI screen for module configuration
   local screenId = "G1RDeluxeSettings"
   if mod.content and mod.content.screens and type(mod.content.screens.register) == "function" then
     mod.content.screens:register(screenId, {
@@ -108,39 +109,43 @@ function SettingsMenu.setup(mod, moduleManager)
     })
   end
 
-  -- 3. Wrap Start Menu items hook to inject 'MODS'
+  -- 3. Wrap Options Menu rows hook to inject 'OMNIQOL' into the native Options menu
+  -- (Active both in-game via Start Menu -> OPTION and on the Title Screen -> OPTION)
   if mod.hooks and type(mod.hooks.wrap) == "function" then
-    mod.hooks:wrap("ui.start_menu.items", function(next, game, items)
-      local out = next and next(game, items) or items
+    mod.hooks:wrap("ui.options.rows", function(next, game, rows)
+      local out = next and next(game, rows) or rows
       if type(out) ~= "table" then return out end
 
-      local modsMenuItem = {
-        label = "MODS",
-        onSelect = function()
+      local omniRow = {
+        id = "omni_qol",
+        label = "OMNIQOL",
+        value = function(g)
+          return moduleManager:getSummary()
+        end,
+        activate = function(g)
           if mod.ui and type(mod.ui.push) == "function" then
-            mod.ui.push(game, screenId)
-          elseif game.stack and type(game.stack.push) == "function" then
+            mod.ui.push(g, screenId)
+          elseif g.stack and type(g.stack.push) == "function" then
             local screenDef = mod.content and mod.content.screens and mod.content.screens:get(screenId)
             if screenDef and screenDef.new then
-              game.stack:push(screenDef.new(game))
+              g.stack:push(screenDef.new(g))
             end
           end
         end,
       }
 
-      -- Try inserting before 'OPTION' (canonical Gen 1 position)
-      if mod.ui and type(mod.ui.insertBefore) == "function" then
-        local ok, result = pcall(function()
-          return mod.ui.insertBefore(out, "OPTION", modsMenuItem)
-        end)
-        if ok and result then return result end
+      -- Insert near management entries (MODS / CONTROLS), right before CANCEL
+      local inserted = false
+      for i = #out, 1, -1 do
+        local r = out[i]
+        if r.id == "controls" or r.id == "mods" then
+          table.insert(out, i + 1, omniRow)
+          inserted = true
+          break
+        end
       end
-
-      -- Fallback: Insert right before the last item (typically 'CANCEL')
-      if #out > 1 then
-        table.insert(out, #out, modsMenuItem)
-      else
-        table.insert(out, modsMenuItem)
+      if not inserted then
+        table.insert(out, omniRow)
       end
 
       return out
