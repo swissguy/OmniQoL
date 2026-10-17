@@ -1,7 +1,8 @@
 -- ============================================================================
--- G1R Deluxe: Start Menu & Settings Screen Integration
--- Injects 'MODS' entry into the overworld Start Menu and provides a custom
--- interactive UI screen to toggle modules on/off per save file.
+-- OmniQoL: Options Menu & Settings Screen Integration (Gen 1: Red, Blue, Yellow)
+-- Injects 'OMNIQOL' entry into the native Options Menu (accessible both
+-- during gameplay and on the Title Screen), while leaving the top-level
+-- overworld Start Menu clean and vanilla.
 -- ============================================================================
 
 local SettingsMenu = {}
@@ -21,7 +22,7 @@ function SettingsMenu.setup(mod, moduleManager)
     pcall(function() mod.options:define(optionDefs) end)
   end
 
-  -- 2. Register custom UI screen for in-game Start Menu
+  -- 2. Register custom UI screen for module configuration
   local screenId = "G1RDeluxeSettings"
   if mod.content and mod.content.screens and type(mod.content.screens.register) == "function" then
     mod.content.screens:register(screenId, {
@@ -58,49 +59,68 @@ function SettingsMenu.setup(mod, moduleManager)
           end
         end
 
+        local function wrapDesc(text, maxLen)
+          if not text or #text == 0 then return "", "" end
+          if #text <= maxLen then return text, "" end
+          local splitIdx = maxLen
+          while splitIdx > 0 and text:sub(splitIdx, splitIdx) ~= " " do
+            splitIdx = splitIdx - 1
+          end
+          if splitIdx == 0 then splitIdx = maxLen end
+          local l1 = text:sub(1, splitIdx):gsub("%s+$", "")
+          local l2 = text:sub(splitIdx + 1):gsub("^%s+", ""):sub(1, maxLen)
+          return l1, l2
+        end
+
         function state:draw()
           local modules = moduleManager:getAll()
           if not Font or type(Font.drawBox) ~= "function" then
             return
           end
 
-          -- Full-screen Gen 1 tile dimensions: 20 columns x 18 rows
-          Font.drawBox(0, 0, 20, 18)
-          Font.draw("OMNIQOL MODS", 16, 12)
-
-          -- Divider line
-          Font.draw("==================", 8, 24)
+          -- Main module list box: 20 columns x 11 rows (y: 0 to 88)
+          Font.drawBox(0, 0, 20, 11)
+          Font.draw("OMNIQOL MODS", 16, 10)
+          Font.draw("================", 16, 18)
 
           -- List modules
-          local startY = 38
+          local startY = 32
           for i, modDef in ipairs(modules) do
             local yPos = startY + (i - 1) * 16
             local isSelected = (i == selectedIndex)
-            local prefix = isSelected and ">" or " "
             local enabled = moduleManager:isEnabled(modDef.id)
             local statusTag = enabled and "[ON ]" or "[OFF]"
 
-            -- Format row: e.g. "> RUNNING    [ON ]"
+            -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
+            if isSelected then
+              if type(Font.drawCode) == "function" then
+                Font.drawCode(0xED, 8, yPos)
+              else
+                Font.draw(">", 8, yPos)
+              end
+            end
+
+            -- Label at x=16 (fits within 10 characters -> max x=96)
             local label = modDef.label:sub(1, 10)
-            local padding = string.rep(" ", 11 - #label)
-            local lineText = string.format("%s%-10s%s%s", prefix, label, padding, statusTag)
-            Font.draw(lineText, 12, yPos)
+            Font.draw(label, 16, yPos)
+
+            -- Status badge at x=104 (safely inside screen, ends at x=136)
+            Font.draw(statusTag, 104, yPos)
           end
 
-          -- Bottom info box
-          Font.drawBox(0, 12, 20, 6)
+          -- Bottom info box: 20 columns x 7 rows (y: 88 to 144)
+          Font.drawBox(0, 11, 20, 7)
           local activeDef = modules[selectedIndex]
           if activeDef and activeDef.desc and #activeDef.desc > 0 then
-            -- Wrap / slice description to fit two 18-character lines
-            local descLine1 = activeDef.desc:sub(1, 18)
-            local descLine2 = activeDef.desc:sub(19, 36)
-            Font.draw(descLine1, 12, 106)
-            if #descLine2 > 0 then
-              Font.draw(descLine2, 12, 118)
+            local line1, line2 = wrapDesc(activeDef.desc, 16)
+            Font.draw(line1, 16, 98)
+            if #line2 > 0 then
+              Font.draw(line2, 16, 112)
             end
           end
 
-          Font.draw("A:TOGGLE  B:EXIT", 12, 132)
+          -- Bottom controls prompt: y=126 ends at y=134 (safely above bottom border at 136)
+          Font.draw("A:TOGGLE  B:EXIT", 16, 126)
         end
 
         return state
@@ -108,39 +128,43 @@ function SettingsMenu.setup(mod, moduleManager)
     })
   end
 
-  -- 3. Wrap Start Menu items hook to inject 'MODS'
+  -- 3. Wrap Options Menu rows hook to inject 'OMNIQOL' into the native Options menu
+  -- (Active both in-game via Start Menu -> OPTION and on the Title Screen -> OPTION)
   if mod.hooks and type(mod.hooks.wrap) == "function" then
-    mod.hooks:wrap("ui.start_menu.items", function(next, game, items)
-      local out = next and next(game, items) or items
+    mod.hooks:wrap("ui.options.rows", function(next, game, rows)
+      local out = next and next(game, rows) or rows
       if type(out) ~= "table" then return out end
 
-      local modsMenuItem = {
-        label = "MODS",
-        onSelect = function()
+      local omniRow = {
+        id = "omni_qol",
+        label = "OMNIQOL",
+        value = function(g)
+          return moduleManager:getSummary()
+        end,
+        activate = function(g)
           if mod.ui and type(mod.ui.push) == "function" then
-            mod.ui.push(game, screenId)
-          elseif game.stack and type(game.stack.push) == "function" then
+            mod.ui.push(g, screenId)
+          elseif g.stack and type(g.stack.push) == "function" then
             local screenDef = mod.content and mod.content.screens and mod.content.screens:get(screenId)
             if screenDef and screenDef.new then
-              game.stack:push(screenDef.new(game))
+              g.stack:push(screenDef.new(g))
             end
           end
         end,
       }
 
-      -- Try inserting before 'OPTION' (canonical Gen 1 position)
-      if mod.ui and type(mod.ui.insertBefore) == "function" then
-        local ok, result = pcall(function()
-          return mod.ui.insertBefore(out, "OPTION", modsMenuItem)
-        end)
-        if ok and result then return result end
+      -- Insert near management entries (MODS / CONTROLS), right before CANCEL
+      local inserted = false
+      for i = #out, 1, -1 do
+        local r = out[i]
+        if r.id == "controls" or r.id == "mods" then
+          table.insert(out, i + 1, omniRow)
+          inserted = true
+          break
+        end
       end
-
-      -- Fallback: Insert right before the last item (typically 'CANCEL')
-      if #out > 1 then
-        table.insert(out, #out, modsMenuItem)
-      else
-        table.insert(out, modsMenuItem)
+      if not inserted then
+        table.insert(out, omniRow)
       end
 
       return out

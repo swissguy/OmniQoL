@@ -17,17 +17,17 @@ Every feature is designed as an independent module that can be individually togg
 
 | Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
-| **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
 <summary><b>🔍 View detailed status breakdown for Module 1: Running Shoes</b></summary>
 
 | Game Target | Generation | Status | Notes |
 | :--- | :---: | :---: | :--- |
-| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, start menu toggle |
-| **Pokémon Yellow** | Gen 1 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Adapting for Pikachu follower engine hooks |
-| **Pokémon Gold & Silver** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, Pikachu follower synchronization (8f follow / 4f catch-up), native options menu toggle |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
 | **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -40,8 +40,8 @@ Every feature is designed as an independent module that can be individually togg
 ## 🗺️ Multi-Game Rollout Roadmap
 
 For each module, development follows a structured multi-generation workflow:
-1. **Gen 1**: Pokémon Red & Blue ➔ Pokémon Yellow
-2. **Gen 2**: Pokémon Gold & Silver ➔ Pokémon Crystal
+1. **Gen 1**: Pokémon Red & Blue *(Complete)* ➔ Pokémon Yellow *(Complete)*
+2. **Gen 2**: Pokémon Gold & Silver *(Next)* ➔ Pokémon Crystal
 3. **Gen 3**: Pokémon FireRed & LeafGreen ➔ Pokémon Ruby & Sapphire ➔ Pokémon Emerald
 
 ---
@@ -51,17 +51,16 @@ For each module, development follows a structured multi-generation workflow:
 ```
 OmniQoL/
 ├── mods/
-│   ├── gen1_red_blue/          # Active Target: Pokémon Red & Blue
-│   │   ├── manifest.json       # Mod metadata & loader config
-│   │   ├── init.lua            # Entry point
+│   ├── gen1/                   # Generation 1: Pokémon Red, Blue & Yellow
+│   │   ├── manifest.json       # Mod metadata & loader config (Target: Red, Blue, Yellow)
+│   │   ├── init.lua            # Primary entry point
 │   │   ├── main.lua            # Compatibility entry shim
 │   │   ├── core/
 │   │   │   ├── module_manager.lua  # Module registry & per-save state
-│   │   │   └── settings_menu.lua   # Start Menu 'MODS' injection & custom UI
+│   │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   │   └── modules/
-│   │       └── running.lua         # Running Shoes module
-│   ├── gen1_yellow/            # Next Target
-│   ├── gen2_gold_silver/       # Gen 2 Target
+│   │       └── running.lua         # Running Shoes with Pikachu Follower sync
+│   ├── gen2_gold_silver/       # Gen 2 Target (Next)
 │   ├── gen2_crystal/
 │   ├── gen3_fire_red_leaf_green/
 │   ├── gen3_ruby_sapphire/
@@ -73,12 +72,14 @@ OmniQoL/
 
 ## 🏃 Current Modules
 
-### Module 1: Running Shoes (Pokémon Red & Blue)
+### Module 1: Running Shoes (Pokémon Red, Blue & Yellow)
 - **Hold B to Run**: Doubles player walking speed (from 16 to 8 frames/tile), matching the Bicycle.
+- **Pikachu Follower Synchronization (Yellow)**: Pikachu automatically matches player speed at 8 frames/tile, and executes a 4 frames/tile catch-up sprint if separated or turning corners.
 - **Everywhere**: Fully permitted indoors, outdoors, in caves, and in buildings.
 - **Fair Encounters**: Preserves standard wild encounter rates.
 - **Cutscene Protection**: Automatically restores normal walking duration when idle and during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
-- **In-Game Start Menu**: Injects an interactive `MODS` screen to toggle features on or off per save.
+- **Options Menu Integration**: Accessible directly through the native **Options Menu** (`OPTION`), both during gameplay and on the Title Screen, while keeping the overworld Start Menu pure vanilla.
+
 
 ---
 

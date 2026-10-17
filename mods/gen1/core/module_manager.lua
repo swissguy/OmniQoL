@@ -1,6 +1,6 @@
 -- ============================================================================
--- G1R Deluxe: Core Module Manager
--- Handles registration, state lookup, and per-save persistence for QoL modules.
+-- OmniQoL: Core Module Manager (Generation 1: Red, Blue, Yellow)
+-- Handles registration, state lookup, per-save persistence, and global defaults.
 -- ============================================================================
 
 local ModuleManager = {}
@@ -9,8 +9,9 @@ ModuleManager.__index = ModuleManager
 function ModuleManager.new(mod)
   local self = setmetatable({}, ModuleManager)
   self.mod = mod
-  self.modules = {}      -- list for ordered iteration
-  self.modulesById = {}  -- map for quick lookup
+  self.modules = {}          -- list for ordered iteration
+  self.modulesById = {}      -- map for quick lookup
+  self.globalDefaults = {}   -- fallback storage for Title Screen / New Game
   return self
 end
 
@@ -31,6 +32,15 @@ function ModuleManager:register(def)
 
   table.insert(self.modules, modEntry)
   self.modulesById[def.id] = modEntry
+  self.globalDefaults[def.id] = def.default
+
+  -- Read persistent global option if mod.options API exists
+  if self.mod and self.mod.options and type(self.mod.options.get) == "function" then
+    local ok, optVal = pcall(function() return self.mod.options:get(def.id) end)
+    if ok and optVal ~= nil then
+      self.globalDefaults[def.id] = (optVal == true)
+    end
+  end
 
   if type(def.init) == "function" then
     local ok, err = pcall(def.init, self.mod, self)
@@ -38,7 +48,7 @@ function ModuleManager:register(def)
       if self.mod.log and self.mod.log.error then
         self.mod.log:error("Failed to initialize module '" .. def.id .. "': " .. tostring(err))
       else
-        print("[G1R Deluxe] Failed to initialize module '" .. def.id .. "': " .. tostring(err))
+        print("[OmniQoL] Failed to initialize module '" .. def.id .. "': " .. tostring(err))
       end
     end
   end
@@ -47,12 +57,15 @@ function ModuleManager:register(def)
 end
 
 --- Gets whether a module is currently enabled.
--- Checks per-save storage first; falls back to the module's default value.
+-- Checks per-save storage first; falls back to global defaults / initial default.
 -- @param id string
 -- @return boolean
 function ModuleManager:isEnabled(id)
   local entry = self.modulesById[id]
-  local defaultVal = entry and entry.default or false
+  local fallback = self.globalDefaults[id]
+  if fallback == nil then
+    fallback = entry and entry.default or false
+  end
 
   local saveObj = self.mod and self.mod.save
   if saveObj and type(saveObj.get) == "function" then
@@ -62,23 +75,31 @@ function ModuleManager:isEnabled(id)
     end
   end
 
-  return defaultVal
+  return fallback
 end
 
---- Sets a module's enabled state in per-save storage.
+--- Sets a module's enabled state.
+-- Saves per-save if an active save exists; also updates global defaults.
 -- @param id string
 -- @param value boolean
 function ModuleManager:setEnabled(id, value)
   local entry = self.modulesById[id]
   if not entry then return false end
+  local boolVal = (value == true)
 
-  local saveObj = self.mod and self.mod.save
-  if saveObj and type(saveObj.set) == "function" then
-    pcall(function() saveObj:set(id, value == true) end)
-    return true
+  -- Always update global defaults (used for Title Screen / new saves)
+  self.globalDefaults[id] = boolVal
+  if self.mod and self.mod.options and type(self.mod.options.set) == "function" then
+    pcall(function() self.mod.options:set(id, boolVal) end)
   end
 
-  return false
+  -- Update per-save storage if active
+  local saveObj = self.mod and self.mod.save
+  if saveObj and type(saveObj.set) == "function" then
+    pcall(function() saveObj:set(id, boolVal) end)
+  end
+
+  return true
 end
 
 --- Toggles a module's enabled state.
@@ -89,6 +110,32 @@ function ModuleManager:toggle(id)
   local newState = not current
   self:setEnabled(id, newState)
   return newState
+end
+
+--- Returns a concise summary string for display in the Options menu row.
+-- e.g. "RUNNING: ON" or "1 ACTIVE"
+-- @return string
+function ModuleManager:getSummary()
+  local activeCount = 0
+  local total = #self.modules
+
+  for _, modDef in ipairs(self.modules) do
+    if self:isEnabled(modDef.id) then
+      activeCount = activeCount + 1
+    end
+  end
+
+  if total == 1 then
+    local onlyMod = self.modules[1]
+    local enabled = self:isEnabled(onlyMod.id)
+    return string.format("%s: %s", onlyMod.label, enabled and "ON" or "OFF")
+  elseif activeCount == 0 then
+    return "ALL OFF"
+  elseif activeCount == total then
+    return "ALL ACTIVE"
+  else
+    return string.format("%d ACTIVE", activeCount)
+  end
 end
 
 --- Returns the list of all registered modules.
