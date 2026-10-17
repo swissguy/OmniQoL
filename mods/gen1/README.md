@@ -7,7 +7,7 @@
 </p>
 
 ## Overview
-**OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). This unified Generation 1 edition works natively across **Pokémon Red**, **Pokémon Blue**, and **Pokémon Yellow**, featuring toggleable Running Shoes, Pikachu follower synchronization, and native Options Menu integration.
+**OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). This unified Generation 1 edition works natively across **Pokémon Red**, **Pokémon Blue**, and **Pokémon Yellow**, featuring toggleable Running Shoes, Pikachu follower synchronization, modern EXP Share, Trade Evolutions at Lv. 40, Catch All 151 Pokémon, and native Options Menu integration.
 
 ---
 
@@ -41,7 +41,17 @@
 - **Trade Coexistence**: Link trades still trigger evolution as normal.
 - **Vanilla NPC Trades**: In-game NPC trades do not immediately auto-evolve upon receipt.
 
-### 4. Options Menu Integration (`OMNIQOL`)
+### 4. Catch All 151 Pokémon (Module 4)
+- **Wild Starters**: Bulbasaur (Viridian Forest, Route 2), Charmander (Route 3, Rock Tunnel), and Squirtle (Routes 24 & 25) can be caught in the wild in authentic thematic habitats.
+- **Version Exclusives & Missing Pokémon**: Cross-pollinates Red, Blue, and Yellow version exclusives across all three games (e.g. Ekans/Arbok, Sandshrew/Sandslash, Oddish/Bellsprout, Meowth/Mankey, Vulpix/Growlithe, Koffing, Weedle line in Yellow, Electabuzz, Magmar, and wild Raichu).
+- **Safari Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes so players can battle and catch them with normal Pokéballs without fleeing mechanics.
+- **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 8 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Immediate Legendary Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon leaving and re-entering the map or room if defeated or fled without catching.
+- **Mythical Mew Encounter**: Encounter a stationary Lv. 50 Mew on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, sharing the room re-entry respawn rule if not caught.
+- **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
+- **Options Menu Integration**: Toggled directly in `OMNIQOL` Options Menu (`CATCH 151`), enabled by default.
+
+### 5. Options Menu Integration (`OMNIQOL`)
 - Injects an **`OMNIQOL`** row directly into the native **Options Menu** (`OPTION`).
 - Accessible both in the overworld (Start Menu ➔ `OPTION`) and on the Title Screen (`OPTION`).
 - Selecting `OMNIQOL` opens the pixel-perfect module management screen:
@@ -65,7 +75,8 @@ mods/gen1/
 └── modules/
     ├── running.lua          # Running module hooks & Pikachu synchronization
     ├── exp_share.lua        # Modern Gen 6+ EXP Share
-    └── trade_evos.lua       # Trade evolutions at Lv. 40 + Lv. 100 Rare Candy
+    ├── trade_evos.lua       # Trade evolutions at Lv. 40 + Lv. 100 Rare Candy
+    └── catch_151.lua        # Catch all 151 Pokémon, wild starters, respawns & Mew
 ```
 
 ---
