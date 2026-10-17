@@ -86,7 +86,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#053** | **Persian** | Normal | Evolve Meowth at **Level 28**. |
 | **#054** | **Psyduck** | Water | **Wild**: Routes 4, 24, Safari Zone, Cerulean Cave *(Surfing/Fishing)*. |
 | **#055** | **Golduck** | Water | Evolve Psyduck at **Level 33** OR **Wild**: Seafoam Islands, Cerulean Cave. |
-| **#056** | **Mankey** | Fighting | **Wild**: Routes 3, 4, 5, 6 *(Red/Yellow; added to Blue on Routes 3, 4, 5, 6)*. |
+| **#056** | **Mankey** | Fighting | **Wild**: Routes 3, 4, 5, 6, 22 *(Native to Routes 3, 4, 22 in Yellow, Routes 5, 6 in Red; added across Routes 3, 4, 5, 6, 22 in Red, Blue, and Yellow)*. |
 | **#057** | **Primeape** | Fighting | Evolve Mankey at **Level 28** OR **Wild**: Route 23 *(Red/Yellow)*. |
 | **#058** | **Growlithe** | Fire | **Wild**: Routes 7, 8, Pokémon Mansion *(Red; added to Blue on Routes 7, 8, Mansion)*. |
 | **#059** | **Arcanine** | Fire | Evolve Growlithe with **Fire Stone** *(Celadon Dept. Store)*. |
@@ -206,7 +206,7 @@ The following tables list every location in Kanto in chronological progression o
 | | Surfing / Rods | Tentacool, Tentacruel, Magikarp, Poliwag, Goldeen | Accessible once Surf / Super Rod are obtained. |
 | **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. |
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
-| **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, Mankey *(Yellow)* | Early team building area. |
+| **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 3–5) | Native to Yellow; **OmniQoL** also enables early Mankey on Route 22 in Red & Blue. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
 | **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 4–5) | **OmniQoL**: Wild Bulbasaur added to grass. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |

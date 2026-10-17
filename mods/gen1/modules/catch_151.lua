@@ -159,6 +159,7 @@ local WILD_ADDITIONS = {
     { species = "TANGELA",    minLevel = 26, maxLevel = 30, rate = 0.15, type = "grass" },
   },
   ROUTE_22 = {
+    { species = "MANKEY",     minLevel = 3,  maxLevel = 5,  rate = 0.15, type = "grass", game = { "red", "blue" } },
     { species = "DRATINI",    minLevel = 15, maxLevel = 20, rate = 0.10, type = "water" },
   },
   ROUTE_23 = {
