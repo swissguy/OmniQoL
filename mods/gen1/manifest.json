@@ -1,0 +1,14 @@
+{
+  "id": "omni_qol",
+  "name": "OmniQoL",
+  "version": "0.1.0-alpha",
+  "entry": "init.lua",
+  "api": 2,
+  "games": [
+    "red",
+    "blue",
+    "yellow"
+  ],
+  "priority": 10,
+  "description": "All-in-one modular Quality of Life suite for Pokémon Red, Blue, and Yellow. Features Running Shoes with Pikachu follower synchronization and native Options Menu integration."
+}

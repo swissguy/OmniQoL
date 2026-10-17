@@ -1,9 +1,11 @@
 -- ============================================================================
--- OmniQoL: Running Module (Pokémon Red & Blue)
+-- OmniQoL: Running Module (Gen 1: Red, Blue, Yellow)
 --
 -- Features:
 -- - Hold B to run at 2x walking speed (8 frames per tile instead of 16).
--- - Usable everywhere (indoors, outdoors, caves, buildings).
+-- - Seamless Pikachu Follower integration (Yellow): Pikachu dynamically scales
+--   its follow speed (8 frames/tile, 4 frames/tile catch-up) to match the player.
+-- - Usable everywhere (indoors, outdoors, caves, buildings, Safari Zone).
 -- - Preserves normal Bicycle and Surf speeds (no unintended acceleration).
 -- - Preserves standard wild encounter rates (no encounter penalty).
 -- - Restores vanilla stepFramesCur when idle or during scripted cutscenes
@@ -94,7 +96,7 @@ function RunningModule.initHooks(mod, moduleManager)
   end
 
   -- Restore duration immediately when a script or cutscene begins
-  -- (e.g., Oak walking player to lab, Pewter museum guide, Viridian catching tutorial)
+  -- (e.g., Oak escorting player to lab, Pewter museum guide, Viridian catching tutorial)
   if mod.events and type(mod.events.on) == "function" then
     mod.events:on("script.started", function()
       restore()

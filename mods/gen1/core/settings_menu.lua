@@ -1,5 +1,5 @@
 -- ============================================================================
--- OmniQoL: Options Menu & Settings Screen Integration
+-- OmniQoL: Options Menu & Settings Screen Integration (Gen 1: Red, Blue, Yellow)
 -- Injects 'OMNIQOL' entry into the native Options Menu (accessible both
 -- during gameplay and on the Title Screen), while leaving the top-level
 -- overworld Start Menu clean and vanilla.
