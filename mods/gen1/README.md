@@ -27,7 +27,21 @@
   - Ledges are jumped cleanly at 2x speed when running.
   - Automatically restores normal walking duration during cutscenes/scripted escort movements (e.g., Professor Oak escorting the player to the lab) to prevent NPC desyncs.
 
-### 2. Options Menu Integration (`OMNIQOL`)
+### 2. EXP Share (Module 2)
+- **Modern Gen 6+ EXP Distribution**: 100% EXP to active battlers, 50% EXP to benched party members.
+- **Full Stat EXP**: All party members receiving EXP also gain 100% of the defeated Pokémon's base stats as Stat EXP.
+- **Clean Single Team Notification**: Displays a single `"The rest of the team gained EXP!"` message for benched members.
+- **Instant Level-Up Sequencing**: Any Pokémon that levels up immediately triggers its fanfare, stat box, and move learning prompt.
+- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots.
+
+### 3. Trade Evolutions (Module 3)
+- **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally at Level 40+.
+- **Level 100 Rare Candy Support**: Using a Rare Candy on a Lv. 100 Pokémon triggers the evolution sequence (Gen 8+ style).
+- **Authentic B-Cancel**: Standard Pokémon behavior is preserved; players can cancel evolution with B.
+- **Trade Coexistence**: Link trades still trigger evolution as normal.
+- **Vanilla NPC Trades**: In-game NPC trades do not immediately auto-evolve upon receipt.
+
+### 4. Options Menu Integration (`OMNIQOL`)
 - Injects an **`OMNIQOL`** row directly into the native **Options Menu** (`OPTION`).
 - Accessible both in the overworld (Start Menu ➔ `OPTION`) and on the Title Screen (`OPTION`).
 - Selecting `OMNIQOL` opens the pixel-perfect module management screen:
@@ -49,7 +63,9 @@ mods/gen1/
 │   ├── module_manager.lua   # Module registry, lifecycle & persistence
 │   └── settings_menu.lua    # Options Menu injection & custom UI screen
 └── modules/
-    └── running.lua          # Running module hooks & Pikachu synchronization
+    ├── running.lua          # Running module hooks & Pikachu synchronization
+    ├── exp_share.lua        # Modern Gen 6+ EXP Share
+    └── trade_evos.lua       # Trade evolutions at Lv. 40 + Lv. 100 Rare Candy
 ```
 
 ---

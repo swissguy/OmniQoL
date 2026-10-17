@@ -9,7 +9,7 @@
   ],
   "repo": "https://github.com/swissguy/OmniQoL",
   "github": "swissguy/OmniQoL",
-  "summary": "Modular Quality of Life suite with native Options menu integration, Running Shoes, and modern EXP Share for Pokémon Red, Blue & Yellow.",
+  "summary": "Modular Quality of Life suite with native Options menu integration, Running Shoes, modern EXP Share, and Trade Evolutions at Lv. 40 for Pokémon Red, Blue & Yellow.",
   "tags": [
     "qol",
     "running",
@@ -18,6 +18,9 @@
     "exp",
     "experience",
     "share",
+    "trade",
+    "evolution",
+    "evolutions",
     "options",
     "menu",
     "red",

@@ -21,6 +21,13 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Native Level-Up Sequencing**: Any Pokémon that levels up immediately triggers its level-up fanfare, stat growth box, and move-learning dialogue. In Pokémon Yellow, Pikachu also gains happiness upon leveling up.
 - **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots.
 
+### 🔄 Module 3: Trade Evolutions (Pokémon Red, Blue & Yellow)
+- **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally into Alakazam, Machamp, Golem, and Gengar upon reaching or gaining a level at Level 40+.
+- **Level 100 Support (Gen 8+ Style)**: Using a Rare Candy on a Level 100 Pokémon triggers the evolution sequence without exceeding Level 100.
+- **B-Button Cancellation**: Preserves authentic level-up behavior; players can cancel the evolution by pressing B during the sequence.
+- **Trade Coexistence**: Traditional link-trading continues to trigger evolution normally.
+- **Vanilla NPC Trades**: In-game NPC trades (e.g., Machoke in Pokémon Blue/Yellow) do not immediately auto-evolve upon receipt; they evolve upon their next level-up to 40+.
+
 ### ⚙️ Native Options Menu Integration (`OMNIQOL`)
 - Injects an `OMNIQOL` entry directly into the native **Options Menu** (`OPTION`), accessible both in the overworld and on the Title Screen.
 - Custom interactive UI screen allows toggling modules `[ON ]` or `[OFF]` at any time with an authentic Pokémon arrow cursor.

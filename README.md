@@ -19,6 +19,7 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -51,6 +52,21 @@ Every feature is designed as an independent module that can be individually togg
 
 </details>
 
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 3: Trade Evolutions</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Kadabra, Machoke, Graveler & Haunter evolve at Lv. 40, Gen 8+ Lv. 100 Rare Candy support, B-cancel, options menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full Lv. 40 trade evolution support, NPC trade preservation, options menu toggle |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target (including item trade evos) |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
 ---
 
 ## 🗺️ Multi-Game Rollout Roadmap
@@ -76,7 +92,8 @@ OmniQoL/
 │   │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   │   └── modules/
 │   │       ├── running.lua         # Running Shoes with Pikachu Follower sync
-│   │       └── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
+│   │       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
+│   │       └── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
 │   ├── gen2_gold_silver/       # Gen 2 Target (Next)
 │   ├── gen2_crystal/
 │   ├── gen3_fire_red_leaf_green/
@@ -103,6 +120,14 @@ OmniQoL/
 - **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating vanilla Gen 1 Exp. All dialogue spam.
 - **Immediate Level-Up Flow**: Any Pokémon that levels up immediately plays its level-up fanfare, displays its stat growth box, and prompts for new moves in sequence.
 - **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots.
+
+### Module 3: Trade Evolutions (Pokémon Red, Blue & Yellow)
+- **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally into Alakazam, Machamp, Golem, and Gengar upon reaching or gaining any level at or above Level 40.
+- **Level 100 Rare Candy Support (Gen 8+ Style)**: Using a Rare Candy on a Level 100 Pokémon triggers the evolution sequence without exceeding Level 100.
+- **Authentic B-Cancel**: Standard Pokémon behavior is preserved; players can cancel the evolution sequence at any point by pressing B.
+- **Link Trade Coexistence**: Normal link-cable trading continues to function as an alternative trigger.
+- **Vanilla NPC Trades**: In-game NPC trades (e.g., Machoke in Underground Path/Route 11) do not auto-evolve immediately upon receipt, evolving on their subsequent level-up instead.
+- **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`TRADE EVOS`), enabled by default.
 
 
 ---
