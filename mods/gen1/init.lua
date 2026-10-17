@@ -54,13 +54,16 @@ return function(mod)
   local RunningModule = loadModule("modules/running.lua")
   RunningModule.register(manager)
 
+  local ExpShareModule = loadModule("modules/exp_share.lua")
+  ExpShareModule.register(manager)
+
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
   -- Log successful boot
   if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes active).")
+    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes & EXP Share active).")
   else
-    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow.")
+    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes & EXP Share active).")
   end
 end
