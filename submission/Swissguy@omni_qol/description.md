@@ -35,6 +35,7 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Mutually Exclusive & Single-Choice Pokémon**: Wild encounters for unchosen fossils (Omanyte/Kabuto), Dojo fighters (Hitmonlee/Hitmonchan), wild Eevee (enabling all 3 Eeveelutions), and trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon).
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their room or map if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequence, respawning on room re-entry if not caught.
+- **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
 
 ### ⚙️ Native Options Menu Integration (`OMNIQOL`)

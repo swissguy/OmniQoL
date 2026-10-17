@@ -623,6 +623,117 @@ function Catch151Module.init(mod, moduleManager)
       end
     end)
   end
+
+  -- 4. Celadon Department Store 4F: Add Moon Stone to Evolutionary Stones Inventory
+  local CELADON_4F_IDENTIFIERS = {
+    CELADON_MART_4F = true,
+    CELADON_DEPT_STORE_4F = true,
+    CELADONMART4F = true,
+    CELADONMART4 = true,
+    CELADONCITYDEPTSTORE4F = true,
+    ["0x89"] = true,
+    ["137"] = true,
+  }
+
+  local function isCeladon4FMart(id, items)
+    if id then
+      local norm = normalizeMapKey(id)
+      if CELADON_4F_IDENTIFIERS[norm] or CELADON_4F_IDENTIFIERS[id] or norm:find("CELADON.*4") then
+        return true
+      end
+    end
+    if type(items) == "table" then
+      local hasFire = false
+      local hasLeaf = false
+      for _, item in ipairs(items) do
+        local itemId = type(item) == "table" and (item.id or item.name or item[1]) or item
+        if itemId == "FIRE_STONE" or itemId == 0x20 or itemId == 32 then hasFire = true end
+        if itemId == "LEAF_STONE" or itemId == 0x22 or itemId == 34 then hasLeaf = true end
+      end
+      if hasFire and hasLeaf then
+        return true
+      end
+    end
+    return false
+  end
+
+  local function addMoonStoneToList(items)
+    if type(items) ~= "table" then return items end
+
+    -- Avoid duplicate insertion
+    for _, item in ipairs(items) do
+      local itemId = type(item) == "table" and (item.id or item.name or item[1]) or item
+      if itemId == "MOON_STONE" or itemId == 0x0A or itemId == 10 then
+        return items
+      end
+    end
+
+    local newItems = {}
+    local inserted = false
+    for _, item in ipairs(items) do
+      table.insert(newItems, item)
+      local itemId = type(item) == "table" and (item.id or item.name or item[1]) or item
+      if itemId == "LEAF_STONE" or itemId == 0x22 or itemId == 34 then
+        if type(item) == "table" and item.price then
+          table.insert(newItems, { id = "MOON_STONE", price = 2100 })
+        else
+          table.insert(newItems, "MOON_STONE")
+        end
+        inserted = true
+      end
+    end
+
+    if not inserted then
+      if #items > 0 and type(items[1]) == "table" and items[1].price then
+        table.insert(newItems, { id = "MOON_STONE", price = 2100 })
+      else
+        table.insert(newItems, "MOON_STONE")
+      end
+    end
+
+    return newItems
+  end
+
+  -- Wrap mart/shop item hooks
+  if mod.hooks and type(mod.hooks.wrap) == "function" then
+    mod.hooks:wrap("mart.items", function(next, martId, items, ...)
+      local list = next and next(martId, items, ...) or items
+      if moduleManager:isEnabled("catch_151") and isCeladon4FMart(martId, list) then
+        return addMoonStoneToList(list)
+      end
+      return list
+    end)
+
+    mod.hooks:wrap("shop.items", function(next, shopId, items, ...)
+      local list = next and next(shopId, items, ...) or items
+      if moduleManager:isEnabled("catch_151") and isCeladon4FMart(shopId, list) then
+        return addMoonStoneToList(list)
+      end
+      return list
+    end)
+
+    mod.hooks:wrap("mart.open", function(next, game, martId, items, ...)
+      if moduleManager:isEnabled("catch_151") and isCeladon4FMart(martId, items) then
+        items = addMoonStoneToList(items)
+      end
+      return next and next(game, martId, items, ...)
+    end)
+
+    mod.hooks:wrap("ui.mart.items", function(next, game, martId, items, ...)
+      local list = next and next(game, martId, items, ...) or items
+      if moduleManager:isEnabled("catch_151") and isCeladon4FMart(martId, list) then
+        return addMoonStoneToList(list)
+      end
+      return list
+    end)
+  end
+
+  -- Patch item definitions for Moon Stone price (¥2,100 buy / ¥1,050 sell)
+  if mod.content and mod.content.items and type(mod.content.items.patch) == "function" then
+    pcall(function()
+      mod.content.items:patch("MOON_STONE", { price = 2100 })
+    end)
+  end
 end
 
 return Catch151Module

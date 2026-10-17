@@ -153,6 +153,7 @@ OmniQoL/
 - **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their map/room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, respawning on room re-entry if not caught.
+- **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
 - 📖 **Comprehensive Guide**: View the full 151 encounter directory in [`POKEDEX_151_GUIDE.md`](POKEDEX_151_GUIDE.md).
 

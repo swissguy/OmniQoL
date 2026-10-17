@@ -48,6 +48,7 @@
 - **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 8 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon leaving and re-entering the map or room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Encounter a stationary Lv. 50 Mew on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, sharing the room re-entry respawn rule if not caught.
+- **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
 - **Options Menu Integration**: Toggled directly in `OMNIQOL` Options Menu (`CATCH 151`), enabled by default.
 
 ### 5. Options Menu Integration (`OMNIQOL`)

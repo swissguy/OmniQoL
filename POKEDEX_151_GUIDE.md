@@ -19,6 +19,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
    - All Red, Blue, and Yellow version exclusives are cross-pollinated into counterpart routes.
    - Safari Zone exclusives spawn in outdoor routes so you can catch them using standard battles and Pokéballs.
    - Mutually exclusive choices (both Fossils, both Fighting Dojo fighters, multiple Eevees for all three Eeveelutions, and trade-only species) are wild-accessible.
+   - **Moon Stone in Celadon Dept. Store 4F**: Sold alongside Fire, Water, Thunder, and Leaf Stones at the standard price of ¥2,100 with infinite stock, ensuring you never run out of stones for Nidoqueen, Nidoking, Clefable, and Wigglytuff.
 3. **Immediate Legendary Respawns (Module 4)**:
    - Articuno, Zapdos, Moltres, Mewtwo, and stationary Snorlax immediately respawn upon exiting and re-entering their room or map if defeated or fled without catching.
 4. **Mythical Mew #151 (Module 4)**:
@@ -60,16 +61,16 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
 | **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
-| **#031** | **Nidoqueen** | Poison / Ground | Evolve Nidorina with **Moon Stone** *(Mt. Moon, Celadon Dept. Store, Rocket Hideout)*. |
+| **#031** | **Nidoqueen** | Poison / Ground | Evolve Nidorina with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#032** | **Nidoran♂** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#033** | **Nidorino** | Poison | Evolve Nidoran♂ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
-| **#034** | **Nidoking** | Poison / Ground | Evolve Nidorino with **Moon Stone**. |
+| **#034** | **Nidoking** | Poison / Ground | Evolve Nidorino with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#035** | **Clefairy** | Normal | **Wild**: Mt. Moon; Prize at Celadon Game Corner. |
-| **#036** | **Clefable** | Normal | Evolve Clefairy with **Moon Stone**. |
+| **#036** | **Clefable** | Normal | Evolve Clefairy with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon)*. |
 | **#037** | **Vulpix** | Fire | **Wild**: Routes 7, 8, Pokémon Mansion *(Blue; added to Red on Routes 7, 8, Mansion)*. |
 | **#038** | **Ninetales** | Fire | Evolve Vulpix with **Fire Stone** *(Celadon Dept. Store)*. |
 | **#039** | **Jigglypuff** | Normal | **Wild**: Route 3 *(Red/Blue)*; Routes 5, 6, 7, 8 *(Yellow)*. |
-| **#040** | **Wigglytuff** | Normal | Evolve Jigglypuff with **Moon Stone**. |
+| **#040** | **Wigglytuff** | Normal | Evolve Jigglypuff with **Moon Stone** *(Celadon Dept. Store 4F)*. |
 | **#041** | **Zubat** | Poison / Flying | **Wild**: Mt. Moon, Rock Tunnel, Seafoam Islands, Cerulean Cave. |
 | **#042** | **Golbat** | Poison / Flying | Evolve Zubat at **Level 22** OR **Wild**: Seafoam Islands, Victory Road, Cerulean Cave. |
 | **#043** | **Oddish** | Grass / Poison | **Wild**: Routes 24, 25, 12, 13 *(Red; added to Blue on Routes 24, 25, 12, 13)*. |
@@ -186,7 +187,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 
 ## 💡 Quick Tips for 151 Completion
 
-- **Evolution Stones**: Fire Stones, Water Stones, Thunder Stones, and Leaf Stones can be purchased infinitely on 4F of Celadon Department Store. Moon Stones are found as hidden items in Mt. Moon, Rocket Hideout, and Pokémon Mansion.
+- **Evolution Stones**: Fire Stones, Water Stones, Thunder Stones, Leaf Stones, and **Moon Stones** can all be purchased infinitely on 4F of Celadon Department Store (¥2,100 each). Moon Stones can also be found in the overworld in Mt. Moon, Rocket Hideout, Silph Co., and Pokémon Mansion.
 - **Trade Evolutions**: Simply train Kadabra, Machoke, Graveler, and Haunter to Level 40+. If already Level 40 or higher, gaining any single level (or using a Rare Candy, even at Lv. 100) triggers their evolution.
 - **Safari Catching Stress-Free**: You never need to worry about Pokémon fleeing in the Safari Zone — Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela can all be found and battled with normal party Pokémon on outdoor routes.
 - **Never Miss a Legendary**: If you accidentally faint Articuno, Zapdos, Moltres, Mewtwo, Snorlax, or Mew, simply step through the doorway/stairs to exit the map, step back in, and the Pokémon will be waiting for you.
