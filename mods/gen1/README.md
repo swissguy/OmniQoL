@@ -7,7 +7,7 @@
 </p>
 
 ## Overview
-**OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). This unified Generation 1 edition works natively across **Pokémon Red**, **Pokémon Blue**, and **Pokémon Yellow**, featuring toggleable Running Shoes, Pikachu follower synchronization, and native Options Menu integration.
+**OmniQoL** is a modular Quality of Life (QoL) suite built for **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). This unified Generation 1 edition works natively across **Pokémon Red**, **Pokémon Blue**, and **Pokémon Yellow**, featuring toggleable Running Shoes, Pikachu follower synchronization, modern EXP Share, Trade Evolutions at Lv. 40, Catch All 151 Pokémon, and native Options Menu integration.
 
 ---
 

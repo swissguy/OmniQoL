@@ -9,7 +9,7 @@
 
 **OmniQoL** is a comprehensive, modular Quality of Life (QoL) suite built for Pokémon native engine recreations, targeting **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`) and its subsequent generations.
 
-Every feature is designed as an independent module that can be individually toggled directly within the game's Start Menu, with preferences saved per save file.
+Every feature is designed as an independent module that can be individually toggled directly within the game's Options Menu (`OPTION`), with preferences saved per save file.
 
 ---
 
@@ -116,6 +116,9 @@ OmniQoL/
 │   ├── gen3_fire_red_leaf_green/
 │   ├── gen3_ruby_sapphire/
 │   └── gen3_emerald/
+├── scripts/
+│   └── build_release.py        # Automated release packaging script
+├── POKEDEX_151_GUIDE.md        # Comprehensive 151 Pokémon & Area-by-Area guide
 └── README.md
 ```
 
