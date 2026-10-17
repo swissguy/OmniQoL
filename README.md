@@ -154,6 +154,7 @@ OmniQoL/
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their map/room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, respawning on room re-entry if not caught.
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
+- 📖 **Comprehensive Guide**: View the full 151 encounter directory in [`POKEDEX_151_GUIDE.md`](POKEDEX_151_GUIDE.md).
 
 
 ---
