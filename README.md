@@ -57,7 +57,7 @@ OmniQoL/
 │   │   ├── main.lua            # Compatibility entry shim
 │   │   ├── core/
 │   │   │   ├── module_manager.lua  # Module registry & per-save state
-│   │   │   └── settings_menu.lua   # Start Menu 'MODS' injection & custom UI
+│   │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   │   └── modules/
 │   │       └── running.lua         # Running Shoes module
 │   ├── gen1_yellow/            # Next Target
@@ -78,7 +78,8 @@ OmniQoL/
 - **Everywhere**: Fully permitted indoors, outdoors, in caves, and in buildings.
 - **Fair Encounters**: Preserves standard wild encounter rates.
 - **Cutscene Protection**: Automatically restores normal walking duration when idle and during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
-- **In-Game Start Menu**: Injects an interactive `MODS` screen to toggle features on or off per save.
+- **Options Menu Integration**: Accessible directly through the native **Options Menu** (`OPTION`), both during gameplay and on the Title Screen, while keeping the overworld Start Menu pure vanilla.
+
 
 ---
 

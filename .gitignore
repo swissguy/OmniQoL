@@ -4,6 +4,7 @@ Desktop.ini
 .DS_Store
 
 # Temporary & local configs
+*.zip
 *.tmp
 *.log
 scratch/
