@@ -191,3 +191,126 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 - **Trade Evolutions**: Simply train Kadabra, Machoke, Graveler, and Haunter to Level 40+. If already Level 40 or higher, gaining any single level (or using a Rare Candy, even at Lv. 100) triggers their evolution.
 - **Safari Catching Stress-Free**: You never need to worry about Pokémon fleeing in the Safari Zone — Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela can all be found and battled with normal party Pokémon on outdoor routes.
 - **Never Miss a Legendary**: If you accidentally faint Articuno, Zapdos, Moltres, Mewtwo, Snorlax, or Mew, simply step through the doorway/stairs to exit the map, step back in, and the Pokémon will be waiting for you.
+
+---
+
+## 🗺️ Kanto Area-by-Area Encounter Directory
+
+The following tables list every location in Kanto in chronological progression order, detailing all Pokémon obtainable in each area (wild encounters, water/fishing, stationary bosses, NPC gifts, trades, and department store inventories).
+
+### 🌲 Stage 1: Early Kanto Journey
+
+| Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
+|---|---|---|---|
+| **Pallet Town** | Gift (Oak's Lab) | Bulbasaur (Lv 5), Charmander (Lv 5), Squirtle (Lv 5) *(Red/Blue)*; Pikachu (Lv 5) *(Yellow)* | In Red/Blue, choose 1 starter; all 3 starters are also wild in OmniQoL. |
+| | Surfing / Rods | Tentacool, Tentacruel, Magikarp, Poliwag, Goldeen | Accessible once Surf / Super Rod are obtained. |
+| **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. |
+| **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
+| **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, Mankey *(Yellow)* | Early team building area. |
+| | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
+| **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 4–5) | **OmniQoL**: Wild Bulbasaur added to grass. |
+| | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
+| **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
+| **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
+| **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Mankey restored in Blue. |
+| **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy | Moon Stones found on 1F and B2F. |
+| | Choice Event | **Helix Fossil** (Omanyte) OR **Dome Fossil** (Kabuto) | Choose 1 from Super Nerd; **OmniQoL** also adds wild Omanyte/Kabuto to Seafoam. |
+| **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
+| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Ekans/Sandshrew cross-version restored. |
+
+---
+
+### 🌊 Stage 2: Central & Eastern Kanto
+
+| Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
+|---|---|---|---|
+| **Cerulean City** | Gift (House) | **Bulbasaur** (Lv 10) *(Yellow)* | Gift from girl next to Pokémon Center if Pikachu is happy. |
+| | NPC Trade | **Jynx** (Zynx) | Trade a Poliwhirl in the house next to the gym. |
+| | Water / Gym | Poliwag, Goldeen, Magikarp, Seaking, Poliwhirl | Fishing / Surfing. |
+| **Route 24 (Bridge)** | Gift (Plateau) | **Charmander** (Lv 10) *(Yellow)* | Gift from trainer just north of Nugget Bridge. |
+| | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Oddish, Bellsprout, Abra, **Squirtle** (Lv 8–10) | **OmniQoL**: Wild Squirtle added; Oddish & Bellsprout cross-pollinated. |
+| | Surfing / Rods | Goldeen, Seaking, Poliwag, Psyduck, Krabby | Water encounters. |
+| **Route 25** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Oddish, Bellsprout, Abra, **Squirtle** (Lv 10–12) | **OmniQoL**: Wild Squirtle added; Oddish & Bellsprout cross-pollinated. |
+| | Surfing / Rods | Psyduck, Krabby, Goldeen, Kingler | Water encounters near Bill's Sea Cottage. |
+| **Route 5** | Wild Grass | Pidgey, Pidgeotto, Rattata, Jigglypuff, Abra, **Meowth** (Lv 10–12), **Mankey** (Lv 10–12) | **OmniQoL**: Meowth & Mankey cross-version restored. Day Care located here. |
+| **Route 6** | Wild Grass | Pidgey, Pidgeotto, Rattata, Jigglypuff, Abra, **Meowth** (Lv 12–14), **Mankey** (Lv 12–14) | **OmniQoL**: Meowth & Mankey cross-version restored. |
+| | Surfing / Rods | Psyduck, Golduck, Shellder, Krabby, Poliwag | Water encounters. |
+| **Vermilion City** | Gift (Officer) | **Squirtle** (Lv 10) *(Yellow)* | Gift from Officer Jenny in center of town after winning Thunder Badge. |
+| | NPC Gift | **Old Rod** (Fishing Guru); **Bike Voucher** (Fan Club) | Trade Bike Voucher for Bicycle at Cerulean Bike Shop. |
+| | NPC Trade | **Farfetch'd** (DUX) | Trade a Spearow in the house next to the Fan Club. |
+| **S.S. Anne** | Event Gift | HM01 **Cut** | Rub captain's back to receive Cut. |
+| **Route 11** | Wild Grass | Spearow, Drowzee, Ekans, Sandshrew, **Mr. Mime** (Lv 14–16), **Kangaskhan** (Lv 16–18) | **OmniQoL**: Kangaskhan outside Safari; wild Mr. Mime; Ekans/Sandshrew restored. |
+| **Diglett's Cave** | Wild Cave | Diglett (Lv 15–22), **Dugtrio** (Lv 29–31) | High-speed Ground Pokémon shortcut between Route 11 and Route 2. |
+| **Route 9** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Ekans, Sandshrew, Nidoran♀, Nidorina, Nidoran♂, Nidorino | Heading east toward Rock Tunnel. |
+| **Route 10** | Wild Grass | Voltorb, Magnemite, Ekans, Sandshrew, **Hitmonlee** (Lv 20–22), **Hitmonchan** (Lv 20–22) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added to route grass. |
+| | Surfing / Rods | Tentacool, Poliwag, Goldeen, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini outside Safari Zone via water / Super Rod. |
+| **Rock Tunnel (1F & B1F)** | Wild Caves | Zubat, Geodude, Graveler, Machop, Onix, **Charmander** (Lv 14–16), **Kangaskhan** (Lv 16–18) | **OmniQoL**: Wild Charmander & Kangaskhan added to 1F. Flash recommended. |
+| **Pokémon Tower** | Wild Floors | Gastly (Lv 18–25), Haunter (Lv 20–25), Cubone (Lv 20–22) | Silph Scope required to identify Marowak ghost on 6F. |
+| (Lavender Town) | Event Gift | **Poké Flute** | Rescue Mr. Fuji on top floor (7F) to receive Poké Flute. |
+
+---
+
+### 🏙️ Stage 3: Heart of Kanto & Cycling Road
+
+| Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
+|---|---|---|---|
+| **Route 7** | Wild Grass | Pidgey, Pidgeotto, Rattata, Raticate, Vulpix, Growlithe, Meowth, Jigglypuff, Abra, **Porygon** (Lv 18–22) | **OmniQoL**: Wild Porygon added; Vulpix/Growlithe cross-version restored. |
+| **Route 8** | Wild Grass | Pidgey, Pidgeotto, Rattata, Ekans, Sandshrew, Vulpix, Growlithe, Meowth, **Eevee** (Lv 18–22) | **OmniQoL**: Wild Eevee added (enabling all 3 Eeveelutions); Vulpix/Growlithe restored. |
+| **Celadon City** | Gift (Mansion) | **Eevee** (Lv 25) | Free Eevee on the rooftop room of Celadon Mansion. |
+| | Game Corner | Abra, Clefairy, Pinsir, Scyther, Dratini, Porygon | Redeem prizes using Game Corner coins. |
+| **Celadon Dept. Store 4F** | Mart Counter | Fire Stone, Water Stone, Thunder Stone, Leaf Stone, **Moon Stone** (¥2,100 each) | **OmniQoL**: Unlimited Moon Stones added to 4F Wiseman Gifts for ¥2,100! |
+| **Rocket Hideout** | Boss / Item | **Silph Scope** (Giovanni B4F); **Moon Stone** (B2F) | Clear Rocket Hideout under Game Corner to acquire Silph Scope. |
+| **Saffron City** | Fighting Dojo | **Hitmonlee** (Lv 30) OR **Hitmonchan** (Lv 30) | Choose 1 fighter after beating Karate Master (both are also wild in OmniQoL). |
+| | Silph Co. 7F | **Lapras** (Lv 15) | Free Lapras gifted by the receptionist after beating Rival. |
+| | Silph Co. 11F | **Master Ball** | Gift from Silph President after defeating Giovanni. |
+| | Copycat / Mr. Psychic | TM31 (Mimic) from Copycat; TM29 (Psychic) from Mr. Psychic | Essential TMs. |
+| **Route 16** | Stationary | **Snorlax** (Lv 30) | Wake with Poké Flute; **OmniQoL** respawns Snorlax if defeated/fled without catching. |
+| | Wild Grass | Rattata, Raticate, Spearow, Fearow, Doduo, **Koffing** (Lv 22–24) | **OmniQoL**: Koffing restored in Yellow. Secret house gives HM02 Fly. |
+| **Route 17 (Cycling Road)** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Doduo, Dodrio, Ponyta, **Tauros** (Lv 25–28), **Eevee** (Lv 22–25) | **OmniQoL**: Tauros outside Safari Zone; wild Eevee added to grass. |
+| **Route 18** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Doduo, **Tauros** (Lv 25–28), **Lickitung** (Lv 22–25) | **OmniQoL**: Tauros outside Safari; wild Lickitung added to grass. |
+| | NPC Trade | **Lickitung** (MARC) | In gatehouse 2F; trade a Slowbro *(Red/Blue)*. |
+
+---
+
+### 🌴 Stage 4: Southern Coast, Safari & Islands
+
+| Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
+|---|---|---|---|
+| **Fuchsia City** | NPC Gifts | **Good Rod** (Fishing Guru); HM04 **Strength** (Warden) | Deliver Gold Teeth found in Safari Zone to Warden for Strength. |
+| **Safari Zone (All Areas)** | Safari Grass | Nidoran, Nidorina, Nidorino, Paras, Parasect, Venonat, Venomoth, Doduo, Exeggcute, Rhyhorn, **Chansey**, **Tauros**, **Kangaskhan**, **Scyther**, **Pinsir** | Classic Safari Zone mechanics (bait, rock, safari balls). |
+| | Safari Water | Dratini, Dragonair, Goldeen, Seaking, Slowpoke, Psyduck, Magikarp | Fishing with Super Rod / Surfing. Find HM03 Surf in Secret House. |
+| **Route 15** | Wild Grass | Pidgey, Pidgeotto, Oddish, Gloom, Bellsprout, Weepinbell, Venonat, Ditto, **Scyther** (Lv 24–26), **Lickitung** (Lv 22–25) | **OmniQoL**: Scyther & Lickitung catchable in normal battles outside Safari. |
+| **Route 14** | Wild Grass | Pidgey, Pidgeotto, Oddish, Gloom, Bellsprout, Weepinbell, Venonat, Ditto, **Pinsir** (Lv 24–26), **Chansey** (Lv 24–26) | **OmniQoL**: Pinsir & Chansey catchable in normal battles outside Safari. |
+| **Route 13** | Wild Grass | Pidgey, Pidgeotto, Oddish, Gloom, Bellsprout, Weepinbell, Venonat, Ditto, **Farfetch'd** (Lv 24–26) | **OmniQoL**: Wild Farfetch'd added to grass. Maze route. |
+| | Surfing / Rods | Tentacool, Horsea, Shellder, Krabby, Magikarp | Water encounters. |
+| **Route 12** | Stationary | **Snorlax** (Lv 30) | Wake with Poké Flute; **OmniQoL** respawns Snorlax if defeated/fled without catching. |
+| | Wild Grass | Pidgey, Pidgeotto, Oddish, Gloom, Bellsprout, Weepinbell, Venonat, **Farfetch'd** (Lv 22–24), **Tangela** (Lv 22–25) | **OmniQoL**: Farfetch'd & Tangela outside Safari Zone. Super Rod Guru house. |
+| | Surfing / Rods | Tentacool, Goldeen, Magikarp, Poliwag, Horsea | Water encounters. |
+| **Routes 19 & 20** | Surfing / Rods | Tentacool, Tentacruel, Shellder, Cloyster, Horsea, Seadra, Staryu, Goldeen, Magikarp | Ocean routes connecting Fuchsia, Seafoam Islands, and Cinnabar. |
+| **Route 21** | Wild Grass | Pidgey, Pidgeotto, Rattata, Raticate, Tangela, **Mr. Mime** (Lv 20–24) | **OmniQoL**: Wild Mr. Mime added; Tangela restored in Yellow. |
+| | Surfing / Rods | Tentacool, Tentacruel, Staryu, Shellder, Horsea | Ocean route north of Cinnabar Island to Pallet Town. |
+| **Cinnabar Island** | Lab Revivals | **Omanyte** (Helix Fossil), **Kabuto** (Dome Fossil), **Aerodactyl** (Old Amber) | Revive fossils in the rightmost lab room. |
+| | NPC Trades | **Electrode** (trade Raichu); **Tangela** (trade Venonat); **Seel** (trade Ponyta) | Laboratory research rooms. |
+| **Pokémon Mansion** | Wild Mansion | Koffing, Weezing, Grimer, Muk, Ponyta, Growlithe, Vulpix, **Magmar** (Lv 32–38) | **OmniQoL**: Magmar cross-version restored to Red/Yellow; Growlithe/Vulpix cross-restored. |
+| (1F–B1F) | Items | **Secret Key** (unlocks Cinnabar Gym); **Moon Stone** (B1F) | Read diary entries about Mew and Mewtwo. |
+
+---
+
+### ⚡ Stage 5: Endgame Dungeons, Legendaries & Mythicals
+
+| Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
+|---|---|---|---|
+| **Power Plant** | Wild Grass/Floor | Voltorb, Electrode, Magnemite, Magneton, Pikachu, **Electabuzz** (Lv 33–36), **Raichu** (Lv 34–38) | **OmniQoL**: Electabuzz in Blue/Yellow; wild Raichu in Yellow (bypasses starter stone check). |
+| | Stationary Legendary | **Zapdos** (Lv 50) | **OmniQoL**: Respawns immediately upon exiting and re-entering room if fainted/fled. |
+| **Seafoam Islands** | Wild Caves | Zubat, Golbat, Psyduck, Golduck, Slowpoke, Slowbro, Seel, Dewgong, Krabby, Kingler, **Jynx** (Lv 28–32) | **OmniQoL**: Wild Jynx added on B1F/B2F in Red, Blue, and Yellow. Strength boulders puzzle. |
+| (1F–B4F) | Wild Water | Tentacool, Staryu, Horsea, Seadra, **Omanyte** (Lv 28–32), **Kabuto** (Lv 28–32) | **OmniQoL**: Wild Omanyte & Kabuto added on B3F/B4F water (both fossil lines obtainable!). |
+| | Stationary Legendary | **Articuno** (Lv 50 on B4F) | **OmniQoL**: Respawns immediately upon exiting and re-entering room if fainted/fled. |
+| **Route 23** | Wild Grass | Ditto, Fearow, Arbok, Sandslash, Primeape, **Chansey** (Lv 40–44) | **OmniQoL**: High-level Chansey outside Safari Zone; Arbok/Sandslash restored. Badge checkpoints. |
+| | Surfing / Rods | Slowbro, Kingler, Seadra, Poliwhirl | Water encounters. |
+| **Victory Road** | Wild Caves | Machop, Machoke, Geodude, Graveler, Onix, Zubat, Golbat, Marowak, Venomoth, **Hitmonlee** (Lv 40–44), **Hitmonchan** (Lv 40–44) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added on 2F (both Dojo fighters obtainable!). |
+| (1F–3F) | Stationary Legendary | **Moltres** (Lv 50 on 2F) | **OmniQoL**: Respawns immediately upon exiting and re-entering room if fainted/fled. |
+| **Indigo Plateau** | Elite Four & Champion | Lorelei (Ice), Bruno (Fighting), Agatha (Ghost), Lance (Dragon), Rival (Champion) | Defeat the Champion to become Pokémon League Champion and unlock Cerulean Cave. |
+| **Cerulean Cave (1F & 2F)** | Wild Caves | Golbat, Parasect, Venomoth, Magneton, Dodrio, Primeape, Hypno, Kadabra, Raichu, Ditto, Rhydon, Marowak, Wigglytuff, Chansey, **Porygon** (Lv 48–52) | **OmniQoL**: Wild Porygon on 1F; wild Chansey (Lv 50–55) on 1F. Highest level wild encounters. |
+| **Cerulean Cave (B1F)** | Stationary Legendary | **Mewtwo** (Lv 70) | **OmniQoL**: Respawns immediately upon exiting and re-entering room if fainted/fled. |
+| | Stationary Mythical | **Mew** (Lv 50) | **OmniQoL**: Standalone mythical encounter on deepest floor. Interact to trigger battle! Respawns on room re-entry if fainted/fled. |
+
