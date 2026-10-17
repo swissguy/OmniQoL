@@ -18,6 +18,7 @@ Every feature is designed as an independent module that can be individually togg
 | Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -27,6 +28,21 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, Pikachu follower synchronization (8f follow / 4f catch-up), native options menu toggle |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 2: EXP Share</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full EXP Share support with Pikachu happiness on level-up, options menu toggle |
 | **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
 | **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -59,7 +75,8 @@ OmniQoL/
 │   │   │   ├── module_manager.lua  # Module registry & per-save state
 │   │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   │   └── modules/
-│   │       └── running.lua         # Running Shoes with Pikachu Follower sync
+│   │       ├── running.lua         # Running Shoes with Pikachu Follower sync
+│   │       └── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
 │   ├── gen2_gold_silver/       # Gen 2 Target (Next)
 │   ├── gen2_crystal/
 │   ├── gen3_fire_red_leaf_green/
@@ -79,6 +96,13 @@ OmniQoL/
 - **Fair Encounters**: Preserves standard wild encounter rates.
 - **Cutscene Protection**: Automatically restores normal walking duration when idle and during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
 - **Options Menu Integration**: Accessible directly through the native **Options Menu** (`OPTION`), both during gameplay and on the Title Screen, while keeping the overworld Start Menu pure vanilla.
+
+### Module 2: EXP Share (Pokémon Red, Blue & Yellow)
+- **Modern Gen 6+ EXP Distribution**: Active battlers receive a full 100% EXP share each (Gen 8+ style, no switching penalty), while non-fainted party members on the bench receive 50% EXP. Fainted Pokémon receive 0 EXP.
+- **Full Stat EXP (Gen 6+ style)**: All party members that receive EXP also gain 100% of the defeated enemy's base stats as Stat EXP (Gen 1's EVs) across all stats.
+- **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating vanilla Gen 1 Exp. All dialogue spam.
+- **Immediate Level-Up Flow**: Any Pokémon that levels up immediately plays its level-up fanfare, displays its stat growth box, and prompts for new moves in sequence.
+- **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots.
 
 
 ---

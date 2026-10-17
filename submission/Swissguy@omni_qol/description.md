@@ -14,6 +14,13 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Scripted Cutscene & Escort Protection**: Automatically restores vanilla step duration when idle and during NPC escorts (e.g., Professor Oak escorting the player to the lab) to prevent cutscene desyncs.
 - **State Preservation**: Normal Bicycle and Surfing speeds are preserved.
 
+### 🎓 Module 2: EXP Share (Pokémon Red, Blue & Yellow)
+- **Modern Gen 6+ EXP Distribution**: Active battlers receive a full 100% EXP share each (Gen 8+ style, no switching dilution), while non-fainted benched party members receive 50% EXP. Fainted Pokémon receive 0 EXP.
+- **Full Stat EXP (Gen 6+ style)**: All party members earning EXP receive 100% of the defeated enemy's base stats as Stat EXP (EVs) across all 5 stats.
+- **Streamlined Announcements**: Active battlers display standard dialogue; benched party members are cleanly announced via a single consolidated prompt (`"The rest of the team gained EXP!"`), eliminating repetitive dialogue boxes.
+- **Native Level-Up Sequencing**: Any Pokémon that levels up immediately triggers its level-up fanfare, stat growth box, and move-learning dialogue. In Pokémon Yellow, Pikachu also gains happiness upon leveling up.
+- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots.
+
 ### ⚙️ Native Options Menu Integration (`OMNIQOL`)
 - Injects an `OMNIQOL` entry directly into the native **Options Menu** (`OPTION`), accessible both in the overworld and on the Title Screen.
 - Custom interactive UI screen allows toggling modules `[ON ]` or `[OFF]` at any time with an authentic Pokémon arrow cursor.
