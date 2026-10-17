@@ -51,18 +51,9 @@ For each module, development follows a structured multi-generation workflow:
 ```
 OmniQoL/
 ├── mods/
-│   ├── gen1_red_blue/          # Pokémon Red & Blue
-│   │   ├── manifest.json       # Mod metadata & loader config
-│   │   ├── init.lua            # Entry point
-│   │   ├── main.lua            # Compatibility entry shim
-│   │   ├── core/
-│   │   │   ├── module_manager.lua  # Module registry & per-save state
-│   │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
-│   │   └── modules/
-│   │       └── running.lua         # Running Shoes module
-│   ├── gen1_yellow/            # Pokémon Yellow
-│   │   ├── manifest.json       # Mod metadata & loader config (Yellow)
-│   │   ├── init.lua            # Entry point
+│   ├── gen1/                   # Generation 1: Pokémon Red, Blue & Yellow
+│   │   ├── manifest.json       # Mod metadata & loader config (Target: Red, Blue, Yellow)
+│   │   ├── init.lua            # Primary entry point
 │   │   ├── main.lua            # Compatibility entry shim
 │   │   ├── core/
 │   │   │   ├── module_manager.lua  # Module registry & per-save state

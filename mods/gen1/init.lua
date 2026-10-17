@@ -1,11 +1,11 @@
 -- ============================================================================
--- G1R Deluxe: Quality of Life Mod Entry Point (Pokémon Red & Blue)
+-- OmniQoL: Quality of Life Mod Entry Point (Gen 1: Red, Blue, Yellow)
 -- Target: Pokemon Gen1Recomp (bryanthaboi/gen1recomp)
 -- ============================================================================
 
 return function(mod)
   -- Determine base path of the mod and ensure package.path can resolve submodules
-  local modDir = mod.dir or mod.path or "mods/gen1_red_blue"
+  local modDir = mod.dir or mod.path or "mods/gen1"
   local cleanDir = modDir:gsub("\\", "/")
   if not package.path:find(cleanDir, 1, true) then
     package.path = cleanDir .. "/?.lua;" .. cleanDir .. "/?/init.lua;" .. package.path
@@ -59,8 +59,8 @@ return function(mod)
 
   -- Log successful boot
   if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("OmniQoL suite loaded successfully (1 module active: Running).")
+    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes active).")
   else
-    print("[OmniQoL] Loaded successfully for Pokémon Red & Blue.")
+    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow.")
   end
 end

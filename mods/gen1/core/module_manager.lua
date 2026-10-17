@@ -1,5 +1,5 @@
 -- ============================================================================
--- OmniQoL: Core Module Manager
+-- OmniQoL: Core Module Manager (Generation 1: Red, Blue, Yellow)
 -- Handles registration, state lookup, per-save persistence, and global defaults.
 -- ============================================================================
 
@@ -34,7 +34,7 @@ function ModuleManager:register(def)
   self.modulesById[def.id] = modEntry
   self.globalDefaults[def.id] = def.default
 
-  -- Read persistent global option if mod.options is active
+  -- Read persistent global option if mod.options API exists
   if self.mod and self.mod.options and type(self.mod.options.get) == "function" then
     local ok, optVal = pcall(function() return self.mod.options:get(def.id) end)
     if ok and optVal ~= nil then
@@ -118,12 +118,10 @@ end
 function ModuleManager:getSummary()
   local activeCount = 0
   local total = #self.modules
-  local lastActive = nil
 
   for _, modDef in ipairs(self.modules) do
     if self:isEnabled(modDef.id) then
       activeCount = activeCount + 1
-      lastActive = modDef
     end
   end
 
