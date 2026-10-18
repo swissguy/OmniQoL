@@ -440,7 +440,7 @@ function Catch151Module.register(moduleManager)
   moduleManager:register({
     id = "catch_151",
     label = "CATCH 151",
-    desc = "Catch all 151 mons in any version.",
+    desc = "Catch all 151 wild Pokemon.",
     default = true,
     init = function(mod, mgr)
       Catch151Module.init(mod, mgr)

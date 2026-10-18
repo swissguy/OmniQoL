@@ -38,7 +38,7 @@ function TradeEvosModule.register(moduleManager)
   moduleManager:register({
     id = "trade_evos",
     label = "TRADE EVOS",
-    desc = "Trade mons evolve at Lv 40.",
+    desc = "Trade evolutions at Level 40.",
     default = true,
     init = function(mod, mgr)
       TradeEvosModule.init(mod, mgr)

@@ -43,7 +43,7 @@ function ForgetHMsModule.register(moduleManager)
   moduleManager:register({
     id = "forget_hms",
     label = "FORGET HMS",
-    desc = "Allows replacing and forgetting HM moves.",
+    desc = "Freely replace and forget HMs.",
     default = true,
     init = function(mod, mgr)
       ForgetHMsModule.init(mod, mgr)

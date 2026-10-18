@@ -22,7 +22,7 @@ function RunningModule.register(moduleManager)
   moduleManager:register({
     id = "running",
     label = "RUNNING",
-    desc = "Hold B to run at 2x walking speed.",
+    desc = "Hold B to run at 2x speed.",
     default = true,
     init = function(mod, mgr)
       RunningModule.initHooks(mod, mgr)

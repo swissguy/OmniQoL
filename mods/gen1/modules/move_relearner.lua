@@ -523,7 +523,7 @@ function MoveRelearnerModule.register(moduleManager)
   moduleManager:register({
     id = "move_relearner",
     label = "RELEARN",
-    desc = "Relearn level-up moves (with pre-evos).",
+    desc = "Relearn natural level-up moves.",
     default = "RELEARN",
     values = { "OFF", "RELEARN", "RELEARN+TMS" },
     init = function(mod, mgr)

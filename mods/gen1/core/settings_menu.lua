@@ -77,15 +77,28 @@ function SettingsMenu.setup(mod, moduleManager)
         end
 
         local function wrapDesc(text, maxLen)
+          maxLen = maxLen or 16
           if not text or #text == 0 then return "", "" end
           if #text <= maxLen then return text, "" end
+
           local splitIdx = maxLen
           while splitIdx > 0 and text:sub(splitIdx, splitIdx) ~= " " do
             splitIdx = splitIdx - 1
           end
           if splitIdx == 0 then splitIdx = maxLen end
           local l1 = text:sub(1, splitIdx):gsub("%s+$", "")
-          local l2 = text:sub(splitIdx + 1):gsub("^%s+", ""):sub(1, maxLen)
+          local remainder = text:sub(splitIdx + 1):gsub("^%s+", "")
+
+          if #remainder <= maxLen then
+            return l1, remainder
+          end
+
+          local split2 = maxLen
+          while split2 > 0 and remainder:sub(split2, split2) ~= " " do
+            split2 = split2 - 1
+          end
+          if split2 == 0 then split2 = maxLen end
+          local l2 = remainder:sub(1, split2):gsub("%s+$", "")
           return l1, l2
         end
 
@@ -149,14 +162,14 @@ function SettingsMenu.setup(mod, moduleManager)
             if activeDef.id == "move_relearner" then
               local val = tostring(moduleManager:getValue("move_relearner")):upper()
               if val == "OFF" then
-                desc = "Relearner disabled."
+                desc = "Move Relearner is disabled."
               elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
-                desc = "Teach level moves and all compatible TMs."
+                desc = "Teach level-up moves & all TMs."
               else
-                desc = "Relearn level-up moves (with pre-evos)."
+                desc = "Relearn natural level-up moves."
               end
             end
-            local line1, line2 = wrapDesc(desc, 18)
+            local line1, line2 = wrapDesc(desc, 16)
             Font.draw(line1, 16, 98)
             if #line2 > 0 then
               Font.draw(line2, 16, 112)
@@ -164,7 +177,7 @@ function SettingsMenu.setup(mod, moduleManager)
           end
 
           -- Bottom controls prompt: y=126 ends at y=134 (safely above bottom border at 136)
-          Font.draw("A/</>:CHG  B:EXIT", 16, 126)
+          Font.draw("A/</>:CHG B:EXIT", 16, 126)
         end
 
         return state
