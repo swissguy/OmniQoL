@@ -211,11 +211,12 @@ local function createRelearnerScreen(game, mod, moduleManager)
         local mon = party[self.selectedParty]
         if mon then
           self.chosenMon = mon
-          self.eligibleMoves = RelearnerData.getEligibleMoves and RelearnerData.getEligibleMoves(mon) or {}
+          local mode = moduleManager and moduleManager:getValue("move_relearner") or "RELEARN"
+          self.eligibleMoves = RelearnerData.getEligibleMoves and RelearnerData.getEligibleMoves(mon, mode) or {}
           if #self.eligibleMoves == 0 then
             showMessage({
               getMonName(mon) .. " has no",
-              "moves to relearn!",
+              "moves to learn!",
             }, STATE_PARTY)
           else
             self.selectedMove = 1
@@ -420,8 +421,8 @@ local function createRelearnerScreen(game, mod, moduleManager)
 
           local mName = getMoveName(cand.name):sub(1, 12)
           Font.draw(mName, 16, yPos)
-          local lvlBadge = cand.level == 1 and "Lv 1" or ("Lv" .. tostring(cand.level))
-          Font.draw(lvlBadge, 114, yPos)
+          local badge = cand.badge or (cand.level == 1 and "Lv 1" or ("Lv" .. tostring(cand.level)))
+          Font.draw(badge, 114, yPos)
         end
       end
 
@@ -439,7 +440,10 @@ local function createRelearnerScreen(game, mod, moduleManager)
       if selCand then
         local line1 = selCand.type .. "  PP " .. tostring(selCand.pp) .. "/" .. tostring(selCand.pp)
         Font.draw(line1, 16, 98)
-        if selCand.fromStage and selCand.fromStage ~= selCand.name then
+        if selCand.isTM and selCand.tmCode then
+          local line2 = "Learned via " .. selCand.tmCode
+          Font.draw(line2, 16, 112)
+        elseif selCand.fromStage and selCand.fromStage ~= getMonName(self.chosenMon) then
           local line2 = "Pre-Evo: " .. selCand.fromStage:sub(1, 9)
           Font.draw(line2, 16, 112)
         end
@@ -518,9 +522,10 @@ end
 function MoveRelearnerModule.register(moduleManager)
   moduleManager:register({
     id = "move_relearner",
-    label = "RELEARNER",
-    desc = "Move Reminder in every Poke Center.",
-    default = true,
+    label = "RELEARN",
+    desc = "Relearn level-up moves (with pre-evos).",
+    default = "RELEARN",
+    values = { "OFF", "RELEARN", "RELEARN+TMS" },
     init = function(mod, mgr)
       MoveRelearnerModule.init(mod, mgr)
     end,

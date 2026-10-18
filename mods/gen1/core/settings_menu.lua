@@ -60,10 +60,15 @@ function SettingsMenu.setup(mod, moduleManager)
               elseif selectedIndex > scrollOffset + maxVisible then
                 scrollOffset = selectedIndex - maxVisible
               end
-            elseif game.input:wasPressed("a") or game.input:wasPressed("left") or game.input:wasPressed("right") then
+            elseif game.input:wasPressed("left") then
               local targetMod = modules[selectedIndex]
               if targetMod then
-                moduleManager:toggle(targetMod.id)
+                moduleManager:cycle(targetMod.id, -1)
+              end
+            elseif game.input:wasPressed("right") or game.input:wasPressed("a") then
+              local targetMod = modules[selectedIndex]
+              if targetMod then
+                moduleManager:cycle(targetMod.id, 1)
               end
             elseif game.input:wasPressed("b") then
               game.stack:pop()
@@ -106,8 +111,8 @@ function SettingsMenu.setup(mod, moduleManager)
               local modDef = modules[i]
               local yPos = startY + (slot - 1) * stepY
               local isSelected = (i == selectedIndex)
-              local enabled = moduleManager:isEnabled(modDef.id)
-              local statusTag = enabled and "[ON ]" or "[OFF]"
+              local statusTag = moduleManager.getDisplayStatus and moduleManager:getDisplayStatus(modDef.id)
+                or (moduleManager:isEnabled(modDef.id) and "[ON ]" or "[OFF]")
 
               -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
               if isSelected then
@@ -118,12 +123,13 @@ function SettingsMenu.setup(mod, moduleManager)
                 end
               end
 
-              -- Label at x=16 (fits within 10 characters -> max x=96)
-              local label = modDef.label:sub(1, 10)
+              -- Label at x=16 (fits within 8-9 characters)
+              local label = (modDef.label or ""):sub(1, 9)
               Font.draw(label, 16, yPos)
 
-              -- Status badge at x=104 (safely inside screen, ends at x=136)
-              Font.draw(statusTag, 104, yPos)
+              -- Position badge based on width
+              local tagX = (statusTag:len() > 6) and 78 or 104
+              Font.draw(statusTag, tagX, yPos)
             end
           end
 
@@ -138,8 +144,19 @@ function SettingsMenu.setup(mod, moduleManager)
           -- Bottom info box: 20 columns x 7 rows (y: 88 to 144)
           Font.drawBox(0, 11, 20, 7)
           local activeDef = modules[selectedIndex]
-          if activeDef and activeDef.desc and #activeDef.desc > 0 then
-            local line1, line2 = wrapDesc(activeDef.desc, 16)
+          if activeDef then
+            local desc = activeDef.desc or ""
+            if activeDef.id == "move_relearner" then
+              local val = tostring(moduleManager:getValue("move_relearner")):upper()
+              if val == "OFF" then
+                desc = "Relearner disabled."
+              elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
+                desc = "Teach level moves and all compatible TMs."
+              else
+                desc = "Relearn level-up moves (with pre-evos)."
+              end
+            end
+            local line1, line2 = wrapDesc(desc, 18)
             Font.draw(line1, 16, 98)
             if #line2 > 0 then
               Font.draw(line2, 16, 112)
@@ -147,7 +164,7 @@ function SettingsMenu.setup(mod, moduleManager)
           end
 
           -- Bottom controls prompt: y=126 ends at y=134 (safely above bottom border at 136)
-          Font.draw("A:TOGGLE  B:EXIT", 16, 126)
+          Font.draw("A/</>:CHG  B:EXIT", 16, 126)
         end
 
         return state

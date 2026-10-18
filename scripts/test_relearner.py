@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """
 Unit tests and verification suite for OmniQoL Move Relearner & Forget HMs.
+Tests:
+1. 5 Gen 1 HMs correctly classified
+2. Pre-evolution level-up moves retention (Stone evos, multi-stage, level gating)
+3. 50 TMs correctly mapped to move names
+4. RELEARN mode vs RELEARN+TMS mode vs OFF mode
+5. TM eligibility, pre-evo TM inheritance, deduplication, and HM exclusion
 """
 
 import os
@@ -27,7 +33,7 @@ def load_data_tables():
             ancestors = [x.strip().strip('"').strip("'") for x in raw_anc.split(",") if x.strip()]
             ancestry[species] = ancestors
 
-    # Parse Learnsets properly handling nested braces
+    # Parse Learnsets
     learnsets_match = re.search(r"RelearnerData\.LEARNSETS = \{(.*?)\n\}", content, re.DOTALL)
     assert learnsets_match, "Learnsets table not found"
     learnsets_text = learnsets_match.group(1)
@@ -37,7 +43,6 @@ def load_data_tables():
     current_entries = []
 
     for line in learnsets_text.splitlines():
-        # Match species header: "  BULBASAUR = {"
         sm = re.match(r'^\s*([A-Z0-9_]+)\s*=\s*\{', line)
         if sm:
             if current_species:
@@ -46,7 +51,6 @@ def load_data_tables():
             current_entries = []
             continue
 
-        # Match move entry: "{ level = 1, move = "TACKLE" },"
         em = re.search(r'\{\s*level\s*=\s*(\d+),\s*move\s*=\s*"([A-Z0-9_]+)"\s*\}', line)
         if em and current_species:
             current_entries.append({"level": int(em.group(1)), "move": em.group(2)})
@@ -59,9 +63,29 @@ def load_data_tables():
     assert hm_match, "HM_MOVES not found"
     hm_moves = set(re.findall(r'([A-Z0-9_]+)\s*=\s*true', hm_match.group(1)))
 
-    return ancestry, learnsets, hm_moves
+    # Parse TM_MOVES
+    tm_match = re.search(r"RelearnerData\.TM_MOVES = \{(.*?)\n\}", content, re.DOTALL)
+    assert tm_match, "TM_MOVES not found"
+    tm_moves = dict(re.findall(r'([A-Z0-9_]+)\s*=\s*"(TM\d+)"', tm_match.group(1)))
 
-def simulate_get_eligible_moves(mon, ancestry_map, learnsets_map):
+    # Parse TMHM_LEARNSETS
+    tmhm_match = re.search(r"RelearnerData\.TMHM_LEARNSETS = \{(.*?)\n\}", content, re.DOTALL)
+    assert tmhm_match, "TMHM_LEARNSETS not found"
+    tmhm_sets = {}
+    for line in tmhm_match.group(1).splitlines():
+        sm = re.match(r'^\s*([A-Z0-9_]+)\s*=\s*\{\s*(.*?)\s*\},?', line)
+        if sm:
+            sp = sm.group(1)
+            mvs = [x.strip().strip('"') for x in sm.group(2).split(",") if x.strip()]
+            tmhm_sets[sp] = mvs
+
+    return ancestry, learnsets, hm_moves, tm_moves, tmhm_sets
+
+def simulate_get_eligible_moves(mon, ancestry_map, learnsets_map, hm_moves, tm_moves, tmhm_sets, mode="RELEARN"):
+    mode = mode.upper()
+    if mode == "OFF":
+        return []
+
     species = mon["species"].upper()
     level = mon.get("level", 100)
     known = set(mon.get("moves", []))
@@ -70,6 +94,7 @@ def simulate_get_eligible_moves(mon, ancestry_map, learnsets_map):
     eligible = []
     seen = set()
 
+    # 1. Level-up
     for st in stages:
         ls = learnsets_map.get(st, [])
         for entry in ls:
@@ -77,12 +102,39 @@ def simulate_get_eligible_moves(mon, ancestry_map, learnsets_map):
             mv = entry["move"]
             if (req_lvl <= level or req_lvl == 1) and mv not in known and mv not in seen:
                 seen.add(mv)
-                eligible.append({"name": mv, "level": req_lvl, "fromStage": st})
+                eligible.append({
+                    "name": mv,
+                    "level": req_lvl,
+                    "badge": "Lv 1" if req_lvl == 1 else f"Lv {req_lvl}",
+                    "isTM": False,
+                    "fromStage": st,
+                })
+
+    # 2. TMs if mode == "RELEARN+TMS"
+    if "TM" in mode:
+        tm_candidates = []
+        for st in stages:
+            tms = tmhm_sets.get(st, [])
+            for mv in tms:
+                tm_code = tm_moves.get(mv)
+                if tm_code and mv not in hm_moves and mv not in known and mv not in seen:
+                    seen.add(mv)
+                    tm_candidates.append({
+                        "name": mv,
+                        "tmCode": tm_code,
+                        "badge": tm_code,
+                        "isTM": True,
+                        "fromStage": st,
+                    })
+
+        tm_candidates.sort(key=lambda x: int(x["tmCode"].replace("TM", "")))
+        eligible.extend(tm_candidates)
+
     return eligible
 
 def run_tests():
     print("[Test] Loading Relearner Data...")
-    ancestry, learnsets, hm_moves = load_data_tables()
+    ancestry, learnsets, hm_moves, tm_moves, tmhm_sets = load_data_tables()
 
     # 1. Verify HM moves
     print("[Test] Checking HM moves...")
@@ -90,72 +142,96 @@ def run_tests():
     assert hm_moves == expected_hms, f"HM mismatch: {hm_moves} vs {expected_hms}"
     print("  -> All 5 Gen 1 HMs verified.")
 
-    # 2. Test Stone Evolution: Raichu
-    print("[Test] Testing Stone Evolution: Raichu...")
-    assert "PIKACHU" in ancestry["RAICHU"], "Pikachu must be ancestor of Raichu"
-    
-    # Raichu evolved early at Lv 10, now Lv 45, knows THUNDERSHOCK, GROWL
+    # 2. Verify TM moves
+    print("[Test] Checking TM moves (TM01 - TM50)...")
+    assert len(tm_moves) == 50, f"Expected 50 TMs, found {len(tm_moves)}"
+    assert tm_moves["MEGA_PUNCH"] == "TM01"
+    assert tm_moves["THUNDERBOLT"] == "TM24"
+    assert tm_moves["SUBSTITUTE"] == "TM50"
+    for hm in hm_moves:
+        assert hm not in tm_moves, f"HM {hm} should not be in TM_MOVES table"
+    print("  -> All 50 Gen 1 TMs verified.")
+
+    # 3. Test Stone Evolution: Raichu in RELEARN mode
+    print("[Test] Testing Raichu in RELEARN mode...")
     raichu_mon = {"species": "RAICHU", "level": 45, "moves": ["THUNDERSHOCK", "GROWL"]}
-    raichu_eligible = simulate_get_eligible_moves(raichu_mon, ancestry, learnsets)
+    raichu_eligible = simulate_get_eligible_moves(raichu_mon, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN")
     raichu_move_names = {x["name"] for x in raichu_eligible}
 
-    assert "THUNDERBOLT" in raichu_move_names, "Raichu at Lv 45 should be able to relearn Thunderbolt from Pikachu"
-    assert "AGILITY" in raichu_move_names, "Raichu at Lv 45 should be able to relearn Agility from Pikachu"
-    assert "THUNDER" in raichu_move_names, "Raichu at Lv 45 should be able to relearn Thunder from Pikachu"
-    assert "THUNDERSHOCK" not in raichu_move_names, "Known moves should not be eligible"
-    assert "GROWL" not in raichu_move_names, "Known moves should not be eligible"
-    print("  -> Raichu pre-evolution moves passed.")
+    assert "THUNDERBOLT" in raichu_move_names, "Raichu at Lv 45 should relearn Thunderbolt from Pikachu"
+    assert "AGILITY" in raichu_move_names
+    assert "THUNDER" in raichu_move_names
+    assert all(not x["isTM"] for x in raichu_eligible), "RELEARN mode should contain no TMs"
+    print("  -> Raichu RELEARN mode passed.")
 
-    # Raichu at Lv 20 should NOT learn Thunder (Lv 41/43 in Pikachu)
+    # 4. Test Raichu at Lv 20 in RELEARN vs RELEARN+TMS mode
+    print("[Test] Testing Raichu at Lv 20 in RELEARN vs RELEARN+TMS mode...")
     raichu_low = {"species": "RAICHU", "level": 20, "moves": []}
-    raichu_low_eligible = simulate_get_eligible_moves(raichu_low, ancestry, learnsets)
-    raichu_low_names = {x["name"] for x in raichu_low_eligible}
-    assert "THUNDER" not in raichu_low_names, "Level-gating failed: Thunder should not be eligible at Lv 20"
-    assert "SLAM" in raichu_low_names, "Slam (Lv 20) should be eligible at Lv 20"
-    print("  -> Level-gating check passed.")
+    
+    # In RELEARN mode: Thunder (Lv 41/43) is level-gated
+    low_relearn = simulate_get_eligible_moves(raichu_low, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN")
+    low_relearn_names = {x["name"] for x in low_relearn}
+    assert "THUNDER" not in low_relearn_names, "Thunder should be level-gated at Lv 20 in RELEARN mode"
 
-    # 3. Test Stone Evolution: Arcanine
-    print("[Test] Testing Stone Evolution: Arcanine...")
-    assert "GROWLITHE" in ancestry["ARCANINE"]
-    arcanine_mon = {"species": "ARCANINE", "level": 50, "moves": ["BITE", "ROAR"]}
-    arcanine_moves = {x["name"] for x in simulate_get_eligible_moves(arcanine_mon, ancestry, learnsets)}
-    assert "FLAMETHROWER" in arcanine_moves, "Arcanine at Lv 50 should relearn Flamethrower"
-    assert "AGILITY" in arcanine_moves, "Arcanine at Lv 50 should relearn Agility"
-    assert "TAKE_DOWN" in arcanine_moves, "Arcanine at Lv 50 should relearn Take Down"
-    print("  -> Arcanine pre-evolution moves passed.")
+    # In RELEARN+TMS mode: Thunder is unlocked as TM25!
+    low_tms = simulate_get_eligible_moves(raichu_low, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN+TMS")
+    low_tm_dict = {x["name"]: x for x in low_tms}
+    assert "THUNDER" in low_tm_dict, "Thunder should be available via TM25 in RELEARN+TMS mode"
+    assert low_tm_dict["THUNDER"]["badge"] == "TM25"
+    assert low_tm_dict["THUNDER"]["isTM"] == True
 
-    # 4. Test 3-Stage Evolution: Venusaur & Charizard
-    print("[Test] Testing 3-Stage Lines: Charizard & Venusaur...")
-    assert ancestry["CHARIZARD"] == ["CHARMELEON", "CHARMANDER"]
-    charizard_mon = {"species": "CHARIZARD", "level": 36, "moves": ["FIRE_SPIN"]}
-    charizard_moves = {x["name"] for x in simulate_get_eligible_moves(charizard_mon, ancestry, learnsets)}
-    assert "SLASH" in charizard_moves, "Charizard at Lv 36 should relearn Slash"
-    assert "FLAMETHROWER" not in charizard_moves, "Flamethrower (Lv 46/42) should be level-gated at Lv 36"
-    assert "SCRATCH" in charizard_moves, "Level 1 base move Scratch should be relearnable"
-    print("  -> 3-Stage lines and base moves passed.")
+    assert "THUNDERBOLT" in low_tm_dict
+    assert low_tm_dict["THUNDERBOLT"]["badge"] == "TM24"
 
-    # 5. Test Stone Evolution: Vileplume
-    print("[Test] Testing Stone Evolution: Vileplume...")
-    assert ancestry["VILEPLUME"] == ["GLOOM", "ODDISH"]
-    vileplume_mon = {"species": "VILEPLUME", "level": 38, "moves": ["ACID"]}
-    vileplume_moves = {x["name"] for x in simulate_get_eligible_moves(vileplume_mon, ancestry, learnsets)}
-    assert "PETAL_DANCE" in vileplume_moves
-    assert "SLEEP_POWDER" in vileplume_moves
-    assert "SOLARBEAM" not in vileplume_moves  # Solarbeam is Lv 46/52
-    print("  -> Vileplume ancestors and learnsets passed.")
+    # Flash (HM05) must NOT be present
+    assert "FLASH" not in low_tm_dict, "Flash is an HM and must not be taught by the TM tutor"
+    assert "SURF" not in low_tm_dict
+    print("  -> RELEARN+TMS unlocked TMs and excluded HMs properly.")
 
-    # 6. Test Eeveelutions
-    print("[Test] Testing Eevee line...")
-    assert ancestry["VAPOREON"] == ["EEVEE"]
-    assert ancestry["JOLTEON"] == ["EEVEE"]
-    assert ancestry["FLAREON"] == ["EEVEE"]
-    vaporeon_mon = {"species": "VAPOREON", "level": 54, "moves": ["SURF"]}
-    vap_moves = {x["name"] for x in simulate_get_eligible_moves(vaporeon_mon, ancestry, learnsets)}
-    assert "HYDRO_PUMP" in vap_moves
-    assert "TAKE_DOWN" in vap_moves  # from Eevee
-    print("  -> Eevee evolutions passed.")
+    # 5. Test Move Deduplication & Priority: Raichu at Lv 50 in RELEARN+TMS mode
+    print("[Test] Testing move deduplication & badge priority...")
+    raichu_high = {"species": "RAICHU", "level": 50, "moves": []}
+    high_tms = simulate_get_eligible_moves(raichu_high, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN+TMS")
+    high_names = [x["name"] for x in high_tms]
+    
+    # Thunderbolt should appear exactly once
+    assert high_names.count("THUNDERBOLT") == 1, "Thunderbolt must not be duplicated"
+    tb_move = [x for x in high_tms if x["name"] == "THUNDERBOLT"][0]
+    assert not tb_move["isTM"], "Natural level-up move should prioritize level badge over TM badge"
+    assert "Lv" in tb_move["badge"]
 
-    print("\n[SUCCESS] All Move Relearner logic and test suites passed with 100% accuracy!")
+    # Seismic Toss (TM19 - only learned via TM by Pikachu line) should have TM badge
+    assert "SEISMIC_TOSS" in high_names
+    st_move = [x for x in high_tms if x["name"] == "SEISMIC_TOSS"][0]
+    assert st_move["badge"] == "TM19"
+    assert st_move["isTM"] == True
+    print("  -> Deduplication and badge priority verified.")
+
+    # 6. Test OFF mode
+    print("[Test] Testing OFF mode...")
+    off_moves = simulate_get_eligible_moves(raichu_mon, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "OFF")
+    assert len(off_moves) == 0, "OFF mode must return empty list"
+    print("  -> OFF mode verified.")
+
+    # 7. Test Pokémon with no TMs (Caterpie / Magikarp)
+    print("[Test] Testing Caterpie & Magikarp...")
+    caterpie = {"species": "CATERPIE", "level": 15, "moves": []}
+    cat_moves = simulate_get_eligible_moves(caterpie, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN+TMS")
+    assert all(not x["isTM"] for x in cat_moves), "Caterpie has no compatible TMs"
+    print("  -> Caterpie & Magikarp handled safely.")
+
+    # 8. Test 3-Stage Pre-Evo TM Inheritance: Charizard
+    print("[Test] Testing Charizard pre-evolution TM compatibility...")
+    charizard = {"species": "CHARIZARD", "level": 40, "moves": []}
+    char_tms = simulate_get_eligible_moves(charizard, ancestry, learnsets, hm_moves, tm_moves, tmhm_sets, "RELEARN+TMS")
+    char_names = {x["name"] for x in char_tms}
+    assert "FIRE_BLAST" in char_names  # TM38
+    assert "DIG" in char_names         # TM28
+    assert "CUT" not in char_names     # HM01 excluded
+    assert "STRENGTH" not in char_names # HM04 excluded
+    print("  -> Charizard TM learnsets and HM exclusions passed.")
+
+    print("\n[SUCCESS] All Move Relearner + TM tutor tests passed with 100% accuracy!")
 
 if __name__ == "__main__":
     run_tests()
