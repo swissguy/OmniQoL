@@ -117,6 +117,7 @@ local function createRelearnerScreen(game, mod, moduleManager)
     isOpaque = true,
     curState = STATE_PARTY,
     selectedParty = 1,
+    partyScrollOffset = 0,
     selectedMove = 1,
     moveScrollOffset = 0,
     selectedReplace = 1,
@@ -185,12 +186,25 @@ local function createRelearnerScreen(game, mod, moduleManager)
         return
       end
 
+      local totalParty = #party
+      local maxVisible = 4
+
       if input:wasPressed("up") then
         self.selectedParty = self.selectedParty - 1
-        if self.selectedParty < 1 then self.selectedParty = #party end
+        if self.selectedParty < 1 then
+          self.selectedParty = totalParty
+          self.partyScrollOffset = math.max(0, totalParty - maxVisible)
+        elseif self.selectedParty <= self.partyScrollOffset then
+          self.partyScrollOffset = self.selectedParty - 1
+        end
       elseif input:wasPressed("down") then
         self.selectedParty = self.selectedParty + 1
-        if self.selectedParty > #party then self.selectedParty = 1 end
+        if self.selectedParty > totalParty then
+          self.selectedParty = 1
+          self.partyScrollOffset = 0
+        elseif self.selectedParty > self.partyScrollOffset + maxVisible then
+          self.partyScrollOffset = self.selectedParty - maxVisible
+        end
       elseif input:wasPressed("b") then
         popScreen()
       elseif input:wasPressed("a") then
@@ -334,12 +348,17 @@ local function createRelearnerScreen(game, mod, moduleManager)
       if #party == 0 then
         Font.draw("NO POKeMON IN PARTY", 16, 36)
       else
+        local maxVisible = 4
         local startY = 28
-        local stepY = 10
-        for i, mon in ipairs(party) do
-          if i <= 6 then
-            local yPos = startY + (i - 1) * stepY
-            local isSel = (i == self.selectedParty)
+        local stepY = 14
+        local total = #party
+
+        for idx = 1, maxVisible do
+          local pIdx = (self.partyScrollOffset or 0) + idx
+          if pIdx <= total then
+            local mon = party[pIdx]
+            local yPos = startY + (idx - 1) * stepY
+            local isSel = (pIdx == self.selectedParty)
             if isSel then
               if type(Font.drawCode) == "function" then
                 Font.drawCode(0xED, 8, yPos)
@@ -353,6 +372,14 @@ local function createRelearnerScreen(game, mod, moduleManager)
             Font.draw(nameStr, 16, yPos)
             Font.draw(lvlStr, 110, yPos)
           end
+        end
+
+        -- Scroll arrows
+        if (self.partyScrollOffset or 0) > 0 then
+          Font.draw("^", 144, 28)
+        end
+        if (self.partyScrollOffset or 0) + maxVisible < total then
+          Font.draw("v", 144, 70)
         end
       end
 
