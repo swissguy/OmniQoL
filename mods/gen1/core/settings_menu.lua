@@ -29,6 +29,8 @@ function SettingsMenu.setup(mod, moduleManager)
       new = function(game)
         local Font = mod.ui and mod.ui.Font
         local selectedIndex = 1
+        local scrollOffset = 0
+        local maxVisible = 5
         local state = { isOpaque = true }
 
         function state:update()
@@ -44,10 +46,20 @@ function SettingsMenu.setup(mod, moduleManager)
           if game.input then
             if game.input:wasPressed("up") then
               selectedIndex = selectedIndex - 1
-              if selectedIndex < 1 then selectedIndex = total end
+              if selectedIndex < 1 then
+                selectedIndex = total
+                scrollOffset = math.max(0, total - maxVisible)
+              elseif selectedIndex <= scrollOffset then
+                scrollOffset = selectedIndex - 1
+              end
             elseif game.input:wasPressed("down") then
               selectedIndex = selectedIndex + 1
-              if selectedIndex > total then selectedIndex = 1 end
+              if selectedIndex > total then
+                selectedIndex = 1
+                scrollOffset = 0
+              elseif selectedIndex > scrollOffset + maxVisible then
+                scrollOffset = selectedIndex - maxVisible
+              end
             elseif game.input:wasPressed("a") or game.input:wasPressed("left") or game.input:wasPressed("right") then
               local targetMod = modules[selectedIndex]
               if targetMod then
@@ -78,35 +90,49 @@ function SettingsMenu.setup(mod, moduleManager)
             return
           end
 
+          local total = #modules
+
           -- Main module list box: 20 columns x 11 rows (y: 0 to 88)
           Font.drawBox(0, 0, 20, 11)
           Font.draw("OMNIQOL MODS", 16, 10)
           Font.draw("================", 16, 18)
 
-          -- List modules
-          local startY = #modules > 3 and 26 or 32
-          local stepY = #modules > 3 and 13 or 16
-          for i, modDef in ipairs(modules) do
-            local yPos = startY + (i - 1) * stepY
-            local isSelected = (i == selectedIndex)
-            local enabled = moduleManager:isEnabled(modDef.id)
-            local statusTag = enabled and "[ON ]" or "[OFF]"
+          -- List modules within scroll window
+          local startY = 26
+          local stepY = 11
+          for slot = 1, maxVisible do
+            local i = scrollOffset + slot
+            if i <= total then
+              local modDef = modules[i]
+              local yPos = startY + (slot - 1) * stepY
+              local isSelected = (i == selectedIndex)
+              local enabled = moduleManager:isEnabled(modDef.id)
+              local statusTag = enabled and "[ON ]" or "[OFF]"
 
-            -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
-            if isSelected then
-              if type(Font.drawCode) == "function" then
-                Font.drawCode(0xED, 8, yPos)
-              else
-                Font.draw(">", 8, yPos)
+              -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
+              if isSelected then
+                if type(Font.drawCode) == "function" then
+                  Font.drawCode(0xED, 8, yPos)
+                else
+                  Font.draw(">", 8, yPos)
+                end
               end
+
+              -- Label at x=16 (fits within 10 characters -> max x=96)
+              local label = modDef.label:sub(1, 10)
+              Font.draw(label, 16, yPos)
+
+              -- Status badge at x=104 (safely inside screen, ends at x=136)
+              Font.draw(statusTag, 104, yPos)
             end
+          end
 
-            -- Label at x=16 (fits within 10 characters -> max x=96)
-            local label = modDef.label:sub(1, 10)
-            Font.draw(label, 16, yPos)
-
-            -- Status badge at x=104 (safely inside screen, ends at x=136)
-            Font.draw(statusTag, 104, yPos)
+          -- Draw scroll indicator arrows if more modules exist
+          if scrollOffset > 0 then
+            Font.draw("^", 144, 26)
+          end
+          if scrollOffset + maxVisible < total then
+            Font.draw("v", 144, 70)
           end
 
           -- Bottom info box: 20 columns x 7 rows (y: 88 to 144)

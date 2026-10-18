@@ -51,11 +51,25 @@
 - **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
 - **Options Menu Integration**: Toggled directly in `OMNIQOL` Options Menu (`CATCH 151`), enabled by default.
 
-### 5. Options Menu Integration (`OMNIQOL`)
+### 5. Move Relearner (Module 5)
+- **Every Pokémon Center Across Kanto**: A distinguished Gentleman Move Reminder NPC is present in the lobby of all 12 Pokémon Centers.
+- **Free to Use**: Zero Pokédollar or item cost (Sword & Shield style).
+- **Missed Pre-Evolution Moves**: Any Pokémon can relearn all level-up moves their current species and any earlier stages in their evolutionary line could have learned up to their current level.
+  - Fixes early stone evolution lockouts (e.g. Raichu evolving early can relearn Thunderbolt/Agility from Pikachu; Arcanine can relearn Flamethrower from Growlithe; Vileplume/Victreebel/Cloyster/Starmie/Nidoking/Nidoqueen never miss key moves).
+- **Level 1 Base / Starting Moves**: Relearn any initial starting move at any level.
+- **Move Replacement**: Teaches directly if fewer than 4 moves known, or opens an interactive selection screen to replace an existing move when at the 4-move limit.
+- **Options Menu Integration**: Toggled directly under `OPTION ➔ OMNIQOL` (`RELEARNER`), enabled by default.
+
+### 6. Forget HM Moves (Module 6)
+- **Freely Overwrite HM Moves**: Allows overwriting and forgetting HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (via Level Up, TM items, or Move Relearner).
+- **Eliminates Trapped Movesets**: Removes the permanent HM lock present in vanilla Gen 1.
+- **Dedicated Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`FORGET HMS`), enabled by default.
+
+### 7. Options Menu Integration (`OMNIQOL`)
 - Injects an **`OMNIQOL`** row directly into the native **Options Menu** (`OPTION`).
 - Accessible both in the overworld (Start Menu ➔ `OPTION`) and on the Title Screen (`OPTION`).
 - Selecting `OMNIQOL` opens the pixel-perfect module management screen:
-  - **Up / Down**: Navigate through available modules.
+  - **Up / Down**: Navigate through available modules with automatic windowed scrolling.
   - **A / Left / Right**: Toggle the selected module `[ON ]` or `[OFF]`.
   - **B**: Save and return to the game.
 - Leaves the overworld Start Menu pure vanilla.
@@ -71,12 +85,15 @@ mods/gen1/
 ├── main.lua                 # Fallback compatibility entry shim
 ├── core/
 │   ├── module_manager.lua   # Module registry, lifecycle & persistence
-│   └── settings_menu.lua    # Options Menu injection & custom UI screen
+│   └── settings_menu.lua    # Options Menu injection, scroll handling & custom UI screen
 └── modules/
     ├── running.lua          # Running module hooks & Pikachu synchronization
     ├── exp_share.lua        # Modern Gen 6+ EXP Share
     ├── trade_evos.lua       # Trade evolutions at Lv. 40 + Lv. 100 Rare Candy
-    └── catch_151.lua        # Catch all 151 Pokémon, wild starters, respawns & Mew
+    ├── catch_151.lua        # Catch all 151 Pokémon, wild starters, respawns & Mew
+    ├── forget_hms.lua       # Forget & overwrite HM moves freely
+    ├── relearner_data.lua   # 151 learnsets, starting moves & evolution ancestry
+    └── move_relearner.lua   # Move Reminder NPC in all Pokémon Centers
 ```
 
 ---

@@ -1,0 +1,558 @@
+-- ============================================================================
+-- OmniQoL: Move Relearner Module (Gen 1: Red, Blue, Yellow)
+-- Target: Pokemon Gen1Recomp (bryanthaboi/gen1recomp)
+--
+-- Features:
+-- - Move Reminder NPC present in every Pokémon Center across Kanto:
+--   * Viridian, Pewter, Cerulean, Vermilion, Lavender, Celadon, Fuchsia,
+--     Saffron, Cinnabar, Indigo Plateau, Route 4 (Mt. Moon), Route 10 (Rock Tunnel).
+-- - Distinguished Gentleman sprite standing in the lobby.
+-- - Free to use (Sword & Shield style — no Pokédollars or items required).
+-- - Comprehensive pre-evolution move retention:
+--   * Pokémon can relearn all level-up moves their current species and any
+--     prior evolutionary stage could have learned up to their current level.
+--   * Solves early stone/trade evolution penalties (e.g. Raichu, Arcanine,
+--     Ninetales, Vileplume, Victreebel, Starmie, Cloyster, Exeggutor).
+--   * Includes Level 1 starting moves for all stages in the line.
+-- - Move replacement & HM overwriting:
+--   * Direct learning if fewer than 4 moves known.
+--   * Selection menu to choose which move to overwrite if 4 moves known.
+--   * Respects the separate 'FORGET HMS' module toggle.
+-- - Options Menu Integration:
+--   * Configurable directly in OMNIQOL Settings screen (`RELEARNER`).
+--   * Enabled by default with per-save persistence.
+-- ============================================================================
+
+local MoveRelearnerModule = {}
+
+-- Load Relearner Data and Forget HMs helper
+local function loadSubmodule(path)
+  local ok, res = pcall(require, path)
+  if ok and res then return res end
+  if type(dofile) == "function" then
+    local dOk, dRes = pcall(dofile, "mods/gen1/" .. path .. ".lua")
+    if dOk and dRes then return dRes end
+    dOk, dRes = pcall(dofile, path .. ".lua")
+    if dOk and dRes then return dRes end
+  end
+  return nil
+end
+
+local RelearnerData = loadSubmodule("modules/relearner_data") or {}
+local ForgetHMsModule = loadSubmodule("modules/forget_hms") or {}
+
+-- ----------------------------------------------------------------------------
+-- Pokémon Center Map Detection
+-- ----------------------------------------------------------------------------
+local function isPokeCenterMap(mapId)
+  if not mapId then return false end
+  local str = tostring(mapId):upper():gsub("[^%w]", "")
+  return str:find("POKECENTER") ~= nil
+      or str:find("POKEMONCENTER") ~= nil
+      or str:find("POKECENTRE") ~= nil
+end
+
+-- ----------------------------------------------------------------------------
+-- Party Extraction Helper
+-- ----------------------------------------------------------------------------
+local function getPlayerParty(game)
+  if not game then return {} end
+  local save = game.save or game.savedata
+  if save and type(save.party) == "table" and #save.party > 0 then
+    return save.party
+  end
+  if game.party and type(game.party) == "table" and #game.party > 0 then
+    return game.party
+  end
+  if save and save.player and type(save.player.party) == "table" then
+    return save.player.party
+  end
+  if game.player and type(game.player.party) == "table" then
+    return game.player.party
+  end
+  return {}
+end
+
+local function getMonName(mon)
+  if not mon then return "POKéMON" end
+  local n = mon.nickname or mon.name or mon.species or "POKéMON"
+  return tostring(n):upper()
+end
+
+local function getMoveName(move)
+  if not move then return "" end
+  local n = type(move) == "table" and (move.id or move.name) or move
+  return tostring(n):upper():gsub("_", " ")
+end
+
+local function getMoveId(move)
+  if not move then return "" end
+  local n = type(move) == "table" and (move.id or move.name) or move
+  return tostring(n):upper():gsub("[^%w_]", "")
+end
+
+-- ----------------------------------------------------------------------------
+-- UI State Machine Screen
+-- ----------------------------------------------------------------------------
+local SCREEN_ID = "OmniMoveRelearnerScreen"
+
+local function createRelearnerScreen(game, mod, moduleManager)
+  local Font = mod.ui and mod.ui.Font
+
+  local STATE_PARTY = 1
+  local STATE_MOVE = 2
+  local STATE_REPLACE = 3
+  local STATE_MSG = 4
+
+  local state = {
+    isOpaque = true,
+    curState = STATE_PARTY,
+    selectedParty = 1,
+    selectedMove = 1,
+    moveScrollOffset = 0,
+    selectedReplace = 1,
+    chosenMon = nil,
+    eligibleMoves = {},
+    targetMove = nil,
+    msgLines = {},
+    nextState = STATE_PARTY,
+  }
+
+  local function showMessage(lines, afterState)
+    state.msgLines = type(lines) == "table" and lines or { tostring(lines) }
+    state.nextState = afterState or STATE_PARTY
+    state.curState = STATE_MSG
+  end
+
+  local function playSound(name)
+    pcall(function()
+      local Sound = require("src.core.Sound")
+      if Sound and type(Sound.play) == "function" then
+        Sound.play(game, name)
+      elseif Sound and type(Sound.playSFX) == "function" then
+        Sound.playSFX(name)
+      end
+    end)
+  end
+
+  local function playCry(species)
+    pcall(function()
+      local Sound = require("src.core.Sound")
+      if Sound and type(Sound.playCry) == "function" then
+        Sound.playCry(species)
+      end
+    end)
+  end
+
+  function state:update()
+    local party = getPlayerParty(game)
+    local input = game.input
+    if not input then return end
+
+    -- 1. STATE_PARTY
+    if self.curState == STATE_PARTY then
+      if #party == 0 then
+        if input:wasPressed("b") or input:wasPressed("a") then
+          game.stack:pop()
+        end
+        return
+      end
+
+      if input:wasPressed("up") then
+        self.selectedParty = self.selectedParty - 1
+        if self.selectedParty < 1 then self.selectedParty = #party end
+      elseif input:wasPressed("down") then
+        self.selectedParty = self.selectedParty + 1
+        if self.selectedParty > #party then self.selectedParty = 1 end
+      elseif input:wasPressed("b") then
+        game.stack:pop()
+      elseif input:wasPressed("a") then
+        local mon = party[self.selectedParty]
+        if mon then
+          self.chosenMon = mon
+          self.eligibleMoves = RelearnerData.getEligibleMoves and RelearnerData.getEligibleMoves(mon) or {}
+          if #self.eligibleMoves == 0 then
+            showMessage({
+              getMonName(mon) .. " has no",
+              "moves to relearn!",
+            }, STATE_PARTY)
+          else
+            self.selectedMove = 1
+            self.moveScrollOffset = 0
+            self.curState = STATE_MOVE
+          end
+        end
+      end
+
+    -- 2. STATE_MOVE
+    elseif self.curState == STATE_MOVE then
+      local totalMoves = #self.eligibleMoves
+      local maxVisible = 4
+
+      if input:wasPressed("up") then
+        self.selectedMove = self.selectedMove - 1
+        if self.selectedMove < 1 then
+          self.selectedMove = totalMoves
+          self.moveScrollOffset = math.max(0, totalMoves - maxVisible)
+        elseif self.selectedMove <= self.moveScrollOffset then
+          self.moveScrollOffset = self.selectedMove - 1
+        end
+      elseif input:wasPressed("down") then
+        self.selectedMove = self.selectedMove + 1
+        if self.selectedMove > totalMoves then
+          self.selectedMove = 1
+          self.moveScrollOffset = 0
+        elseif self.selectedMove > self.moveScrollOffset + maxVisible then
+          self.moveScrollOffset = self.selectedMove - maxVisible
+        end
+      elseif input:wasPressed("b") then
+        self.curState = STATE_PARTY
+      elseif input:wasPressed("a") then
+        local candidate = self.eligibleMoves[self.selectedMove]
+        if candidate and self.chosenMon then
+          self.targetMove = candidate
+          local currentMoves = self.chosenMon.moves or {}
+
+          -- If fewer than 4 moves: learn immediately!
+          if #currentMoves < 4 then
+            local newMoveKey = candidate.name
+            local basePP = candidate.pp or 20
+            table.insert(currentMoves, {
+              id = newMoveKey,
+              name = newMoveKey,
+              pp = basePP,
+              maxPp = basePP,
+            })
+            self.chosenMon.moves = currentMoves
+            playSound("Level_Up")
+            playCry(self.chosenMon.species)
+            showMessage({
+              getMonName(self.chosenMon) .. " learned",
+              candidate.name .. "!",
+            }, STATE_PARTY)
+          else
+            -- Already knows 4 moves: choose which to overwrite
+            self.selectedReplace = 1
+            self.curState = STATE_REPLACE
+          end
+        end
+      end
+
+    -- 3. STATE_REPLACE
+    elseif self.curState == STATE_REPLACE then
+      local currentMoves = self.chosenMon and self.chosenMon.moves or {}
+      local totalSlots = math.min(4, #currentMoves)
+
+      if input:wasPressed("up") then
+        self.selectedReplace = self.selectedReplace - 1
+        if self.selectedReplace < 1 then self.selectedReplace = totalSlots end
+      elseif input:wasPressed("down") then
+        self.selectedReplace = self.selectedReplace + 1
+        if self.selectedReplace > totalSlots then self.selectedReplace = 1 end
+      elseif input:wasPressed("b") then
+        self.curState = STATE_MOVE
+      elseif input:wasPressed("a") then
+        local oldSlot = currentMoves[self.selectedReplace]
+        local oldName = getMoveName(oldSlot)
+        local isHM = ForgetHMsModule.isHMMove and ForgetHMsModule.isHMMove(oldSlot)
+
+        -- If it's an HM move and forget_hms module is disabled, block replacement
+        if isHM and not moduleManager:isEnabled("forget_hms") then
+          showMessage({
+            "HM moves cannot be",
+            "forgotten! (FORGET HMS: OFF)",
+          }, STATE_REPLACE)
+          return
+        end
+
+        -- Replace the move
+        local newMoveKey = self.targetMove.name
+        local basePP = self.targetMove.pp or 20
+        currentMoves[self.selectedReplace] = {
+          id = newMoveKey,
+          name = newMoveKey,
+          pp = basePP,
+          maxPp = basePP,
+        }
+        self.chosenMon.moves = currentMoves
+        playSound("Level_Up")
+        playCry(self.chosenMon.species)
+        showMessage({
+          getMonName(self.chosenMon) .. " forgot " .. oldName .. "!",
+          "And learned " .. newMoveKey .. "!",
+        }, STATE_PARTY)
+      end
+
+    -- 4. STATE_MSG
+    elseif self.curState == STATE_MSG then
+      if input:wasPressed("a") or input:wasPressed("b") then
+        self.curState = self.nextState
+      end
+    end
+  end
+
+  function state:draw()
+    if not Font or type(Font.drawBox) ~= "function" then return end
+
+    local party = getPlayerParty(game)
+
+    -- ========================================================================
+    -- DRAW: PARTY SELECTION
+    -- ========================================================================
+    if self.curState == STATE_PARTY then
+      Font.drawBox(0, 0, 20, 11)
+      Font.draw("MOVE REMINDER", 16, 10)
+      Font.draw("================", 16, 18)
+
+      if #party == 0 then
+        Font.draw("NO POKeMON IN PARTY", 16, 36)
+      else
+        local startY = 28
+        local stepY = 10
+        for i, mon in ipairs(party) do
+          if i <= 6 then
+            local yPos = startY + (i - 1) * stepY
+            local isSel = (i == self.selectedParty)
+            if isSel then
+              if type(Font.drawCode) == "function" then
+                Font.drawCode(0xED, 8, yPos)
+              else
+                Font.draw(">", 8, yPos)
+              end
+            end
+
+            local nameStr = getMonName(mon):sub(1, 10)
+            local lvlStr = "L" .. tostring(mon.level or 1)
+            Font.draw(nameStr, 16, yPos)
+            Font.draw(lvlStr, 110, yPos)
+          end
+        end
+      end
+
+      -- Bottom box
+      Font.drawBox(0, 11, 20, 7)
+      Font.draw("Choose a POKeMON", 16, 98)
+      Font.draw("to remember a move.", 16, 112)
+      Font.draw("A:SELECT  B:EXIT", 16, 126)
+
+    -- ========================================================================
+    -- DRAW: MOVE SELECTION
+    -- ========================================================================
+    elseif self.curState == STATE_MOVE then
+      Font.drawBox(0, 0, 20, 11)
+      local monTitle = getMonName(self.chosenMon):sub(1, 9) .. "'S MOVES"
+      Font.draw(monTitle, 16, 10)
+      Font.draw("================", 16, 18)
+
+      local maxVisible = 4
+      local startY = 28
+      local stepY = 14
+      local total = #self.eligibleMoves
+
+      for idx = 1, maxVisible do
+        local mIdx = self.moveScrollOffset + idx
+        if mIdx <= total then
+          local cand = self.eligibleMoves[mIdx]
+          local yPos = startY + (idx - 1) * stepY
+          local isSel = (mIdx == self.selectedMove)
+
+          if isSel then
+            if type(Font.drawCode) == "function" then
+              Font.drawCode(0xED, 8, yPos)
+            else
+              Font.draw(">", 8, yPos)
+            end
+          end
+
+          local mName = getMoveName(cand.name):sub(1, 12)
+          Font.draw(mName, 16, yPos)
+          local lvlBadge = cand.level == 1 and "Lv 1" or ("Lv" .. tostring(cand.level))
+          Font.draw(lvlBadge, 114, yPos)
+        end
+      end
+
+      -- Scroll arrows
+      if self.moveScrollOffset > 0 then
+        Font.draw("^", 144, 28)
+      end
+      if self.moveScrollOffset + maxVisible < total then
+        Font.draw("v", 144, 70)
+      end
+
+      -- Bottom box: active move details
+      Font.drawBox(0, 11, 20, 7)
+      local selCand = self.eligibleMoves[self.selectedMove]
+      if selCand then
+        local line1 = selCand.type .. "  PP " .. tostring(selCand.pp) .. "/" .. tostring(selCand.pp)
+        Font.draw(line1, 16, 98)
+        if selCand.fromStage and selCand.fromStage ~= selCand.name then
+          local line2 = "Pre-Evo: " .. selCand.fromStage:sub(1, 9)
+          Font.draw(line2, 16, 112)
+        end
+      end
+      Font.draw("A:LEARN  B:BACK", 16, 126)
+
+    -- ========================================================================
+    -- DRAW: REPLACE MOVE SELECTION
+    -- ========================================================================
+    elseif self.curState == STATE_REPLACE then
+      Font.drawBox(0, 0, 20, 11)
+      Font.draw("FORGET WHICH MOVE?", 16, 10)
+      Font.draw("================", 16, 18)
+
+      local currentMoves = self.chosenMon and self.chosenMon.moves or {}
+      local startY = 28
+      local stepY = 14
+
+      for i = 1, 4 do
+        local mv = currentMoves[i]
+        local yPos = startY + (i - 1) * stepY
+        local isSel = (i == self.selectedReplace)
+
+        if isSel then
+          if type(Font.drawCode) == "function" then
+            Font.drawCode(0xED, 8, yPos)
+          else
+            Font.draw(">", 8, yPos)
+          end
+        end
+
+        if mv then
+          local nameStr = getMoveName(mv):sub(1, 12)
+          local isHM = ForgetHMsModule.isHMMove and ForgetHMsModule.isHMMove(mv)
+          Font.draw(nameStr, 16, yPos)
+          if isHM then
+            Font.draw("HM", 126, yPos)
+          end
+        else
+          Font.draw("-", 16, yPos)
+        end
+      end
+
+      -- Bottom box
+      Font.drawBox(0, 11, 20, 7)
+      if self.targetMove then
+        Font.draw("New: " .. getMoveName(self.targetMove.name):sub(1, 12), 16, 98)
+      end
+      Font.draw("A:FORGET  B:CANCEL", 16, 126)
+
+    -- ========================================================================
+    -- DRAW: MESSAGE PROMPT
+    -- ========================================================================
+    elseif self.curState == STATE_MSG then
+      Font.drawBox(0, 0, 20, 11)
+      Font.draw("MOVE REMINDER", 16, 10)
+      Font.draw("================", 16, 18)
+
+      Font.drawBox(0, 11, 20, 7)
+      if self.msgLines[1] then
+        Font.draw(self.msgLines[1], 16, 98)
+      end
+      if self.msgLines[2] then
+        Font.draw(self.msgLines[2], 16, 112)
+      end
+      Font.draw("A:CONTINUE", 16, 126)
+    end
+  end
+
+  return state
+end
+
+-- ----------------------------------------------------------------------------
+-- Public Module Lifecycle
+-- ----------------------------------------------------------------------------
+function MoveRelearnerModule.register(moduleManager)
+  moduleManager:register({
+    id = "move_relearner",
+    label = "RELEARNER",
+    desc = "Move Reminder in every Poke Center.",
+    default = true,
+    init = function(mod, mgr)
+      MoveRelearnerModule.init(mod, mgr)
+    end,
+  })
+end
+
+function MoveRelearnerModule.open(game, mod, moduleManager)
+  if mod.ui and type(mod.ui.push) == "function" then
+    mod.ui.push(game, SCREEN_ID)
+  elseif game.stack and type(game.stack.push) == "function" then
+    local screenDef = mod.content and mod.content.screens and mod.content.screens:get(SCREEN_ID)
+    if screenDef and screenDef.new then
+      game.stack:push(screenDef.new(game))
+    else
+      game.stack:push(createRelearnerScreen(game, mod, moduleManager))
+    end
+  end
+end
+
+function MoveRelearnerModule.init(mod, moduleManager)
+  -- 1. Register screen in content registry
+  if mod.content and mod.content.screens and type(mod.content.screens.register) == "function" then
+    mod.content.screens:register(SCREEN_ID, {
+      new = function(game)
+        return createRelearnerScreen(game, mod, moduleManager)
+      end,
+    })
+  end
+
+  -- 2. Inject Move Reminder NPC on entering Pokémon Centers
+  local function handlePokeCenterMap(game, map)
+    if not game then return end
+    local curMap = map or (game.map and (game.map.id or game.map.name))
+    if not curMap then return end
+
+    if not isPokeCenterMap(curMap) then
+      return
+    end
+
+    if not game.map or not game.map.entities then
+      return
+    end
+
+    -- Check if module is enabled
+    local enabled = moduleManager:isEnabled("move_relearner")
+
+    -- Check if NPC is already present
+    local existingIdx = nil
+    for i, ent in ipairs(game.map.entities) do
+      if ent.id == "omni_relearner" then
+        existingIdx = i
+        break
+      end
+    end
+
+    if not enabled then
+      -- If disabled, remove entity if present
+      if existingIdx then
+        table.remove(game.map.entities, existingIdx)
+      end
+      return
+    end
+
+    -- If enabled and not present, add Move Reminder Gentleman NPC
+    if not existingIdx then
+      table.insert(game.map.entities, {
+        id = "omni_relearner",
+        sprite = "SPRITE_GENTLEMAN",
+        x = 1,
+        y = 4,
+        facing = "right",
+        interact = function(g)
+          MoveRelearnerModule.open(g, mod, moduleManager)
+        end,
+      })
+    end
+  end
+
+  if mod.events and type(mod.events.on) == "function" then
+    mod.events:on("map.entered", function(game, map)
+      handlePokeCenterMap(game, map)
+    end)
+    mod.events:on("map.loaded", function(game, map)
+      handlePokeCenterMap(game, map)
+    end)
+  end
+end
+
+return MoveRelearnerModule

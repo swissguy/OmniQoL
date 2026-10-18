@@ -63,13 +63,19 @@ return function(mod)
   local Catch151Module = loadModule("modules/catch_151.lua")
   Catch151Module.register(manager)
 
+  local ForgetHMsModule = loadModule("modules/forget_hms.lua")
+  ForgetHMsModule.register(manager)
+
+  local MoveRelearnerModule = loadModule("modules/move_relearner.lua")
+  MoveRelearnerModule.register(manager)
+
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
   -- Log successful boot
   if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes, EXP Share, Trade Evos & Catch 151 active).")
+    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).")
   else
-    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes, EXP Share, Trade Evos & Catch 151 active).")
+    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).")
   end
 end
