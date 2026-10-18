@@ -6,7 +6,7 @@
 -- - Move Reminder NPC present in every Pokémon Center across Kanto:
 --   * Viridian, Pewter, Cerulean, Vermilion, Lavender, Celadon, Fuchsia,
 --     Saffron, Cinnabar, Indigo Plateau, Route 4 (Mt. Moon), Route 10 (Rock Tunnel).
--- - Distinguished Gentleman sprite standing in the lobby.
+-- - Distinguished Gentleman sprite standing in the lobby at (x=1, y=4).
 -- - Free to use (Sword & Shield style — no Pokédollars or items required).
 -- - Comprehensive pre-evolution move retention:
 --   * Pokémon can relearn all level-up moves their current species and any
@@ -42,33 +42,45 @@ local RelearnerData = loadSubmodule("modules/relearner_data") or {}
 local ForgetHMsModule = loadSubmodule("modules/forget_hms") or {}
 
 -- ----------------------------------------------------------------------------
--- Pokémon Center Map Detection
+-- Pokémon Center Maps
 -- ----------------------------------------------------------------------------
-local function isPokeCenterMap(mapId)
+local POKECENTER_MAPS = {
+  VIRIDIAN_POKECENTER = true,
+  PEWTER_POKECENTER = true,
+  CERULEAN_POKECENTER = true,
+  MT_MOON_POKECENTER = true,
+  ROCK_TUNNEL_POKECENTER = true,
+  VERMILION_POKECENTER = true,
+  CELADON_POKECENTER = true,
+  LAVENDER_POKECENTER = true,
+  FUCHSIA_POKECENTER = true,
+  CINNABAR_POKECENTER = true,
+  SAFFRON_POKECENTER = true,
+  INDIGO_PLATEAU_LOBBY = true,
+}
+
+local function isPokeCenter(mapId)
   if not mapId then return false end
-  local str = tostring(mapId):upper():gsub("[^%w]", "")
+  local str = tostring(mapId):upper():gsub("[^%w_]", "")
+  if POKECENTER_MAPS[str] then return true end
   return str:find("POKECENTER") ~= nil
       or str:find("POKEMONCENTER") ~= nil
-      or str:find("POKECENTRE") ~= nil
 end
 
 -- ----------------------------------------------------------------------------
 -- Party Extraction Helper
 -- ----------------------------------------------------------------------------
 local function getPlayerParty(game)
-  if not game then return {} end
-  local save = game.save or game.savedata
+  local okGame, Game = pcall(require, "src.core.Game")
+  local g = game or (okGame and Game)
+  if not g then return {} end
+
+  local save = g.save or g.savedata
   if save and type(save.party) == "table" and #save.party > 0 then
     return save.party
   end
-  if game.party and type(game.party) == "table" and #game.party > 0 then
-    return game.party
-  end
-  if save and save.player and type(save.player.party) == "table" then
-    return save.player.party
-  end
-  if game.player and type(game.player.party) == "table" then
-    return game.player.party
+  if g.party and type(g.party) == "table" and #g.party > 0 then
+    return g.party
   end
   return {}
 end
@@ -85,19 +97,16 @@ local function getMoveName(move)
   return tostring(n):upper():gsub("_", " ")
 end
 
-local function getMoveId(move)
-  if not move then return "" end
-  local n = type(move) == "table" and (move.id or move.name) or move
-  return tostring(n):upper():gsub("[^%w_]", "")
-end
-
 -- ----------------------------------------------------------------------------
 -- UI State Machine Screen
 -- ----------------------------------------------------------------------------
 local SCREEN_ID = "OmniMoveRelearnerScreen"
 
 local function createRelearnerScreen(game, mod, moduleManager)
-  local Font = mod.ui and mod.ui.Font
+  local okFont, Font = pcall(require, "src.render.Font")
+  if not okFont or not Font then
+    Font = mod and mod.ui and mod.ui.Font
+  end
 
   local STATE_PARTY = 1
   local STATE_MOVE = 2
@@ -144,16 +153,34 @@ local function createRelearnerScreen(game, mod, moduleManager)
     end)
   end
 
+  local function getActiveInput()
+    if game and game.input then return game.input end
+    local okG, G = pcall(require, "src.core.Game")
+    if okG and G and G.input then return G.input end
+    return nil
+  end
+
+  local function popScreen()
+    if game and game.stack and type(game.stack.pop) == "function" then
+      game.stack:pop()
+      return
+    end
+    local okG, G = pcall(require, "src.core.Game")
+    if okG and G and G.stack and type(G.stack.pop) == "function" then
+      G.stack:pop()
+    end
+  end
+
   function state:update()
     local party = getPlayerParty(game)
-    local input = game.input
+    local input = getActiveInput()
     if not input then return end
 
     -- 1. STATE_PARTY
     if self.curState == STATE_PARTY then
       if #party == 0 then
         if input:wasPressed("b") or input:wasPressed("a") then
-          game.stack:pop()
+          popScreen()
         end
         return
       end
@@ -165,7 +192,7 @@ local function createRelearnerScreen(game, mod, moduleManager)
         self.selectedParty = self.selectedParty + 1
         if self.selectedParty > #party then self.selectedParty = 1 end
       elseif input:wasPressed("b") then
-        game.stack:pop()
+        popScreen()
       elseif input:wasPressed("a") then
         local mon = party[self.selectedParty]
         if mon then
@@ -474,14 +501,45 @@ function MoveRelearnerModule.register(moduleManager)
 end
 
 function MoveRelearnerModule.open(game, mod, moduleManager)
-  if mod.ui and type(mod.ui.push) == "function" then
-    mod.ui.push(game, SCREEN_ID)
-  elseif game.stack and type(game.stack.push) == "function" then
-    local screenDef = mod.content and mod.content.screens and mod.content.screens:get(SCREEN_ID)
-    if screenDef and screenDef.new then
-      game.stack:push(screenDef.new(game))
-    else
-      game.stack:push(createRelearnerScreen(game, mod, moduleManager))
+  local okGame, Game = pcall(require, "src.core.Game")
+  local targetGame = game or (okGame and Game)
+  local stack = targetGame and targetGame.stack
+
+  if stack and type(stack.push) == "function" then
+    stack:push(createRelearnerScreen(targetGame, mod, moduleManager))
+  elseif mod and mod.ui and type(mod.ui.push) == "function" then
+    mod.ui.push(targetGame, SCREEN_ID)
+  end
+end
+
+-- Inject NPC into map definitions
+local function injectMapObjects()
+  local okData, Data = pcall(require, "src.core.Data")
+  if not (okData and Data and Data.maps) then return end
+
+  for mapId, _ in pairs(POKECENTER_MAPS) do
+    local def = Data.maps[mapId]
+    if def and def.objects then
+      local exists = false
+      for _, o in ipairs(def.objects) do
+        if o.name == "OMNI_RELEARNER" then
+          exists = true
+          break
+        end
+      end
+      if not exists then
+        local newIndex = #def.objects + 1
+        table.insert(def.objects, {
+          index = newIndex,
+          movement = "STAY",
+          name = "OMNI_RELEARNER",
+          range = "RIGHT",
+          sprite = "SPRITE_GENTLEMAN",
+          text = "TEXT_OMNI_RELEARNER",
+          x = (mapId == "INDIGO_PLATEAU_LOBBY") and 2 or 1,
+          y = (mapId == "INDIGO_PLATEAU_LOBBY") and 5 or 4,
+        })
+      end
     end
   end
 end
@@ -496,61 +554,63 @@ function MoveRelearnerModule.init(mod, moduleManager)
     })
   end
 
-  -- 2. Inject Move Reminder NPC on entering Pokémon Centers
-  local function handlePokeCenterMap(game, map)
-    if not game then return end
-    local curMap = map or (game.map and (game.map.id or game.map.name))
-    if not curMap then return end
+  -- 2. Inject NPC objects into all Pokémon Center map definitions up front
+  injectMapObjects()
 
-    if not isPokeCenterMap(curMap) then
-      return
-    end
-
-    if not game.map or not game.map.entities then
-      return
-    end
-
-    -- Check if module is enabled
-    local enabled = moduleManager:isEnabled("move_relearner")
-
-    -- Check if NPC is already present
-    local existingIdx = nil
-    for i, ent in ipairs(game.map.entities) do
-      if ent.id == "omni_relearner" then
-        existingIdx = i
-        break
+  -- 3. Intercept talking to the Move Relearner NPC in the overworld
+  if mod.hooks and type(mod.hooks.wrap) == "function" then
+    mod.hooks:wrap("world.talk", function(next, ow, npc)
+      if npc and npc.def and (npc.def.name == "OMNI_RELEARNER" or (npc.id and npc.id:find("OMNI_RELEARNER"))) then
+        if moduleManager:isEnabled("move_relearner") then
+          local okGame, Game = pcall(require, "src.core.Game")
+          local game = (okGame and Game) or (ow and (ow.game or ow))
+          MoveRelearnerModule.open(game, mod, moduleManager)
+        end
+        return
       end
-    end
+      return next and next(ow, npc)
+    end)
 
-    if not enabled then
-      -- If disabled, remove entity if present
-      if existingIdx then
-        table.remove(game.map.entities, existingIdx)
+    -- Control visibility via objectVisible hook
+    mod.hooks:wrap("world.object_visible", function(next, save, mapId, obj)
+      if obj and obj.name == "OMNI_RELEARNER" then
+        return moduleManager:isEnabled("move_relearner")
       end
-      return
-    end
-
-    -- If enabled and not present, add Move Reminder Gentleman NPC
-    if not existingIdx then
-      table.insert(game.map.entities, {
-        id = "omni_relearner",
-        sprite = "SPRITE_GENTLEMAN",
-        x = 1,
-        y = 4,
-        facing = "right",
-        interact = function(g)
-          MoveRelearnerModule.open(g, mod, moduleManager)
-        end,
-      })
-    end
+      return next and next(save, mapId, obj)
+    end)
   end
 
+  -- 4. Listen to map entry to ensure live map object instantiation
   if mod.events and type(mod.events.on) == "function" then
-    mod.events:on("map.entered", function(game, map)
-      handlePokeCenterMap(game, map)
-    end)
-    mod.events:on("map.loaded", function(game, map)
-      handlePokeCenterMap(game, map)
+    mod.events:on("map.entered", function(payload)
+      local mapId = type(payload) == "table" and payload.mapId or payload
+      if isPokeCenter(mapId) then
+        injectMapObjects()
+
+        -- If live OverworldState has npcPool, make sure the NPC instance is live
+        local okGame, Game = pcall(require, "src.core.Game")
+        if okGame and Game and Game.overworld and Game.overworld.map and Game.overworld.map.id == mapId then
+          local ow = Game.overworld
+          local found = false
+          for _, n in ipairs(ow.npcs or {}) do
+            if n.def and n.def.name == "OMNI_RELEARNER" then
+              found = true
+              break
+            end
+          end
+          if not found and ow.addRuntimeObject and moduleManager:isEnabled("move_relearner") then
+            ow:addRuntimeObject(mapId, {
+              movement = "STAY",
+              name = "OMNI_RELEARNER",
+              range = "RIGHT",
+              sprite = "SPRITE_GENTLEMAN",
+              text = "TEXT_OMNI_RELEARNER",
+              x = (mapId == "INDIGO_PLATEAU_LOBBY") and 2 or 1,
+              y = (mapId == "INDIGO_PLATEAU_LOBBY") and 5 or 4,
+            }, mod.id or "omni_qol")
+          end
+        end
+      end
     end)
   end
 end

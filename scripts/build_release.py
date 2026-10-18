@@ -37,5 +37,23 @@ def build():
     size_kb = os.path.getsize(archive_path) / 1024
     print(f"[OmniQoL] Successfully built {archive_name} ({size_kb:.1f} KB)")
 
+    # Synchronize to local game installation if present
+    appdata = os.environ.get("APPDATA")
+    if appdata:
+        target_mod_dir = os.path.join(appdata, "pokemon-love2d", "mods", "omni_qol")
+        if os.path.exists(os.path.dirname(target_mod_dir)):
+            import shutil
+            print(f"[OmniQoL] Synchronizing mod files to {target_mod_dir}...")
+            os.makedirs(target_mod_dir, exist_ok=True)
+            for root, dirs, files in os.walk(source_dir):
+                rel = os.path.relpath(root, source_dir)
+                dest_dir = os.path.join(target_mod_dir, rel) if rel != "." else target_mod_dir
+                os.makedirs(dest_dir, exist_ok=True)
+                for f in files:
+                    src_file = os.path.join(root, f)
+                    dest_file = os.path.join(dest_dir, f)
+                    shutil.copy2(src_file, dest_file)
+            print("[OmniQoL] Successfully synchronized active mod files!")
+
 if __name__ == "__main__":
     build()
