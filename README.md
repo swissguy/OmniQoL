@@ -203,8 +203,14 @@ OmniQoL/
 - **Missed Pre-Evolution Moves Restored**: Pokémon can relearn all natural level-up moves their current species **and** all prior evolutionary stages in their line could have learned up to their current level.
   - Fixes early stone evolution lockouts (e.g. Raichu evolving early can relearn Thunderbolt/Agility from Pikachu; Arcanine can relearn Flamethrower from Growlithe; Vileplume/Victreebel/Cloyster/Starmie/Nidoking/Nidoqueen never miss key moves).
 - **Level 1 Base / Starting Moves**: Relearn any initial starting move (e.g., Charizard's Slash/Scratch/Ember, Blastoise's Bubble/Water Gun) at any level.
+- **TM Tutor Mode (`RELEARN + TMS`)**: In addition to natural level-up moves, the Move Reminder can teach any compatible TM from TM01 to TM50 that the Pokémon (or any prior evolutionary stage in its evolutionary line) can learn.
+  - HM moves (Cut, Fly, Surf, Strength, Flash) remain excluded from the TM tutor pool.
 - **Move Replacement Flow**: Teaches directly if fewer than 4 moves are known, or opens an interactive selection screen to replace an existing move when at the 4-move limit.
-- **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`RELEARNER`), enabled by default.
+- **Scrollable Party & Move Lists**: Seamlessly browse full 6-Pokémon parties and extensive move candidate lists with windowed scrolling and authentic direction indicators.
+- **3-Way Options Menu Integration**: Configurable anytime under `OPTION ➔ OMNIQOL` (`RELEARNER`):
+  - `[OFF]`: Move Relearner NPC is disabled.
+  - `[RELEARN]`: Relearn natural level-up and missed pre-evolution moves.
+  - `[REL+TMS]`: Relearn natural level-up moves + teach any compatible TM01–TM50 moves.
 
 ### Module 6: Forget HM Moves (Pokémon Red, Blue & Yellow)
 - **Freely Overwrite HM Moves**: Overwrites and replaces HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (whether through Level-Up, TM items, or the Move Relearner).

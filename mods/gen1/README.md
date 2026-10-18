@@ -57,8 +57,14 @@
 - **Missed Pre-Evolution Moves**: Any Pokémon can relearn all level-up moves their current species and any earlier stages in their evolutionary line could have learned up to their current level.
   - Fixes early stone evolution lockouts (e.g. Raichu evolving early can relearn Thunderbolt/Agility from Pikachu; Arcanine can relearn Flamethrower from Growlithe; Vileplume/Victreebel/Cloyster/Starmie/Nidoking/Nidoqueen never miss key moves).
 - **Level 1 Base / Starting Moves**: Relearn any initial starting move at any level.
+- **TM Tutor Mode (`RELEARN + TMS`)**: Teaches any compatible TM01–TM50 moves, including inherited compatibility from pre-evolutions.
+  - HM moves (Cut, Fly, Surf, Strength, Flash) remain excluded from TM tutoring.
 - **Move Replacement**: Teaches directly if fewer than 4 moves known, or opens an interactive selection screen to replace an existing move when at the 4-move limit.
-- **Options Menu Integration**: Toggled directly under `OPTION ➔ OMNIQOL` (`RELEARNER`), enabled by default.
+- **Scrollable Party & Move Lists**: Full 6-member party support and move lists with windowed scrolling and indicator arrows.
+- **3-Way Options Menu Integration**: Toggled directly under `OPTION ➔ OMNIQOL` (`RELEARNER`):
+  - `[OFF]`: Disabled.
+  - `[RELEARN]`: Natural level-up moves and pre-evolution moves.
+  - `[REL+TMS]`: Natural level-up moves + all compatible TM01–TM50 moves.
 
 ### 6. Forget HM Moves (Module 6)
 - **Freely Overwrite HM Moves**: Allows overwriting and forgetting HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (via Level Up, TM items, or Move Relearner).
@@ -70,7 +76,7 @@
 - Accessible both in the overworld (Start Menu ➔ `OPTION`) and on the Title Screen (`OPTION`).
 - Selecting `OMNIQOL` opens the pixel-perfect module management screen:
   - **Up / Down**: Navigate through available modules with automatic windowed scrolling.
-  - **A / Left / Right**: Toggle the selected module `[ON ]` or `[OFF]`.
+  - **A / Left / Right**: Cycle module values (e.g., `[ON ]`/`[OFF]` or `[RELEARN]`/`[REL+TMS]`/`[OFF]`).
   - **B**: Save and return to the game.
 - Leaves the overworld Start Menu pure vanilla.
 - Settings are saved **per save file** during gameplay, and saved as **global defaults** when configured from the Title Screen.
