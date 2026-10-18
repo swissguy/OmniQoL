@@ -215,8 +215,8 @@ local function createRelearnerScreen(game, mod, moduleManager)
           self.eligibleMoves = RelearnerData.getEligibleMoves and RelearnerData.getEligibleMoves(mon, mode) or {}
           if #self.eligibleMoves == 0 then
             showMessage({
-              getMonName(mon) .. " has no",
-              "moves to learn!",
+              getMonName(mon):sub(1, 10),
+              "has no moves!",
             }, STATE_PARTY)
           else
             self.selectedMove = 1
@@ -269,8 +269,8 @@ local function createRelearnerScreen(game, mod, moduleManager)
             playSound("Level_Up")
             playCry(self.chosenMon.species)
             showMessage({
-              getMonName(self.chosenMon) .. " learned",
-              candidate.name .. "!",
+              getMonName(self.chosenMon):sub(1, 8) .. " learned",
+              candidate.name:sub(1, 15) .. "!",
             }, STATE_PARTY)
           else
             -- Already knows 4 moves: choose which to overwrite
@@ -301,8 +301,8 @@ local function createRelearnerScreen(game, mod, moduleManager)
         -- If it's an HM move and forget_hms module is disabled, block replacement
         if isHM and not moduleManager:isEnabled("forget_hms") then
           showMessage({
-            "HM moves cannot be",
-            "forgotten! (FORGET HMS: OFF)",
+            "HM moves cannot",
+            "be forgotten!",
           }, STATE_REPLACE)
           return
         end
@@ -320,8 +320,8 @@ local function createRelearnerScreen(game, mod, moduleManager)
         playSound("Level_Up")
         playCry(self.chosenMon.species)
         showMessage({
-          getMonName(self.chosenMon) .. " forgot " .. oldName .. "!",
-          "And learned " .. newMoveKey .. "!",
+          "Forgot " .. oldName:sub(1, 8) .. "!",
+          "Learned " .. newMoveKey:sub(1, 7) .. "!",
         }, STATE_PARTY)
       end
 
@@ -347,7 +347,7 @@ local function createRelearnerScreen(game, mod, moduleManager)
       Font.draw("================", 16, 18)
 
       if #party == 0 then
-        Font.draw("NO POKeMON IN PARTY", 16, 36)
+        Font.draw("NO PARTY POKeMON", 16, 36)
       else
         local maxVisible = 4
         local startY = 28
@@ -387,7 +387,7 @@ local function createRelearnerScreen(game, mod, moduleManager)
       -- Bottom box
       Font.drawBox(0, 11, 20, 7)
       Font.draw("Choose a POKeMON", 16, 98)
-      Font.draw("to remember a move.", 16, 112)
+      Font.draw("to teach a move.", 16, 112)
       Font.draw("A:SELECT  B:EXIT", 16, 126)
 
     -- ========================================================================
@@ -438,14 +438,18 @@ local function createRelearnerScreen(game, mod, moduleManager)
       Font.drawBox(0, 11, 20, 7)
       local selCand = self.eligibleMoves[self.selectedMove]
       if selCand then
-        local line1 = selCand.type .. "  PP " .. tostring(selCand.pp) .. "/" .. tostring(selCand.pp)
+        local line1 = string.format("%-8s   PP %2d", selCand.type, selCand.pp or 20)
         Font.draw(line1, 16, 98)
         if selCand.isTM and selCand.tmCode then
           local line2 = "Learned via " .. selCand.tmCode
           Font.draw(line2, 16, 112)
         elseif selCand.fromStage and selCand.fromStage ~= getMonName(self.chosenMon) then
-          local line2 = "Pre-Evo: " .. selCand.fromStage:sub(1, 9)
+          local line2 = "From: " .. selCand.fromStage:sub(1, 10)
           Font.draw(line2, 16, 112)
+        else
+          local lvl = selCand.level or 1
+          local line2 = (lvl == 1) and "Starting Move" or ("Learned at Lv " .. tostring(lvl))
+          Font.draw(line2:sub(1, 16), 16, 112)
         end
       end
       Font.draw("A:LEARN  B:BACK", 16, 126)
@@ -490,9 +494,9 @@ local function createRelearnerScreen(game, mod, moduleManager)
       -- Bottom box
       Font.drawBox(0, 11, 20, 7)
       if self.targetMove then
-        Font.draw("New: " .. getMoveName(self.targetMove.name):sub(1, 12), 16, 98)
+        Font.draw("New: " .. getMoveName(self.targetMove.name):sub(1, 11), 16, 98)
       end
-      Font.draw("A:FORGET  B:CANCEL", 16, 126)
+      Font.draw("A:FORGET  B:BACK", 16, 126)
 
     -- ========================================================================
     -- DRAW: MESSAGE PROMPT
@@ -504,10 +508,10 @@ local function createRelearnerScreen(game, mod, moduleManager)
 
       Font.drawBox(0, 11, 20, 7)
       if self.msgLines[1] then
-        Font.draw(self.msgLines[1], 16, 98)
+        Font.draw(self.msgLines[1]:sub(1, 16), 16, 98)
       end
       if self.msgLines[2] then
-        Font.draw(self.msgLines[2], 16, 112)
+        Font.draw(self.msgLines[2]:sub(1, 16), 16, 112)
       end
       Font.draw("A:CONTINUE", 16, 126)
     end
