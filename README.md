@@ -21,6 +21,8 @@ Every feature is designed as an independent module that can be individually togg
 | **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✨ Catch All 151** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🧠 Move Relearner** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **✂️ Forget HM Moves** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -83,6 +85,36 @@ Every feature is designed as an independent module that can be individually togg
 
 </details>
 
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 5: Move Relearner</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Free Move Reminder in every Pokémon Center lobby, pre-evolution moves up to current level (remedying early stone/trade evos), Level 1 starting moves, full move replacement UI, options menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Free Move Reminder in every Pokémon Center lobby, Yellow-adjusted learnsets, pre-evolution moves up to current level, options menu toggle |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 6: Forget HM Moves</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Freely replace and forget HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any move via Level Up, TM, or Move Relearner; separate options menu toggle |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Freely replace and forget HM moves whenever learning any move via Level Up, TM, or Move Relearner; separate options menu toggle |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
 ---
 
 ## 🗺️ Multi-Game Rollout Roadmap
@@ -110,14 +142,19 @@ OmniQoL/
 │   │       ├── running.lua         # Running Shoes with Pikachu Follower sync
 │   │       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
 │   │       ├── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
-│   │       └── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
+│   │       ├── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
+│   │       ├── forget_hms.lua      # Forget & overwrite HM moves freely
+│   │       ├── relearner_data.lua  # 151 learnsets, starting moves & evolution ancestry
+│   │       └── move_relearner.lua  # Move Reminder NPC in all Pokémon Centers
 │   ├── gen2_gold_silver/       # Gen 2 Target (Next)
 │   ├── gen2_crystal/
 │   ├── gen3_fire_red_leaf_green/
 │   ├── gen3_ruby_sapphire/
 │   └── gen3_emerald/
 ├── scripts/
-│   └── build_release.py        # Automated release packaging script
+│   ├── build_release.py        # Automated release packaging script
+│   ├── generate_relearner_data.py # Data compiler for 151 learnsets
+│   └── test_relearner.py       # Unit tests for Move Relearner & HM rules
 ├── POKEDEX_151_GUIDE.md        # Comprehensive 151 Pokémon & Area-by-Area guide
 └── README.md
 ```
@@ -160,6 +197,25 @@ OmniQoL/
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`CATCH 151`), enabled by default.
 - 📖 **Comprehensive Guide**: View the full 151 encounter directory in [`POKEDEX_151_GUIDE.md`](POKEDEX_151_GUIDE.md).
 
+### Module 5: Move Relearner (Pokémon Red, Blue & Yellow)
+- **Every Pokémon Center Across Kanto**: A distinguished Gentleman Move Reminder NPC appears in the lobby of all 12 Pokémon Centers (Viridian, Pewter, Cerulean, Vermilion, Lavender, Celadon, Fuchsia, Saffron, Cinnabar, Indigo Plateau, Route 4, and Route 10).
+- **Free to Use (Sword & Shield Style)**: No Pokédollars, Heart Scales, or mushrooms required — accessible from early game to postgame.
+- **Missed Pre-Evolution Moves Restored**: Pokémon can relearn all natural level-up moves their current species **and** all prior evolutionary stages in their line could have learned up to their current level.
+  - Fixes early stone evolution lockouts (e.g. Raichu evolving early can relearn Thunderbolt/Agility from Pikachu; Arcanine can relearn Flamethrower from Growlithe; Vileplume/Victreebel/Cloyster/Starmie/Nidoking/Nidoqueen never miss key moves).
+- **Level 1 Base / Starting Moves**: Relearn any initial starting move (e.g., Charizard's Slash/Scratch/Ember, Blastoise's Bubble/Water Gun) at any level.
+- **TM Tutor Mode (`RELEARN + TMS`)**: In addition to natural level-up moves, the Move Reminder can teach any compatible TM from TM01 to TM50 that the Pokémon (or any prior evolutionary stage in its evolutionary line) can learn.
+  - HM moves (Cut, Fly, Surf, Strength, Flash) remain excluded from the TM tutor pool.
+- **Move Replacement Flow**: Teaches directly if fewer than 4 moves are known, or opens an interactive selection screen to replace an existing move when at the 4-move limit.
+- **Scrollable Party & Move Lists**: Seamlessly browse full 6-Pokémon parties and extensive move candidate lists with windowed scrolling and authentic direction indicators.
+- **3-Way Options Menu Integration**: Configurable anytime under `OPTION ➔ OMNIQOL` (`RELEARNER`):
+  - `[OFF]`: Move Relearner NPC is disabled.
+  - `[RELEARN]`: Relearn natural level-up and missed pre-evolution moves.
+  - `[REL+TMS]`: Relearn natural level-up moves + teach any compatible TM01–TM50 moves.
+
+### Module 6: Forget HM Moves (Pokémon Red, Blue & Yellow)
+- **Freely Overwrite HM Moves**: Overwrites and replaces HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (whether through Level-Up, TM items, or the Move Relearner).
+- **No More Trapped Movesets**: Removes the permanent HM lock present in vanilla Gen 1, eliminating the need to save/carry dedicated HM slaves.
+- **Dedicated Independent Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`FORGET HMS`), enabled by default.
 
 ---
 

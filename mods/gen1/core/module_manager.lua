@@ -27,6 +27,7 @@ function ModuleManager:register(def)
     label = def.label,
     desc = def.desc or "",
     default = def.default,
+    values = def.values,
     init = def.init,
   }
 
@@ -38,7 +39,11 @@ function ModuleManager:register(def)
   if self.mod and self.mod.options and type(self.mod.options.get) == "function" then
     local ok, optVal = pcall(function() return self.mod.options:get(def.id) end)
     if ok and optVal ~= nil then
-      self.globalDefaults[def.id] = (optVal == true)
+      if def.values then
+        self.globalDefaults[def.id] = tostring(optVal)
+      else
+        self.globalDefaults[def.id] = (optVal == true)
+      end
     end
   end
 
@@ -60,56 +65,138 @@ end
 -- Checks per-save storage first; falls back to global defaults / initial default.
 -- @param id string
 -- @return boolean
-function ModuleManager:isEnabled(id)
+--- Gets the raw or typed value of a module setting.
+-- Checks per-save storage first; falls back to global defaults / initial default.
+-- @param id string
+-- @return any
+function ModuleManager:getValue(id)
   local entry = self.modulesById[id]
   local fallback = self.globalDefaults[id]
   if fallback == nil then
-    fallback = entry and entry.default or false
+    fallback = entry and entry.default
   end
 
   local saveObj = self.mod and self.mod.save
   if saveObj and type(saveObj.get) == "function" then
     local ok, val = pcall(function() return saveObj:get(id) end)
     if ok and val ~= nil then
-      return val == true
+      if entry and entry.values then
+        if val == true then return "RELEARN" end
+        if val == false then return "OFF" end
+      end
+      return val
     end
+  end
+
+  if entry and entry.values and type(fallback) == "boolean" then
+    return fallback and "RELEARN" or "OFF"
   end
 
   return fallback
 end
 
---- Sets a module's enabled state.
+--- Gets whether a module is currently enabled.
+-- @param id string
+-- @return boolean
+function ModuleManager:isEnabled(id)
+  local val = self:getValue(id)
+  if val == false or val == nil or val == "OFF" or val == "off" then
+    return false
+  end
+  return true
+end
+
+--- Sets a module's value (boolean or multi-state string).
 -- Saves per-save if an active save exists; also updates global defaults.
 -- @param id string
--- @param value boolean
-function ModuleManager:setEnabled(id, value)
+-- @param value any
+function ModuleManager:setValue(id, value)
   local entry = self.modulesById[id]
   if not entry then return false end
-  local boolVal = (value == true)
 
-  -- Always update global defaults (used for Title Screen / new saves)
-  self.globalDefaults[id] = boolVal
+  self.globalDefaults[id] = value
   if self.mod and self.mod.options and type(self.mod.options.set) == "function" then
-    pcall(function() self.mod.options:set(id, boolVal) end)
+    pcall(function() self.mod.options:set(id, value) end)
   end
 
   -- Update per-save storage if active
   local saveObj = self.mod and self.mod.save
   if saveObj and type(saveObj.set) == "function" then
-    pcall(function() saveObj:set(id, boolVal) end)
+    pcall(function() saveObj:set(id, value) end)
   end
 
   return true
 end
 
---- Toggles a module's enabled state.
+--- Sets a module's enabled state (boolean helper).
 -- @param id string
--- @return boolean The new state
+-- @param value boolean
+function ModuleManager:setEnabled(id, value)
+  local entry = self.modulesById[id]
+  if entry and entry.values then
+    return self:setValue(id, value and "RELEARN" or "OFF")
+  else
+    return self:setValue(id, value == true)
+  end
+end
+
+--- Cycles a module's value forward or backward.
+-- @param id string
+-- @param dir number (1 for forward, -1 for backward)
+function ModuleManager:cycle(id, dir)
+  local entry = self.modulesById[id]
+  if not entry then return end
+  dir = dir or 1
+
+  if entry.values and #entry.values > 0 then
+    local cur = tostring(self:getValue(id)):upper()
+    local curIdx = 1
+    for idx, v in ipairs(entry.values) do
+      if v:upper() == cur then
+        curIdx = idx
+        break
+      end
+    end
+    local nextIdx = curIdx + dir
+    if nextIdx > #entry.values then nextIdx = 1 end
+    if nextIdx < 1 then nextIdx = #entry.values end
+    local nextVal = entry.values[nextIdx]
+    self:setValue(id, nextVal)
+    return nextVal
+  else
+    local cur = self:isEnabled(id)
+    local nxt = not cur
+    self:setEnabled(id, nxt)
+    return nxt
+  end
+end
+
+--- Toggles a module's state (calls cycle forward).
+-- @param id string
+-- @return any The new state
 function ModuleManager:toggle(id)
-  local current = self:isEnabled(id)
-  local newState = not current
-  self:setEnabled(id, newState)
-  return newState
+  return self:cycle(id, 1)
+end
+
+--- Gets a formatted display badge for the Options menu row.
+-- @param id string
+-- @return string e.g. "[ON ]", "[OFF]", "[RELEARN]", "[REL+TMS]"
+function ModuleManager:getDisplayStatus(id)
+  local entry = self.modulesById[id]
+  if entry and entry.values then
+    local val = tostring(self:getValue(id)):upper()
+    if val == "OFF" then
+      return "[OFF]"
+    elseif val == "RELEARN" then
+      return "[RELEARN]"
+    elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
+      return "[REL+TMS]"
+    else
+      return "[" .. val:sub(1, 7) .. "]"
+    end
+  else
+    return self:isEnabled(id) and "[ON ]" or "[OFF]"
+  end
 end
 
 --- Returns a concise summary string for display in the Options menu row.
