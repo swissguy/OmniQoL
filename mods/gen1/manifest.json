@@ -1,7 +1,7 @@
 {
   "id": "omni_qol",
   "name": "OmniQoL",
-  "version": "0.1.1-alpha",
+  "version": "0.1.2-alpha",
   "entry": "init.lua",
   "api": 2,
   "games": [
@@ -10,5 +10,5 @@
     "yellow"
   ],
   "priority": 10,
-  "description": "All-in-one modular Quality of Life suite for Pokémon Red, Blue, and Yellow. Features Running Shoes (with Pikachu follower sync), modern Gen 6+ EXP Share, Trade Evolutions at Lv. 40, Catch All 151 Pokémon, Move Relearner in all Pokémon Centers (with pre-evolution move retention), and freely replaceable HM moves, all with native Options Menu integration."
+  "description": "All-in-one modular Quality of Life suite for Pokémon Red, Blue, and Yellow. Features Running Shoes (with Pikachu follower sync), modern Gen 6+ EXP Share, Trade Evolutions at Lv. 40, Catch All 151 Pokémon, Move Relearner in all Pokémon Centers (with pre-evolution & TM tutor support), and freely replaceable HM moves, all with native Options Menu integration."
 }
