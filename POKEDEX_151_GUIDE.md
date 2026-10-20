@@ -208,7 +208,7 @@ The following tables list every location in Kanto in chronological progression o
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
 | **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 3–5) | Native to Yellow; **OmniQoL** also enables early Mankey on Route 22 in Red & Blue. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
-| **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 4–5) | **OmniQoL**: Wild Bulbasaur added to grass. |
+| **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 4–5) | **OmniQoL**: Wild Bulbasaur added; Weedle, Caterpie, and both Nidorans cross-pollinated across all versions. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
 | **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
