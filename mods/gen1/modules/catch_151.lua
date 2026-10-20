@@ -17,6 +17,7 @@
 --    - Growlithe / Arcanine: Route 7, Route 8, Pokémon Mansion (Blue)
 --    - Vulpix / Ninetales: Route 7, Route 8, Pokémon Mansion (Red)
 --    - Koffing / Weezing: Pokémon Mansion, Route 16, Route 17 (Yellow)
+--    - Weedle / Caterpie / Nidoran: Route 2 (cross-pollinated across Red, Blue, and Yellow)
 --    - Weedle / Kakuna / Beedrill: Viridian Forest (Yellow)
 --    - Electabuzz: Power Plant (Blue & Yellow)
 --    - Magmar: Pokémon Mansion (Red & Yellow)
@@ -68,7 +69,11 @@ local WILD_ADDITIONS = {
     { species = "KAKUNA",    minLevel = 4, maxLevel = 6, rate = 0.10, type = "grass", game = "yellow" },
   },
   ROUTE_2 = {
-    { species = "BULBASAUR", minLevel = 4, maxLevel = 5, rate = 0.06, type = "grass" },
+    { species = "BULBASAUR", minLevel = 4, maxLevel = 5, rate = 0.10, type = "grass" },
+    { species = "WEEDLE",    minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "blue", "yellow" } },
+    { species = "CATERPIE",  minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "yellow" } },
+    { species = "NIDORAN_F", minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "blue" } },
+    { species = "NIDORAN_M", minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "blue" } },
   },
   ROUTE_3 = {
     { species = "CHARMANDER", minLevel = 8,  maxLevel = 10, rate = 0.08, type = "grass" },
@@ -418,17 +423,35 @@ local function getAddedWildEncounter(mapId, zoneType, game, mod)
 
   if #validPool == 0 then return nil end
 
-  -- Pick one randomly from pool
-  local choice = validPool[math.random(#validPool)]
+  -- Calculate cumulative weights and select species based on relative weights
+  local totalWeight = 0
+  for _, entry in ipairs(validPool) do
+    totalWeight = totalWeight + (entry.rate or 0.10)
+  end
+
+  local roll = math.random() * totalWeight
+  local accum = 0
+  local choice = validPool[1]
+  for _, entry in ipairs(validPool) do
+    accum = accum + (entry.rate or 0.10)
+    if roll <= accum then
+      choice = entry
+      break
+    end
+  end
+
   local level = choice.minLevel
   if choice.maxLevel and choice.maxLevel > choice.minLevel then
     level = math.random(choice.minLevel, choice.maxLevel)
   end
 
+  -- Total rate capped at 0.50 so vanilla Pokémon retain at least 50% appearance rate
+  local effectiveRate = math.min(totalWeight, 0.50)
+
   return {
     species = choice.species,
     level = level,
-    rate = choice.rate or 0.10,
+    rate = effectiveRate,
   }
 end
 
