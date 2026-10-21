@@ -204,11 +204,11 @@ The following tables list every location in Kanto in chronological progression o
 |---|---|---|---|
 | **Pallet Town** | Gift (Oak's Lab) | Bulbasaur (Lv 5), Charmander (Lv 5), Squirtle (Lv 5) *(Red/Blue)*; Pikachu (Lv 5) *(Yellow)* | In Red/Blue, choose 1 starter; all 3 starters are also wild in OmniQoL. |
 | | Surfing / Rods | Tentacool, Tentacruel, Magikarp, Poliwag, Goldeen | Accessible once Surf / Super Rod are obtained. |
-| **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. |
+| ✅ **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. Encounters verified and kept vanilla. |
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
 | **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 3–5) | Native to Yellow; **OmniQoL** also enables early Mankey on Route 22 in Red & Blue. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
-| **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; all 7 species balanced with equal uniform appearance rates (~14.3% each) across Red, Blue, and Yellow. |
+| ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; all 7 species balanced with equal uniform appearance rates (~14.3% each) across Red, Blue, and Yellow. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
 | **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
