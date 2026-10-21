@@ -17,7 +17,7 @@
 --    - Growlithe / Arcanine: Route 7, Route 8, Pokémon Mansion (Blue)
 --    - Vulpix / Ninetales: Route 7, Route 8, Pokémon Mansion (Red)
 --    - Koffing / Weezing: Pokémon Mansion, Route 16, Route 17 (Yellow)
---    - Weedle / Caterpie / Nidoran: Route 2 (cross-pollinated across Red, Blue, and Yellow)
+--    - Weedle / Caterpie: Route 2 (cross-pollinated across Red, Blue, and Yellow)
 --    - Weedle / Kakuna / Beedrill: Viridian Forest (Yellow)
 --    - Electabuzz: Power Plant (Blue & Yellow)
 --    - Magmar: Pokémon Mansion (Red & Yellow)
@@ -63,14 +63,12 @@ local Catch151Module = {}
 -- ----------------------------------------------------------------------------
 local ROUTE_ROSTERS = {
   ROUTE_2 = {
-    mode = "uniform", -- Every active species appears with equal probability (1/7 chance each)
+    mode = "uniform", -- Every active species appears with equal probability (1/5 chance = 20% each)
     grass = {
       { species = "PIDGEY",    minLevel = 3, maxLevel = 5 },
       { species = "RATTATA",   minLevel = 2, maxLevel = 5 },
       { species = "WEEDLE",    minLevel = 3, maxLevel = 5 },
       { species = "CATERPIE",  minLevel = 3, maxLevel = 5 },
-      { species = "NIDORAN_F", minLevel = 3, maxLevel = 5 },
-      { species = "NIDORAN_M", minLevel = 3, maxLevel = 5 },
       { species = "BULBASAUR", minLevel = 4, maxLevel = 5 },
     },
   },

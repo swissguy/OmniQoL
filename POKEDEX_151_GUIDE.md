@@ -59,10 +59,10 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
 | **#027** | **Sandshrew** | Ground | **Wild**: Routes 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23)*. |
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
-| **#029** | **Nidoran♀** | Poison | **Wild**: Routes 2, 22, 9, Safari Zone. |
+| **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
 | **#031** | **Nidoqueen** | Poison / Ground | Evolve Nidorina with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
-| **#032** | **Nidoran♂** | Poison | **Wild**: Routes 2, 22, 9, Safari Zone. |
+| **#032** | **Nidoran♂** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#033** | **Nidorino** | Poison | Evolve Nidoran♂ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
 | **#034** | **Nidoking** | Poison / Ground | Evolve Nidorino with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#035** | **Clefairy** | Normal | **Wild**: Mt. Moon; Prize at Celadon Game Corner. |
@@ -208,7 +208,7 @@ The following tables list every location in Kanto in chronological progression o
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
 | ✅ **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 2–5) | **OmniQoL**: Early Mankey enabled in Red & Blue; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
-| ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; all 7 species balanced with equal uniform appearance rates (~14.3% each) across Red, Blue, and Yellow. |
+| ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; Weedle & Caterpie cross-pollinated; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
 | **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
