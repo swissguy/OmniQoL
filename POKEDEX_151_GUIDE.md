@@ -34,7 +34,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#001** | **Bulbasaur** | Grass / Poison | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Cerulean City *(Yellow)*.<br>**Wild**: Viridian Forest (Lv 4–6), Route 2 (Lv 4–5). |
 | **#002** | **Ivysaur** | Grass / Poison | Evolve Bulbasaur at **Level 16**. |
 | **#003** | **Venusaur** | Grass / Poison | Evolve Ivysaur at **Level 32**. |
-| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Rock Tunnel 1F (Lv 14–16). |
+| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Route 4 (Lv 8–12), Rock Tunnel 1F (Lv 14–16). |
 | **#005** | **Charmeleon** | Fire | Evolve Charmander at **Level 16**. |
 | **#006** | **Charizard** | Fire / Flying | Evolve Charmeleon at **Level 36**. |
 | **#007** | **Squirtle** | Water | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Vermilion City *(Yellow)*.<br>**Wild**: Route 24 (Lv 8–10), Route 25 (Lv 10–12). |
@@ -43,21 +43,21 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#010** | **Caterpie** | Bug | **Wild**: Viridian Forest, Route 2. |
 | **#011** | **Metapod** | Bug | Evolve Caterpie at **Level 7** OR **Wild**: Viridian Forest, Route 25. |
 | **#012** | **Butterfree** | Bug / Flying | Evolve Metapod at **Level 10**. |
-| **#013** | **Weedle** | Bug / Poison | **Wild**: Viridian Forest, Route 2 *(Red/Blue; added to Yellow in Viridian Forest)*. |
+| **#013** | **Weedle** | Bug / Poison | **Wild**: Viridian Forest, Route 2. |
 | **#014** | **Kakuna** | Bug / Poison | Evolve Weedle at **Level 7** OR **Wild**: Viridian Forest *(Red/Blue; added to Yellow in Viridian Forest)*. |
 | **#015** | **Beedrill** | Bug / Poison | Evolve Kakuna at **Level 10**. |
 | **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 5, 6, 7, 8, 12, 21, 24, 25, Viridian Forest. |
-| **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest *(Yellow)*. |
+| **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest. |
 | **#018** | **Pidgeot** | Normal / Flying | Evolve Pidgeotto at **Level 36**. |
 | **#019** | **Rattata** | Normal | **Wild**: Routes 1, 2, 4, 9, 16, 21, 22. |
 | **#020** | **Raticate** | Normal | Evolve Rattata at **Level 20** OR **Wild**: Routes 16, 17, 18, 21. |
 | **#021** | **Spearow** | Normal / Flying | **Wild**: Routes 3, 4, 9, 10, 11, 16, 17, 18, 22, 23. |
 | **#022** | **Fearow** | Normal / Flying | Evolve Spearow at **Level 20** OR **Wild**: Routes 17, 18, 23. |
-| **#023** | **Ekans** | Poison | **Wild**: Routes 4, 11, 23 *(Red; added to Blue & Yellow on Routes 4, 11, 23)*. |
+| **#023** | **Ekans** | Poison | **Wild**: Route 4 (Lv 8–12), Routes 11, 23 *(Red; added to Blue & Yellow on Routes 4, 11, 23)*. |
 | **#024** | **Arbok** | Poison | Evolve Ekans at **Level 22** OR **Wild**: Route 23 *(Red; added to Blue & Yellow on Route 23)*. |
 | **#025** | **Pikachu** | Electric | **Starter**: Yellow.<br>**Wild**: Viridian Forest, Power Plant *(Red/Blue/Yellow)*. |
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
-| **#027** | **Sandshrew** | Ground | **Wild**: Routes 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23)*. |
+| **#027** | **Sandshrew** | Ground | **Wild**: Routes 3, 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23; wild on Route 3 in all versions)*. |
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
 | **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
@@ -204,19 +204,19 @@ The following tables list every location in Kanto in chronological progression o
 |---|---|---|---|
 | **Pallet Town** | Gift (Oak's Lab) | Bulbasaur (Lv 5), Charmander (Lv 5), Squirtle (Lv 5) *(Red/Blue)*; Pikachu (Lv 5) *(Yellow)* | In Red/Blue, choose 1 starter; all 3 starters are also wild in OmniQoL. |
 | | Surfing / Rods | Tentacool, Tentacruel, Magikarp, Poliwag, Goldeen | Accessible once Surf / Super Rod are obtained. |
-| **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. |
+| ✅ **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. Encounters verified and kept vanilla. |
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
-| **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 3–5) | Native to Yellow; **OmniQoL** also enables early Mankey on Route 22 in Red & Blue. |
+| ✅ **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 2–5) | **OmniQoL**: Early Mankey enabled in Red & Blue; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
-| **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 4–5) | **OmniQoL**: Wild Bulbasaur added; Weedle, Caterpie, and both Nidorans cross-pollinated across all versions. |
+| ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; Weedle & Caterpie cross-pollinated; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
-| **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
+| ✅ **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pikachu, **Bulbasaur** (Lv 3–6), **Pidgeotto** (Lv 9) | **OmniQoL**: All 8 species enabled across Red, Blue, and Yellow; 7 base species balanced at ~13.3% each with Pidgeotto at ~6.7% (half rate). |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
-| **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Mankey restored in Blue. |
-| **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy | Moon Stones found on 1F and B2F. |
+| ✅ **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, Sandshrew (Lv 6–10), **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Sandshrew & Mankey enabled across all versions; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
+| ✅ **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy (Lv 7–12) | **OmniQoL**: All 4 cave species balanced with equal uniform appearance rates (25% each) across Red, Blue, and Yellow, with floor progression (1F: Lv 7–10, B1F: Lv 8–11, B2F: Lv 9–12). |
 | | Choice Event | **Helix Fossil** (Omanyte) OR **Dome Fossil** (Kabuto) | Choose 1 from Super Nerd; **OmniQoL** also adds wild Omanyte/Kabuto to Seafoam. |
-| **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
-| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Ekans/Sandshrew cross-version restored. |
+| ✅ **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
+| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–12) | **OmniQoL**: Wild Charmander added; Ekans, Sandshrew, and Mankey cross-version enabled; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 
 ---
 
