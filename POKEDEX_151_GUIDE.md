@@ -34,7 +34,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#001** | **Bulbasaur** | Grass / Poison | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Cerulean City *(Yellow)*.<br>**Wild**: Viridian Forest (Lv 4–6), Route 2 (Lv 4–5). |
 | **#002** | **Ivysaur** | Grass / Poison | Evolve Bulbasaur at **Level 16**. |
 | **#003** | **Venusaur** | Grass / Poison | Evolve Ivysaur at **Level 32**. |
-| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Rock Tunnel 1F (Lv 14–16). |
+| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Route 4 (Lv 8–12), Rock Tunnel 1F (Lv 14–16). |
 | **#005** | **Charmeleon** | Fire | Evolve Charmander at **Level 16**. |
 | **#006** | **Charizard** | Fire / Flying | Evolve Charmeleon at **Level 36**. |
 | **#007** | **Squirtle** | Water | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Vermilion City *(Yellow)*.<br>**Wild**: Route 24 (Lv 8–10), Route 25 (Lv 10–12). |
@@ -53,7 +53,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#020** | **Raticate** | Normal | Evolve Rattata at **Level 20** OR **Wild**: Routes 16, 17, 18, 21. |
 | **#021** | **Spearow** | Normal / Flying | **Wild**: Routes 3, 4, 9, 10, 11, 16, 17, 18, 22, 23. |
 | **#022** | **Fearow** | Normal / Flying | Evolve Spearow at **Level 20** OR **Wild**: Routes 17, 18, 23. |
-| **#023** | **Ekans** | Poison | **Wild**: Routes 4, 11, 23 *(Red; added to Blue & Yellow on Routes 4, 11, 23)*. |
+| **#023** | **Ekans** | Poison | **Wild**: Route 4 (Lv 8–12), Routes 11, 23 *(Red; added to Blue & Yellow on Routes 4, 11, 23)*. |
 | **#024** | **Arbok** | Poison | Evolve Ekans at **Level 22** OR **Wild**: Route 23 *(Red; added to Blue & Yellow on Route 23)*. |
 | **#025** | **Pikachu** | Electric | **Starter**: Yellow.<br>**Wild**: Viridian Forest, Power Plant *(Red/Blue/Yellow)*. |
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
@@ -215,8 +215,8 @@ The following tables list every location in Kanto in chronological progression o
 | ✅ **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, Sandshrew (Lv 6–10), **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Sandshrew & Mankey enabled across all versions; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 | ✅ **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy (Lv 7–12) | **OmniQoL**: All 4 cave species balanced with equal uniform appearance rates (25% each) across Red, Blue, and Yellow, with floor progression (1F: Lv 7–10, B1F: Lv 8–11, B2F: Lv 9–12). |
 | | Choice Event | **Helix Fossil** (Omanyte) OR **Dome Fossil** (Kabuto) | Choose 1 from Super Nerd; **OmniQoL** also adds wild Omanyte/Kabuto to Seafoam. |
-| **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
-| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Ekans/Sandshrew cross-version restored. |
+| ✅ **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
+| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–12) | **OmniQoL**: Wild Charmander added; Ekans, Sandshrew, and Mankey cross-version enabled; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 
 ---
 

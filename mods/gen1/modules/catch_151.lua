@@ -133,6 +133,17 @@ local ROUTE_ROSTERS = {
       { species = "CLEFAIRY", minLevel = 9, maxLevel = 12 },
     },
   },
+  ROUTE_4 = {
+    mode = "uniform", -- 6 species with equal probability (~16.67% each)
+    grass = {
+      { species = "RATTATA",    minLevel = 8, maxLevel = 12 },
+      { species = "SPEAROW",    minLevel = 8, maxLevel = 12 },
+      { species = "EKANS",      minLevel = 8, maxLevel = 12 },
+      { species = "SANDSHREW",  minLevel = 8, maxLevel = 12 },
+      { species = "MANKEY",     minLevel = 8, maxLevel = 12 },
+      { species = "CHARMANDER", minLevel = 8, maxLevel = 12 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -140,11 +151,6 @@ local ROUTE_ROSTERS = {
 -- ----------------------------------------------------------------------------
 local WILD_ADDITIONS = {
   -- --- Starters ---
-  ROUTE_4 = {
-    { species = "CHARMANDER", minLevel = 8,  maxLevel = 10, rate = 0.06, type = "grass" },
-    { species = "EKANS",      minLevel = 8,  maxLevel = 10, rate = 0.15, type = "grass", game = { "blue", "yellow" } },
-    { species = "SANDSHREW",  minLevel = 8,  maxLevel = 10, rate = 0.15, type = "grass", game = "red" },
-  },
   ROCK_TUNNEL_1F = {
     { species = "CHARMANDER", minLevel = 14, maxLevel = 16, rate = 0.06, type = "grass" },
     { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.08, type = "grass" },
