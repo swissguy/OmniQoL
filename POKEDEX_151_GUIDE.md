@@ -206,7 +206,7 @@ The following tables list every location in Kanto in chronological progression o
 | | Surfing / Rods | Tentacool, Tentacruel, Magikarp, Poliwag, Goldeen | Accessible once Surf / Super Rod are obtained. |
 | ✅ **Route 1** | Wild Grass | Pidgey (Lv 2–5), Rattata (Lv 2–4) | Starting route. Encounters verified and kept vanilla. |
 | **Viridian City** | Surfing / Rods | Poliwag, Goldeen, Magikarp | Fishing / water encounters. |
-| **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 3–5) | Native to Yellow; **OmniQoL** also enables early Mankey on Route 22 in Red & Blue. |
+| ✅ **Route 22** | Wild Grass | Rattata, Spearow, Nidoran♀, Nidoran♂, **Mankey** (Lv 2–5) | **OmniQoL**: Early Mankey enabled in Red & Blue; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
 | ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, Nidoran♀, Nidoran♂, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; all 7 species balanced with equal uniform appearance rates (~14.3% each) across Red, Blue, and Yellow. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
