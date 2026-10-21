@@ -47,7 +47,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#014** | **Kakuna** | Bug / Poison | Evolve Weedle at **Level 7** OR **Wild**: Viridian Forest *(Red/Blue; added to Yellow in Viridian Forest)*. |
 | **#015** | **Beedrill** | Bug / Poison | Evolve Kakuna at **Level 10**. |
 | **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 5, 6, 7, 8, 12, 21, 24, 25, Viridian Forest. |
-| **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest *(Yellow)*. |
+| **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest. |
 | **#018** | **Pidgeot** | Normal / Flying | Evolve Pidgeotto at **Level 36**. |
 | **#019** | **Rattata** | Normal | **Wild**: Routes 1, 2, 4, 9, 16, 21, 22. |
 | **#020** | **Raticate** | Normal | Evolve Rattata at **Level 20** OR **Wild**: Routes 16, 17, 18, 21. |
@@ -210,7 +210,7 @@ The following tables list every location in Kanto in chronological progression o
 | | Surfing / Rods | Poliwag, Goldeen, Magikarp, **Dratini** (Lv 15–20) | **OmniQoL**: Dratini accessible outside Safari Zone via Super Rod. |
 | ✅ **Route 2** | Wild Grass | Pidgey, Rattata, Weedle, Caterpie, **Bulbasaur** (Lv 2–5) | **OmniQoL**: Wild Bulbasaur added; Weedle & Caterpie cross-pollinated; all 5 species balanced with equal uniform appearance rates (20% each) across Red, Blue, and Yellow. |
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
-| **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Pikachu, **Bulbasaur** (Lv 4–6) | **OmniQoL**: Wild Bulbasaur added; Weedle & Kakuna restored in Yellow. |
+| ✅ **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pikachu, **Bulbasaur** (Lv 3–6), **Pidgeotto** (Lv 9) | **OmniQoL**: All 8 species enabled across Red, Blue, and Yellow; 7 base species balanced at ~13.3% each with Pidgeotto at ~6.7% (half rate). |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
 | **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Mankey restored in Blue. |
 | **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy | Moon Stones found on 1F and B2F. |

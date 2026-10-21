@@ -82,6 +82,19 @@ local ROUTE_ROSTERS = {
       { species = "MANKEY",    minLevel = 3, maxLevel = 5 },
     },
   },
+  VIRIDIAN_FOREST = {
+    mode = "weighted", -- 7 species with weight 2 (~13.33% each); Pidgeotto with weight 1 (~6.67%, half rate)
+    grass = {
+      { species = "CATERPIE",  minLevel = 3, maxLevel = 5, weight = 2 },
+      { species = "METAPOD",   minLevel = 4, maxLevel = 6, weight = 2 },
+      { species = "WEEDLE",    minLevel = 3, maxLevel = 5, weight = 2 },
+      { species = "KAKUNA",    minLevel = 4, maxLevel = 6, weight = 2 },
+      { species = "PIDGEY",    minLevel = 3, maxLevel = 5, weight = 2 },
+      { species = "PIKACHU",   minLevel = 3, maxLevel = 5, weight = 2 },
+      { species = "BULBASAUR", minLevel = 4, maxLevel = 6, weight = 2 },
+      { species = "PIDGEOTTO", minLevel = 9, maxLevel = 9, weight = 1 },
+    },
+  },
 }
 
 -- Wild Encounter Tables by Map Identifier / Alias
@@ -696,10 +709,35 @@ function Catch151Module.init(mod, moduleManager)
 
         if #valid > 0 then
           local newDist = {}
-          local weight = math.floor(256 / #valid)
-          local remainder = 256 - (weight * #valid)
-          for i, sp in ipairs(valid) do
-            newDist[sp] = weight + (i == 1 and remainder or 0)
+          local validEntries = {}
+          local totalWeight = 0
+          for _, entry in ipairs(roster[terrain]) do
+            local match = true
+            if entry.game then
+              if type(entry.game) == "table" then
+                match = false
+                for _, g in ipairs(entry.game) do
+                  if g:lower() == curGame then match = true break end
+                end
+              else
+                match = (entry.game:lower() == curGame)
+              end
+            end
+            if match then
+              table.insert(validEntries, entry)
+              totalWeight = totalWeight + (entry.weight or entry.rate or 1)
+            end
+          end
+
+          local accumulated = 0
+          for _, entry in ipairs(validEntries) do
+            local w = math.floor(256 * (entry.weight or entry.rate or 1) / totalWeight)
+            accumulated = accumulated + w
+            newDist[entry.species] = (newDist[entry.species] or 0) + w
+          end
+          if accumulated < 256 and #validEntries > 0 then
+            local firstSp = validEntries[1].species
+            newDist[firstSp] = (newDist[firstSp] or 0) + (256 - accumulated)
           end
           return newDist
         end
