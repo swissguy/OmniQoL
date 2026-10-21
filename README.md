@@ -152,9 +152,15 @@ OmniQoL/
 │   ├── gen3_ruby_sapphire/
 │   └── gen3_emerald/
 ├── scripts/
-│   ├── build_release.py        # Automated release packaging script
+│   ├── build_release.py        # Automated release packaging script (with pre-build test gate)
 │   ├── generate_relearner_data.py # Data compiler for 151 learnsets
-│   └── test_relearner.py       # Unit tests for Move Relearner & HM rules
+│   └── run_tests.py            # Unified test suite CLI runner
+├── tests/                      # Automated test suite (Python unittest)
+│   ├── test_manifest.py        # Metadata & config validation
+│   ├── test_encounters.py      # Encounter table & version parity verification
+│   ├── test_trade_evos.py      # Trade evolution rules & level gating
+│   ├── test_relearner.py       # Move relearner, learnsets, TM & HM rules
+│   └── test_hms_and_core.py    # HM deletion, Running shoes & module lifecycle
 ├── POKEDEX_151_GUIDE.md        # Comprehensive 151 Pokémon & Area-by-Area guide
 └── README.md
 ```
