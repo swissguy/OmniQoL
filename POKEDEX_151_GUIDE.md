@@ -57,7 +57,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#024** | **Arbok** | Poison | Evolve Ekans at **Level 22** OR **Wild**: Route 23 *(Red; added to Blue & Yellow on Route 23)*. |
 | **#025** | **Pikachu** | Electric | **Starter**: Yellow.<br>**Wild**: Viridian Forest, Power Plant *(Red/Blue/Yellow)*. |
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
-| **#027** | **Sandshrew** | Ground | **Wild**: Routes 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23)*. |
+| **#027** | **Sandshrew** | Ground | **Wild**: Routes 3, 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23; wild on Route 3 in all versions)*. |
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
 | **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
 | **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
@@ -212,7 +212,7 @@ The following tables list every location in Kanto in chronological progression o
 | | NPC Trade | **Mr. Mime** (Marcel) | In the route gatehouse; trade an Abra. |
 | ✅ **Viridian Forest** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pikachu, **Bulbasaur** (Lv 3–6), **Pidgeotto** (Lv 9) | **OmniQoL**: All 8 species enabled across Red, Blue, and Yellow; 7 base species balanced at ~13.3% each with Pidgeotto at ~6.7% (half rate). |
 | **Pewter City** | Museum Gift | **Old Amber** (revives into Aerodactyl) | Take the Cut entrance on the right into the secret back laboratory. |
-| **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Mankey restored in Blue. |
+| ✅ **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, Sandshrew (Lv 6–10), **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Sandshrew & Mankey enabled across all versions; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 | **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy | Moon Stones found on 1F and B2F. |
 | | Choice Event | **Helix Fossil** (Omanyte) OR **Dome Fossil** (Kabuto) | Choose 1 from Super Nerd; **OmniQoL** also adds wild Omanyte/Kabuto to Seafoam. |
 | **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |

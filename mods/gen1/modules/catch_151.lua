@@ -95,28 +95,24 @@ local ROUTE_ROSTERS = {
       { species = "PIDGEOTTO", minLevel = 9, maxLevel = 9, weight = 1 },
     },
   },
+  ROUTE_3 = {
+    mode = "uniform", -- 6 species with equal probability (~16.67% each)
+    grass = {
+      { species = "PIDGEY",     minLevel = 6, maxLevel = 10 },
+      { species = "SPEAROW",    minLevel = 6, maxLevel = 10 },
+      { species = "JIGGLYPUFF", minLevel = 6, maxLevel = 10 },
+      { species = "MANKEY",     minLevel = 6, maxLevel = 10 },
+      { species = "SANDSHREW",  minLevel = 6, maxLevel = 10 },
+      { species = "CHARMANDER", minLevel = 8, maxLevel = 10 },
+    },
+  },
 }
 
--- Wild Encounter Tables by Map Identifier / Alias
+-- ----------------------------------------------------------------------------
+-- Wild Encounter Tables by Map Identifier / Alias (Additions)
 -- ----------------------------------------------------------------------------
 local WILD_ADDITIONS = {
   -- --- Starters ---
-  VIRIDIAN_FOREST = {
-    { species = "BULBASAUR", minLevel = 4, maxLevel = 6, rate = 0.08, type = "grass" },
-    { species = "WEEDLE",    minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = "yellow" },
-    { species = "KAKUNA",    minLevel = 4, maxLevel = 6, rate = 0.10, type = "grass", game = "yellow" },
-  },
-  ROUTE_2 = {
-    { species = "BULBASAUR", minLevel = 4, maxLevel = 5, rate = 0.10, type = "grass" },
-    { species = "WEEDLE",    minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "blue", "yellow" } },
-    { species = "CATERPIE",  minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "yellow" } },
-    { species = "NIDORAN_F", minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "blue" } },
-    { species = "NIDORAN_M", minLevel = 3, maxLevel = 5, rate = 0.15, type = "grass", game = { "red", "blue" } },
-  },
-  ROUTE_3 = {
-    { species = "CHARMANDER", minLevel = 8,  maxLevel = 10, rate = 0.08, type = "grass" },
-    { species = "MANKEY",     minLevel = 8,  maxLevel = 10, rate = 0.15, type = "grass", game = "blue" },
-  },
   ROUTE_4 = {
     { species = "CHARMANDER", minLevel = 8,  maxLevel = 10, rate = 0.06, type = "grass" },
     { species = "EKANS",      minLevel = 8,  maxLevel = 10, rate = 0.15, type = "grass", game = { "blue", "yellow" } },
