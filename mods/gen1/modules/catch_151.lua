@@ -59,6 +59,23 @@
 local Catch151Module = {}
 
 -- ----------------------------------------------------------------------------
+-- Custom Route Rosters (Explicit Route Spawns & Balanced / Uniform Mode)
+-- ----------------------------------------------------------------------------
+local ROUTE_ROSTERS = {
+  ROUTE_2 = {
+    mode = "uniform", -- Every active species appears with equal probability (1/7 chance each)
+    grass = {
+      { species = "PIDGEY",    minLevel = 3, maxLevel = 5 },
+      { species = "RATTATA",   minLevel = 2, maxLevel = 5 },
+      { species = "WEEDLE",    minLevel = 3, maxLevel = 5 },
+      { species = "CATERPIE",  minLevel = 3, maxLevel = 5 },
+      { species = "NIDORAN_F", minLevel = 3, maxLevel = 5 },
+      { species = "NIDORAN_M", minLevel = 3, maxLevel = 5 },
+      { species = "BULBASAUR", minLevel = 4, maxLevel = 5 },
+    },
+  },
+}
+
 -- Wild Encounter Tables by Map Identifier / Alias
 -- ----------------------------------------------------------------------------
 local WILD_ADDITIONS = {
@@ -289,6 +306,11 @@ local STATIONARY_ENCOUNTERS = {
 
 --- Detects current game version ('red', 'blue', or 'yellow')
 local function detectGameVersion(game, mod)
+  local okGV, GV = pcall(require, "src.core.GameVersion")
+  if okGV and GV and type(GV.get) == "function" then
+    local v = GV.get()
+    if v and type(v) == "string" then return v:lower() end
+  end
   if mod and mod.game and type(mod.game) == "string" then
     return mod.game:lower()
   end
@@ -459,6 +481,83 @@ end
 -- Module Lifecycle Registration
 -- ----------------------------------------------------------------------------
 
+
+--- Gets encounter from custom route roster if defined
+local function getRouteRosterEncounter(mapId, terrain, game, mod)
+  if not mapId then return nil end
+  local norm = normalizeMapKey(mapId)
+  local roster = ROUTE_ROSTERS[norm]
+  if not roster then
+    for k, v in pairs(ROUTE_ROSTERS) do
+      if norm:find(k, 1, true) or k:find(norm, 1, true) then
+        roster = v
+        break
+      end
+    end
+  end
+
+  if not roster then return nil end
+
+  local list = roster[terrain or "grass"]
+  if not list or #list == 0 then return nil end
+
+  local curGame = detectGameVersion(game, mod)
+  local validPool = {}
+
+  for _, entry in ipairs(list) do
+    local gameMatch = true
+    if entry.game then
+      if type(entry.game) == "table" then
+        gameMatch = false
+        for _, g in ipairs(entry.game) do
+          if g:lower() == curGame then gameMatch = true break end
+        end
+      else
+        gameMatch = (entry.game:lower() == curGame)
+      end
+    end
+
+    if gameMatch then
+      table.insert(validPool, entry)
+    end
+  end
+
+  if #validPool == 0 then return nil end
+
+  local choice
+  if roster.mode == "uniform" then
+    -- Equal probability across all valid species on this route
+    choice = validPool[math.random(#validPool)]
+  else
+    -- Weighted by entry.weight or entry.rate
+    local totalWeight = 0
+    for _, e in ipairs(validPool) do
+      totalWeight = totalWeight + (e.weight or e.rate or 1)
+    end
+    local roll = math.random() * totalWeight
+    local accum = 0
+    choice = validPool[1]
+    for _, e in ipairs(validPool) do
+      accum = accum + (e.weight or e.rate or 1)
+      if roll <= accum then
+        choice = e
+        break
+      end
+    end
+  end
+
+  local level = choice.minLevel
+  if choice.maxLevel and choice.maxLevel > choice.minLevel then
+    level = math.random(choice.minLevel, choice.maxLevel)
+  end
+
+  return {
+    species = choice.species,
+    level = level,
+    isRosterOverride = true,
+  }
+end
+
 function Catch151Module.register(moduleManager)
   moduleManager:register({
     id = "catch_151",
@@ -472,8 +571,137 @@ function Catch151Module.register(moduleManager)
 end
 
 function Catch151Module.init(mod, moduleManager)
-  -- 1. Hook wild encounters to inject starters, version exclusives & safari mons
+  -- Synchronize in-memory Data.encounters tables for maps with custom route rosters
+  local function patchMemoryEncounterTables()
+    local okData, Data = pcall(require, "src.core.Data")
+    if not (okData and Data and Data.encounters) then return end
+
+    local curGame = detectGameVersion(nil, mod)
+
+    for mapName, roster in pairs(ROUTE_ROSTERS) do
+      local encMap = Data.encounters[mapName]
+      if encMap and encMap.grass and roster.grass then
+        local valid = {}
+        for _, entry in ipairs(roster.grass) do
+          local match = true
+          if entry.game then
+            if type(entry.game) == "table" then
+              match = false
+              for _, g in ipairs(entry.game) do
+                if g:lower() == curGame then match = true break end
+              end
+            else
+              match = (entry.game:lower() == curGame)
+            end
+          end
+          if match then table.insert(valid, entry) end
+        end
+
+        if #valid > 0 and encMap.grass.slots then
+          for i = 1, #encMap.grass.slots do
+            local pick = valid[((i - 1) % #valid) + 1]
+            encMap.grass.slots[i] = {
+              species = pick.species,
+              level = encMap.grass.slots[i].level or pick.minLevel or 4,
+            }
+          end
+        end
+      end
+    end
+  end
+  patchMemoryEncounterTables()
+
+  -- 1. Hook wild encounters to inject custom route rosters, starters & version exclusives
   if mod.hooks and type(mod.hooks.wrap) == "function" then
+    -- Gen1Recomp official encounter transform hook: encounter.species
+    mod.hooks:wrap("encounter.species", function(next, enc, ctx)
+      local result = next and next(enc, ctx) or enc
+      if not moduleManager:isEnabled("catch_151") then
+        return result
+      end
+
+      local mapId = ctx and ctx.mapId
+      local terrain = ctx and ctx.terrain or "grass"
+
+      -- 1a. Check if map has a custom route roster (e.g. Route 2 uniform roster)
+      local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+      if rosterMon then
+        return { species = rosterMon.species, level = rosterMon.level }
+      end
+
+      -- 1b. Check additions table
+      local added = getAddedWildEncounter(mapId, terrain, nil, mod)
+      if added and math.random() < added.rate then
+        return { species = added.species, level = added.level }
+      end
+
+      return result
+    end)
+
+    -- Gen1Recomp official encounter roll hook: encounter.roll
+    mod.hooks:wrap("encounter.roll", function(next, encDef, ctx)
+      local enc = next and next(encDef, ctx)
+      if not moduleManager:isEnabled("catch_151") then
+        return enc
+      end
+
+      local mapId = ctx and ctx.mapId
+      local terrain = ctx and ctx.terrain or "grass"
+      if enc then
+        local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+        if rosterMon then
+          enc.species = rosterMon.species
+          enc.level = rosterMon.level
+        end
+      end
+
+      return enc
+    end)
+
+    -- Gen1Recomp official encounter table distribution hook: encounter.table
+    mod.hooks:wrap("encounter.table", function(next, dist, ctx)
+      local res = next and next(dist, ctx) or dist
+      if not moduleManager:isEnabled("catch_151") then
+        return res
+      end
+
+      local mapId = ctx and ctx.mapId
+      local terrain = ctx and ctx.terrain or "grass"
+      local norm = normalizeMapKey(mapId)
+      local roster = ROUTE_ROSTERS[norm]
+      if roster and roster[terrain] then
+        local curGame = detectGameVersion(nil, mod)
+        local valid = {}
+        for _, entry in ipairs(roster[terrain]) do
+          local match = true
+          if entry.game then
+            if type(entry.game) == "table" then
+              match = false
+              for _, g in ipairs(entry.game) do
+                if g:lower() == curGame then match = true break end
+              end
+            else
+              match = (entry.game:lower() == curGame)
+            end
+          end
+          if match then table.insert(valid, entry.species) end
+        end
+
+        if #valid > 0 then
+          local newDist = {}
+          local weight = math.floor(256 / #valid)
+          local remainder = 256 - (weight * #valid)
+          for i, sp in ipairs(valid) do
+            newDist[sp] = weight + (i == 1 and remainder or 0)
+          end
+          return newDist
+        end
+      end
+
+      return res
+    end)
+
+    -- Legacy fallback hooks
     -- Hook wild.encounter (Standard recomp generation hook)
     mod.hooks:wrap("wild.encounter", function(next, mapId, zone, game)
       if not moduleManager:isEnabled("catch_151") then
@@ -540,6 +768,7 @@ function Catch151Module.init(mod, moduleManager)
   -- 2. Hook map entry / room transition for Immediate Legendary & Snorlax Respawns
   local function handleMapEntered(game, map)
     if not moduleManager:isEnabled("catch_151") then return end
+    patchMemoryEncounterTables()
     if not game then return end
 
     local curMap = map or (game.map and (game.map.id or game.map.name))
