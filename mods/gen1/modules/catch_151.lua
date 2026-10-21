@@ -106,6 +106,33 @@ local ROUTE_ROSTERS = {
       { species = "CHARMANDER", minLevel = 8, maxLevel = 10 },
     },
   },
+  MT_MOON_1F = {
+    mode = "uniform", -- 25% each (Zubat, Geodude, Paras, Clefairy)
+    grass = {
+      { species = "ZUBAT",    minLevel = 7, maxLevel = 10 },
+      { species = "GEODUDE",  minLevel = 7, maxLevel = 10 },
+      { species = "PARAS",    minLevel = 7, maxLevel = 10 },
+      { species = "CLEFAIRY", minLevel = 7, maxLevel = 10 },
+    },
+  },
+  MT_MOON_B1F = {
+    mode = "uniform", -- 25% each (Zubat, Geodude, Paras, Clefairy)
+    grass = {
+      { species = "ZUBAT",    minLevel = 8, maxLevel = 11 },
+      { species = "GEODUDE",  minLevel = 8, maxLevel = 11 },
+      { species = "PARAS",    minLevel = 8, maxLevel = 11 },
+      { species = "CLEFAIRY", minLevel = 8, maxLevel = 11 },
+    },
+  },
+  MT_MOON_B2F = {
+    mode = "uniform", -- 25% each (Zubat, Geodude, Paras, Clefairy)
+    grass = {
+      { species = "ZUBAT",    minLevel = 9, maxLevel = 12 },
+      { species = "GEODUDE",  minLevel = 9, maxLevel = 12 },
+      { species = "PARAS",    minLevel = 9, maxLevel = 12 },
+      { species = "CLEFAIRY", minLevel = 9, maxLevel = 12 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -514,7 +541,8 @@ local function getRouteRosterEncounter(mapId, terrain, game, mod)
 
   if not roster then return nil end
 
-  local list = roster[terrain or "grass"]
+  local tKey = (terrain == "indoor" or not terrain) and "grass" or terrain
+  local list = roster[tKey] or roster["grass"]
   if not list or #list == 0 then return nil end
 
   local curGame = detectGameVersion(game, mod)
@@ -683,12 +711,14 @@ function Catch151Module.init(mod, moduleManager)
 
       local mapId = ctx and ctx.mapId
       local terrain = ctx and ctx.terrain or "grass"
+      local tKey = (terrain == "indoor" or not terrain) and "grass" or terrain
       local norm = normalizeMapKey(mapId)
       local roster = ROUTE_ROSTERS[norm]
-      if roster and roster[terrain] then
+      local rosterList = roster and (roster[tKey] or roster["grass"])
+      if roster and rosterList then
         local curGame = detectGameVersion(nil, mod)
         local valid = {}
-        for _, entry in ipairs(roster[terrain]) do
+        for _, entry in ipairs(rosterList) do
           local match = true
           if entry.game then
             if type(entry.game) == "table" then
