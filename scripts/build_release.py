@@ -6,22 +6,38 @@ for Gen1Recomp / G1R Deluxe.
 """
 
 import os
+import sys
 import json
 import zipfile
 
+# Add scripts directory to path to import run_tests
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
+from run_tests import run as run_tests
+
 def build():
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if "--skip-tests" not in sys.argv:
+        print("[OmniQoL] Running test suite prior to release packaging...")
+        exit_code = run_tests()
+        if exit_code != 0:
+            print("[OmniQoL] Test suite failed! Release packaging aborted.")
+            sys.exit(exit_code)
+    else:
+        print("[OmniQoL] Skipping tests (--skip-tests flag passed).")
+
+    root_dir = os.path.dirname(SCRIPTS_DIR)
     manifest_path = os.path.join(root_dir, "mods", "gen1", "manifest.json")
-    
+
     with open(manifest_path, "r", encoding="utf-8") as f:
         manifest = json.load(f)
-        
+
     version = manifest.get("version", "0.1.1-alpha")
     archive_name = f"omni-qol-gen1-v{version}.zip"
     archive_path = os.path.join(root_dir, archive_name)
     source_dir = os.path.join(root_dir, "mods", "gen1")
 
-    print(f"[OmniQoL] Building release archive: {archive_name}")
+    print(f"\n[OmniQoL] Building release archive: {archive_name}")
     with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(source_dir):
             dirs.sort()

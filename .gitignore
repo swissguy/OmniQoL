@@ -9,3 +9,8 @@ Desktop.ini
 *.log
 scratch/
 .antigravity
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
