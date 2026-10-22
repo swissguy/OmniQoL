@@ -452,8 +452,28 @@ local function mapMatches(currentMap, targetMap, aliases)
   return false
 end
 
+--- High-entropy random helper prioritizing engine / LÖVE2D RNG over C rand
+local function getRandom(a, b, rngFn)
+  local fn = rngFn
+  if not fn or type(fn) ~= "function" then
+    if love and love.math and type(love.math.random) == "function" then
+      fn = love.math.random
+    else
+      fn = math.random
+    end
+  end
+
+  if a and b then
+    return fn(a, b)
+  elseif a then
+    return fn(a)
+  else
+    return fn()
+  end
+end
+
 --- Returns a matching added encounter for the current map, zone, and game
-local function getAddedWildEncounter(mapId, zoneType, game, mod)
+local function getAddedWildEncounter(mapId, zoneType, game, mod, rngFn)
   local norm = normalizeMapKey(mapId)
   local additions = WILD_ADDITIONS[norm]
   if not additions then
@@ -500,7 +520,7 @@ local function getAddedWildEncounter(mapId, zoneType, game, mod)
     totalWeight = totalWeight + (entry.rate or 0.10)
   end
 
-  local roll = math.random() * totalWeight
+  local roll = getRandom(nil, nil, rngFn) * totalWeight
   local accum = 0
   local choice = validPool[1]
   for _, entry in ipairs(validPool) do
@@ -513,7 +533,7 @@ local function getAddedWildEncounter(mapId, zoneType, game, mod)
 
   local level = choice.minLevel
   if choice.maxLevel and choice.maxLevel > choice.minLevel then
-    level = math.random(choice.minLevel, choice.maxLevel)
+    level = getRandom(choice.minLevel, choice.maxLevel, rngFn)
   end
 
   -- Total rate capped at 0.50 so vanilla Pokémon retain at least 50% appearance rate
@@ -532,7 +552,7 @@ end
 
 
 --- Gets encounter from custom route roster if defined
-local function getRouteRosterEncounter(mapId, terrain, game, mod)
+local function getRouteRosterEncounter(mapId, terrain, game, mod, rngFn)
   if not mapId then return nil end
   local norm = normalizeMapKey(mapId)
   local roster = ROUTE_ROSTERS[norm]
@@ -577,14 +597,14 @@ local function getRouteRosterEncounter(mapId, terrain, game, mod)
   local choice
   if roster.mode == "uniform" then
     -- Equal probability across all valid species on this route
-    choice = validPool[math.random(#validPool)]
+    choice = validPool[getRandom(#validPool, nil, rngFn)]
   else
     -- Weighted by entry.weight or entry.rate
     local totalWeight = 0
     for _, e in ipairs(validPool) do
       totalWeight = totalWeight + (e.weight or e.rate or 1)
     end
-    local roll = math.random() * totalWeight
+    local roll = getRandom(nil, nil, rngFn) * totalWeight
     local accum = 0
     choice = validPool[1]
     for _, e in ipairs(validPool) do
@@ -598,7 +618,7 @@ local function getRouteRosterEncounter(mapId, terrain, game, mod)
 
   local level = choice.minLevel
   if choice.maxLevel and choice.maxLevel > choice.minLevel then
-    level = math.random(choice.minLevel, choice.maxLevel)
+    level = getRandom(choice.minLevel, choice.maxLevel, rngFn)
   end
 
   return {
@@ -670,18 +690,24 @@ function Catch151Module.init(mod, moduleManager)
         return result
       end
 
+      -- If already overridden by encounter.roll, preserve without re-rolling
+      if enc and enc.isRosterOverride then
+        return enc
+      end
+
       local mapId = ctx and ctx.mapId
       local terrain = ctx and ctx.terrain or "grass"
+      local rng = ctx and ctx.rng
 
       -- 1a. Check if map has a custom route roster (e.g. Route 2 uniform roster)
-      local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+      local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod, rng)
       if rosterMon then
-        return { species = rosterMon.species, level = rosterMon.level }
+        return { species = rosterMon.species, level = rosterMon.level, isRosterOverride = true }
       end
 
       -- 1b. Check additions table
-      local added = getAddedWildEncounter(mapId, terrain, nil, mod)
-      if added and math.random() < added.rate then
+      local added = getAddedWildEncounter(mapId, terrain, nil, mod, rng)
+      if added and getRandom(nil, nil, rng) < added.rate then
         return { species = added.species, level = added.level }
       end
 
@@ -697,11 +723,13 @@ function Catch151Module.init(mod, moduleManager)
 
       local mapId = ctx and ctx.mapId
       local terrain = ctx and ctx.terrain or "grass"
+      local rng = ctx and ctx.rng
       if enc then
-        local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+        local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod, rng)
         if rosterMon then
           enc.species = rosterMon.species
           enc.level = rosterMon.level
+          enc.isRosterOverride = true
         end
       end
 
@@ -743,7 +771,7 @@ function Catch151Module.init(mod, moduleManager)
           local newDist = {}
           local validEntries = {}
           local totalWeight = 0
-          for _, entry in ipairs(roster[terrain]) do
+          for _, entry in ipairs(rosterList) do
             local match = true
             if entry.game then
               if type(entry.game) == "table" then
