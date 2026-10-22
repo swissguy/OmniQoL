@@ -20,7 +20,8 @@ class TestManifest(unittest.TestCase):
         self.assertEqual(self.manifest["id"], "omni_qol")
         self.assertEqual(self.manifest["name"], "OmniQoL")
         self.assertRegex(self.manifest["version"], r"^\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?$")
-        self.assertEqual(self.manifest["games"], ["red", "blue", "yellow", "gold", "silver", "crystal"])
+        expected_games = ["gen1", "gen2", "red", "blue", "yellow", "gold", "silver", "crystal"]
+        self.assertEqual(self.manifest["games"], expected_games)
         self.assertEqual(self.manifest["api"], 2)
 
     def test_entry_files_exist(self):

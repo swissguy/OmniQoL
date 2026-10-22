@@ -22,9 +22,6 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
 
         self.assertGreaterEqual(len(lua_files), 10, "Expected at least 10 Lua source files")
 
-        keywords_open = re.compile(r'\b(function|then|do|repeat)\b')
-        keywords_close = re.compile(r'\b(end|until)\b')
-
         for fpath in lua_files:
             rel = os.path.relpath(fpath, ROOT_DIR)
             with open(fpath, "r", encoding="utf-8") as f:
@@ -141,10 +138,10 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         SPEED_FACTOR = 2
         MIN_FRAMES = 4
 
-        def calculate_speed(enabled, is_b_down, is_surfing, is_cycling, base_frames=WALK_FRAMES):
+        def calculate_speed(enabled, is_b_down, is_surfing, is_cycling, is_sliding=False, base_frames=WALK_FRAMES):
             if not enabled:
                 return base_frames
-            if is_surfing or is_cycling:
+            if is_surfing or is_cycling or is_sliding:
                 return base_frames
             if not is_b_down:
                 return base_frames
@@ -174,10 +171,16 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         # 6. Both Surfing and Cycling flags -> remains vanilla
         self.assertEqual(calculate_speed(True, True, True, True), 16)
 
+        # 7. Gen 2 Ice Path puzzle sliding -> remains vanilla sliding frames
+        self.assertEqual(calculate_speed(True, True, False, False, True), 16)
+
     def test_zip_release_archive_content_and_integrity(self):
         """Builds and inspects the distribution archive for 100% path accuracy."""
         archive_path = os.path.join(ROOT_DIR, "omni-qol-v0.3.0-alpha.zip")
         self.assertTrue(os.path.exists(archive_path), "Release archive omni-qol-v0.3.0-alpha.zip not found")
+
+        with open(self.manifest_path, "r", encoding="utf-8") as f:
+            source_manifest = json.load(f)
 
         with zipfile.ZipFile(archive_path, "r") as zf:
             namelist = zf.namelist()
@@ -209,13 +212,10 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             for name in namelist:
                 self.assertNotIn("gen1/", name, f"Legacy gen1/ path found in zip: {name}")
 
-            # Read and validate manifest in zip
+            # Read and validate manifest in zip against source manifest
             manifest_data = json.loads(zf.read("omni_qol/manifest.json").decode("utf-8"))
-            self.assertEqual(manifest_data["version"], "0.3.0-alpha")
-            self.assertEqual(
-                manifest_data["games"],
-                ["red", "blue", "yellow", "gold", "silver", "crystal"]
-            )
+            self.assertEqual(manifest_data["version"], source_manifest["version"])
+            self.assertEqual(manifest_data["games"], source_manifest["games"])
 
 if __name__ == "__main__":
     unittest.main()

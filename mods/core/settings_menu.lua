@@ -8,17 +8,24 @@
 local SettingsMenu = {}
 
 function SettingsMenu.setup(mod, moduleManager)
-  -- 1. Register fallback engine options if mod.options API exists
+  -- 1. Register fallback engine options if mod.options API exists (Recipe R34 compliant)
   if mod.options and type(mod.options.define) == "function" then
     local optionDefs = {}
     for _, modEntry in ipairs(moduleManager:getAll()) do
-      table.insert(optionDefs, {
+      local def = {
+        id = modEntry.id,
         key = modEntry.id,
         label = modEntry.label,
-        type = "toggle",
+        name = modEntry.label,
+        type = "boolean",
         default = modEntry.default,
-      })
+        description = modEntry.desc,
+      }
+      table.insert(optionDefs, def)
+      -- Support individual option definition registration
+      pcall(function() mod.options:define(def) end)
     end
+    -- Support batch option definitions registration
     pcall(function() mod.options:define(optionDefs) end)
   end
 

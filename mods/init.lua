@@ -64,8 +64,8 @@ return function(mod)
   local SettingsMenu = loadModule("core/settings_menu.lua")
 
   local manager = ModuleManager.new(mod, GameDetector)
-  local gen = manager.generation
-  local gameId = manager.game
+  local gen = manager:getGeneration()
+  local gameId = manager:getGame()
 
   -- Register Running Module (Universal: Gen 1 & Gen 2)
   local RunningModule = loadModule("modules/running.lua")
@@ -89,6 +89,9 @@ return function(mod)
 
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
+
+  -- Expose mod manager via official Gen1Recomp Inter-Mod API (mod.exports)
+  mod.exports = manager
 
   -- Log successful boot
   local logMsg

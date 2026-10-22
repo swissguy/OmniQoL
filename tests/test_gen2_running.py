@@ -34,9 +34,9 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
         with open(self.manager_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        self.assertIn("def.supportedGenerations", content, "Generation filtering missing from ModuleManager")
-        self.assertIn("self.generation", content, "self.generation missing from ModuleManager")
-        self.assertIn("self.game", content, "self.game missing from ModuleManager")
+        self.assertIn("entry.supportedGenerations", content, "Generation filtering missing from ModuleManager")
+        self.assertIn("getGeneration", content, "getGeneration missing from ModuleManager")
+        self.assertIn("getGame", content, "getGame missing from ModuleManager")
 
     def test_running_module_supports_gen1_and_gen2(self):
         self.assertTrue(os.path.exists(self.running_path), "running.lua not found")
@@ -45,7 +45,7 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
 
         self.assertIn('supportedGenerations = { "gen1", "gen2" }', content)
         self.assertIn("SPEED_FACTOR = 2", content)
-        self.assertIn("isMountedOrSurfing", content)
+        self.assertIn("isMountedOrSurfingOrSliding", content)
         self.assertIn("isBDown", content)
 
     def test_gen1_modules_gated_to_gen1(self):
@@ -75,13 +75,14 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
         self.assertIn("core/game_detector.lua", content)
         self.assertIn("ModuleManager.new(mod, GameDetector)", content)
         self.assertIn("gen == \"gen2\"", content)
+        self.assertIn("mod.exports = manager", content)
 
     def test_manifest_version_and_games(self):
         with open(self.manifest_path, "r", encoding="utf-8") as f:
             manifest = json.load(f)
 
         self.assertEqual(manifest["version"], "0.3.0-alpha")
-        expected_games = ["red", "blue", "yellow", "gold", "silver", "crystal"]
+        expected_games = ["gen1", "gen2", "red", "blue", "yellow", "gold", "silver", "crystal"]
         self.assertEqual(manifest["games"], expected_games)
 
     def test_build_release_targets_cross_gen_zip(self):
