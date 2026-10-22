@@ -6,7 +6,7 @@
 -- 1. Wild Starters in Thematic Habitats:
 --    - Bulbasaur: Viridian Forest (Lv 4-6), Route 2 (Lv 4-5)
 --    - Charmander: Route 3 (Lv 8-10), Rock Tunnel 1F (Lv 14-16)
---    - Squirtle: Route 24 (Lv 8-10), Route 25 (Lv 10-12)
+--    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 10-12)
 -- 2. Version Exclusives & Missing Pokémon Across Red, Blue, and Yellow:
 --    - Ekans / Arbok: Route 4, Route 11, Route 23 (Blue & Yellow)
 --    - Sandshrew / Sandslash: Route 4, Route 11, Route 23 (Red)
@@ -144,6 +144,16 @@ local ROUTE_ROSTERS = {
       { species = "CHARMANDER", minLevel = 8, maxLevel = 12 },
     },
   },
+  ROUTE_24 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "SQUIRTLE",   minLevel = 10, maxLevel = 14 },
+      { species = "ABRA",       minLevel = 10, maxLevel = 14 },
+      { species = "ODDISH",     minLevel = 10, maxLevel = 14 },
+      { species = "BELLSPROUT", minLevel = 10, maxLevel = 14 },
+      { species = "VENONAT",    minLevel = 10, maxLevel = 14 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -154,11 +164,6 @@ local WILD_ADDITIONS = {
   ROCK_TUNNEL_1F = {
     { species = "CHARMANDER", minLevel = 14, maxLevel = 16, rate = 0.06, type = "grass" },
     { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.08, type = "grass" },
-  },
-  ROUTE_24 = {
-    { species = "SQUIRTLE",   minLevel = 8,  maxLevel = 10, rate = 0.08, type = "grass" },
-    { species = "BELLSPROUT", minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "red" },
-    { species = "ODDISH",     minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "blue" },
   },
   ROUTE_25 = {
     { species = "SQUIRTLE",   minLevel = 10, maxLevel = 12, rate = 0.08, type = "grass" },

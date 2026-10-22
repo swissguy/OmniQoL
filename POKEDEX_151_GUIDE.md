@@ -37,7 +37,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Route 4 (Lv 8–12), Rock Tunnel 1F (Lv 14–16). |
 | **#005** | **Charmeleon** | Fire | Evolve Charmander at **Level 16**. |
 | **#006** | **Charizard** | Fire / Flying | Evolve Charmeleon at **Level 36**. |
-| **#007** | **Squirtle** | Water | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Vermilion City *(Yellow)*.<br>**Wild**: Route 24 (Lv 8–10), Route 25 (Lv 10–12). |
+| **#007** | **Squirtle** | Water | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Vermilion City *(Yellow)*.<br>**Wild**: Route 24 (Lv 10–14), Route 25 (Lv 10–12). |
 | **#008** | **Wartortle** | Water | Evolve Squirtle at **Level 16**. |
 | **#009** | **Blastoise** | Water | Evolve Wartortle at **Level 36**. |
 | **#010** | **Caterpie** | Bug | **Wild**: Viridian Forest, Route 2. |
@@ -78,7 +78,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#045** | **Vileplume** | Grass / Poison | Evolve Gloom with **Leaf Stone** *(Celadon Dept. Store)*. |
 | **#046** | **Paras** | Bug / Grass | **Wild**: Mt. Moon, Safari Zone. |
 | **#047** | **Parasect** | Bug / Grass | Evolve Paras at **Level 24** OR **Wild**: Safari Zone, Cerulean Cave. |
-| **#048** | **Venonat** | Bug / Poison | **Wild**: Routes 12, 13, 14, 15, Safari Zone. |
+| **#048** | **Venonat** | Bug / Poison | **Wild**: Route 24 (Lv 10–14), Routes 12, 13, 14, 15, Safari Zone. |
 | **#049** | **Venomoth** | Bug / Poison | Evolve Venonat at **Level 31** OR **Wild**: Safari Zone, Victory Road, Cerulean Cave. |
 | **#050** | **Diglett** | Ground | **Wild**: Diglett's Cave. |
 | **#051** | **Dugtrio** | Ground | Evolve Diglett at **Level 26** OR **Wild**: Diglett's Cave. |
@@ -227,8 +227,8 @@ The following tables list every location in Kanto in chronological progression o
 | **Cerulean City** | Gift (House) | **Bulbasaur** (Lv 10) *(Yellow)* | Gift from girl next to Pokémon Center if Pikachu is happy. |
 | | NPC Trade | **Jynx** (Zynx) | Trade a Poliwhirl in the house next to the gym. |
 | | Water / Gym | Poliwag, Goldeen, Magikarp, Seaking, Poliwhirl | Fishing / Surfing. |
-| **Route 24 (Bridge)** | Gift (Plateau) | **Charmander** (Lv 10) *(Yellow)* | Gift from trainer just north of Nugget Bridge. |
-| | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Oddish, Bellsprout, Abra, **Squirtle** (Lv 8–10) | **OmniQoL**: Wild Squirtle added; Oddish & Bellsprout cross-pollinated. |
+| ✅ **Route 24** | Wild Grass | Squirtle, Abra, Oddish, Bellsprout, Venonat (Lv 10–14) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; wild Squirtle, Oddish, Bellsprout, and early Venonat enabled. |
+| | Gift (Plateau) | **Charmander** (Lv 10) *(Yellow)* | Gift from trainer just north of Nugget Bridge. |
 | | Surfing / Rods | Goldeen, Seaking, Poliwag, Psyduck, Krabby | Water encounters. |
 | **Route 25** | Wild Grass | Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pidgeotto, Oddish, Bellsprout, Abra, **Squirtle** (Lv 10–12) | **OmniQoL**: Wild Squirtle added; Oddish & Bellsprout cross-pollinated. |
 | | Surfing / Rods | Psyduck, Krabby, Goldeen, Kingler | Water encounters near Bill's Sea Cottage. |
