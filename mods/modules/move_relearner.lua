@@ -29,11 +29,27 @@ local MoveRelearnerModule = {}
 local function loadSubmodule(path)
   local ok, res = pcall(require, path)
   if ok and res then return res end
+  local dotPath = path:gsub("/", ".")
+  ok, res = pcall(require, "omni_qol." .. dotPath)
+  if ok and res then return res end
+  ok, res = pcall(require, "mods." .. dotPath)
+  if ok and res then return res end
+
+  if love and love.filesystem and love.filesystem.load then
+    for _, prefix in ipairs({ "mods/", "omni_qol/", "" }) do
+      local lfsPath = prefix .. path .. ".lua"
+      local okLfs, chunk = pcall(love.filesystem.load, lfsPath)
+      if okLfs and type(chunk) == "function" then
+        return chunk()
+      end
+    end
+  end
+
   if type(dofile) == "function" then
-    local dOk, dRes = pcall(dofile, "mods/gen1/" .. path .. ".lua")
-    if dOk and dRes then return dRes end
-    dOk, dRes = pcall(dofile, path .. ".lua")
-    if dOk and dRes then return dRes end
+    for _, prefix in ipairs({ "mods/", "omni_qol/", "" }) do
+      local dOk, dRes = pcall(dofile, prefix .. path .. ".lua")
+      if dOk and dRes then return dRes end
+    end
   end
   return nil
 end
