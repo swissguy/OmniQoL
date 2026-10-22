@@ -7,7 +7,7 @@
 </p>
 
 ## Overview
-**OmniQoL** is a modular Quality of Life (QoL) suite built for native Pokémon engine recreations, targeting **Gen1Recomp** and **Gen2Recomp** (`bryanthaboi/gen1recomp`, `bryanthaboi/gen2recomp`). A single `.zip` distribution archive provides native, plug-and-play support for **Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal**, dynamically detecting the active game generation at runtime.
+**OmniQoL** is a modular Quality of Life (QoL) suite built for native Pokémon engine recreations, targeting **Gen1Recomp / G1R Deluxe** (`bryanthaboi/gen1recomp`). A single `.zip` distribution archive provides native, plug-and-play support for **Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal**, dynamically detecting the active game generation at runtime.
 
 ---
 
@@ -23,6 +23,7 @@
 - **Fair Gameplay**: Keeps wild encounter rates identical to vanilla walking (no encounter penalty).
 - **Clean Interactions**:
   - Does not accelerate Bicycle or Surfing beyond their natural speeds.
+  - Preserves authentic Gen 2 Ice Path sliding puzzle physics.
   - Ledges are jumped cleanly at 2x speed when running.
   - Automatically restores normal walking duration during cutscenes/scripted escort movements to prevent NPC desyncs.
 
@@ -59,3 +60,12 @@
 
 ## In-Game Configuration & Options Menu
 Every module can be individually customized directly within the game's native **OPTIONS** menu (`OMNIQOL` entry), with settings saved per save file.
+
+## Inter-Mod API
+OmniQoL exposes its active manager instance through `mod.exports` adhering to the official Gen1Recomp API 2 specification. Other mods can query active features via:
+```lua
+local omni = mod.find and mod.find("omni_qol")
+if omni and omni.exports then
+  local isRunning = omni.exports:isEnabled("running")
+end
+```
