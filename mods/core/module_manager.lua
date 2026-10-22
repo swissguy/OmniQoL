@@ -1,7 +1,7 @@
 -- ============================================================================
 -- OmniQoL: Core Module Manager (Generation 1 & Generation 2)
 -- Handles registration, state lookup, per-save persistence, global defaults,
--- and generation/game compatibility filtering.
+-- and dynamic generation/game compatibility filtering.
 -- ============================================================================
 
 local ModuleManager = {}
@@ -19,40 +19,30 @@ function ModuleManager.new(mod, gameDetector)
   return self
 end
 
+--- Dynamically retrieves the active game identifier ('red', 'blue', 'yellow', 'gold', 'silver', 'crystal')
+function ModuleManager:getGame(game)
+  if self.detector then
+    local detected = self.detector.detectGame(self.mod, game)
+    if detected then self.game = detected end
+  end
+  return self.game or "red"
+end
+
+--- Dynamically retrieves the active generation ('gen1' or 'gen2')
+function ModuleManager:getGeneration(game)
+  if self.detector then
+    local detected = self.detector.detectGeneration(self.mod, game)
+    if detected then self.generation = detected end
+  end
+  return self.generation or "gen1"
+end
+
 --- Registers a new QoL module.
 -- @param def Table containing module metadata, compatibility constraints, and lifecycle hooks
 function ModuleManager:register(def)
   assert(def and def.id, "Module definition must have an 'id'")
   assert(def.label, "Module definition must have a 'label'")
   if def.default == nil then def.default = true end
-
-  -- Check generation compatibility
-  if def.supportedGenerations then
-    local genMatch = false
-    for _, gen in ipairs(def.supportedGenerations) do
-      if gen == self.generation then
-        genMatch = true
-        break
-      end
-    end
-    if not genMatch then
-      return nil
-    end
-  end
-
-  -- Check specific game compatibility
-  if def.supportedGames then
-    local gameMatch = false
-    for _, g in ipairs(def.supportedGames) do
-      if g == self.game then
-        gameMatch = true
-        break
-      end
-    end
-    if not gameMatch then
-      return nil
-    end
-  end
 
   local modEntry = {
     id = def.id,
@@ -98,10 +88,6 @@ end
 --- Gets whether a module is currently enabled.
 -- Checks per-save storage first; falls back to global defaults / initial default.
 -- @param id string
--- @return boolean
---- Gets the raw or typed value of a module setting.
--- Checks per-save storage first; falls back to global defaults / initial default.
--- @param id string
 -- @return any
 function ModuleManager:getValue(id)
   local entry = self.modulesById[id]
@@ -129,10 +115,44 @@ function ModuleManager:getValue(id)
   return fallback
 end
 
---- Gets whether a module is currently enabled.
+--- Gets whether a module is currently enabled and compatible with active game generation.
 -- @param id string
+-- @param game Optional Game instance for dynamic runtime checks
 -- @return boolean
-function ModuleManager:isEnabled(id)
+function ModuleManager:isEnabled(id, game)
+  local entry = self.modulesById[id]
+  if not entry then return false end
+
+  -- Dynamic runtime generation guard
+  if entry.supportedGenerations then
+    local curGen = self:getGeneration(game)
+    local genMatch = false
+    for _, gen in ipairs(entry.supportedGenerations) do
+      if gen == curGen then
+        genMatch = true
+        break
+      end
+    end
+    if not genMatch then
+      return false
+    end
+  end
+
+  -- Dynamic runtime game guard
+  if entry.supportedGames then
+    local curGame = self:getGame(game)
+    local gameMatch = false
+    for _, g in ipairs(entry.supportedGames) do
+      if g == curGame then
+        gameMatch = true
+        break
+      end
+    end
+    if not gameMatch then
+      return false
+    end
+  end
+
   local val = self:getValue(id)
   if val == false or val == nil or val == "OFF" or val == "off" then
     return false
@@ -204,10 +224,43 @@ function ModuleManager:cycle(id, dir)
   end
 end
 
---- Gets all registered module entries.
+--- Gets all registered module entries compatible with active game/generation.
+-- @param game Optional Game instance for dynamic filtering
 -- @return table
-function ModuleManager:getAll()
-  return self.modules
+function ModuleManager:getAll(game)
+  local curGen = self:getGeneration(game)
+  local curGame = self:getGame(game)
+  local filtered = {}
+
+  for _, entry in ipairs(self.modules) do
+    local genMatch = true
+    if entry.supportedGenerations then
+      genMatch = false
+      for _, gen in ipairs(entry.supportedGenerations) do
+        if gen == curGen then
+          genMatch = true
+          break
+        end
+      end
+    end
+
+    local gameMatch = true
+    if entry.supportedGames then
+      gameMatch = false
+      for _, g in ipairs(entry.supportedGames) do
+        if g == curGame then
+          gameMatch = true
+          break
+        end
+      end
+    end
+
+    if genMatch and gameMatch then
+      table.insert(filtered, entry)
+    end
+  end
+
+  return filtered
 end
 
 --- Gets module entry by ID.
@@ -218,14 +271,16 @@ function ModuleManager:get(id)
 end
 
 --- Generates a compact summary string of active modules for the Options Menu row.
+-- @param game Optional Game instance
 -- @return string
-function ModuleManager:getSummary()
-  local total = #self.modules
+function ModuleManager:getSummary(game)
+  local visibleMods = self:getAll(game)
+  local total = #visibleMods
   if total == 0 then return "NONE" end
 
   local enabledCount = 0
-  for _, entry in ipairs(self.modules) do
-    if self:isEnabled(entry.id) then
+  for _, entry in ipairs(visibleMods) do
+    if self:isEnabled(entry.id, game) then
       enabledCount = enabledCount + 1
     end
   end
