@@ -6,7 +6,7 @@
 -- 1. Wild Starters in Thematic Habitats:
 --    - Bulbasaur: Viridian Forest (Lv 4-6), Route 2 (Lv 4-5)
 --    - Charmander: Route 3 (Lv 8-10), Rock Tunnel 1F (Lv 14-16)
---    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 10-12)
+--    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 12-17)
 -- 2. Version Exclusives & Missing Pokémon Across Red, Blue, and Yellow:
 --    - Ekans / Arbok: Route 4, Route 11, Route 23 (Blue & Yellow)
 --    - Sandshrew / Sandslash: Route 4, Route 11, Route 23 (Red)
@@ -33,7 +33,7 @@
 -- 4. Mutually Exclusive & In-Game Trade Pokémon Made Wild:
 --    - Fossils: Omanyte & Kabuto in Seafoam Islands B3F/B4F Water (Lv 28-32)
 --    - Fighting Dojo: Hitmonlee & Hitmonchan in Victory Road 2F (Lv 40-44) & Route 10 (Lv 20-22)
---    - Eevee: Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
+--    - Eevee: Route 25 (Lv 12-17), Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
 --    - Porygon: Route 7 (Lv 18-22) & Cerulean Cave 1F (Lv 48-52)
 --    - Farfetch'd: Route 12 (Lv 22-24) & Route 13 (Lv 24-26)
 --    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 14-16)
@@ -154,6 +154,16 @@ local ROUTE_ROSTERS = {
       { species = "VENONAT",    minLevel = 10, maxLevel = 14 },
     },
   },
+  ROUTE_25 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "SQUIRTLE",   minLevel = 12, maxLevel = 17 },
+      { species = "ABRA",       minLevel = 12, maxLevel = 17 },
+      { species = "ODDISH",     minLevel = 12, maxLevel = 17 },
+      { species = "BELLSPROUT", minLevel = 12, maxLevel = 17 },
+      { species = "EEVEE",      minLevel = 12, maxLevel = 17 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -164,11 +174,6 @@ local WILD_ADDITIONS = {
   ROCK_TUNNEL_1F = {
     { species = "CHARMANDER", minLevel = 14, maxLevel = 16, rate = 0.06, type = "grass" },
     { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.08, type = "grass" },
-  },
-  ROUTE_25 = {
-    { species = "SQUIRTLE",   minLevel = 10, maxLevel = 12, rate = 0.08, type = "grass" },
-    { species = "BELLSPROUT", minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "red" },
-    { species = "ODDISH",     minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "blue" },
   },
 
   -- --- Version Exclusives & Missing Pokémon ---
