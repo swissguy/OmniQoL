@@ -40,6 +40,7 @@ function TradeEvosModule.register(moduleManager)
     label = "TRADE EVOS",
     desc = "Trade evolutions at Level 40.",
     default = true,
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       TradeEvosModule.init(mod, mgr)
     end,

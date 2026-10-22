@@ -1,5 +1,6 @@
 -- ============================================================================
--- OmniQoL: Running Module (Gen 1: Red, Blue, Yellow)
+-- OmniQoL: Running Module (Gen 1 & Gen 2)
+-- Supported Games: Red, Blue, Yellow, Gold, Silver, Crystal
 --
 -- Features:
 -- - Hold B to run at 2x walking speed (8 frames per tile instead of 16).
@@ -8,8 +9,8 @@
 -- - Usable everywhere (indoors, outdoors, caves, buildings, Safari Zone).
 -- - Preserves normal Bicycle and Surf speeds (no unintended acceleration).
 -- - Preserves standard wild encounter rates (no encounter penalty).
--- - Restores vanilla stepFramesCur when idle or during scripted cutscenes
---   (preventing desyncs with escort NPCs like Professor Oak).
+-- - Defensive checks & cross-engine compatibility across Gen 1 and Gen 2 recomp.
+-- - Restores vanilla stepFramesCur when idle or during scripted cutscenes.
 -- ============================================================================
 
 local RunningModule = {}
@@ -24,6 +25,7 @@ function RunningModule.register(moduleManager)
     label = "RUNNING",
     desc = "Hold B to run at 2x speed.",
     default = true,
+    supportedGenerations = { "gen1", "gen2" },
     init = function(mod, mgr)
       RunningModule.initHooks(mod, mgr)
     end,
@@ -48,7 +50,54 @@ function RunningModule.initHooks(mod, moduleManager)
     end
   end
 
-  -- Wrap movement.speed hook
+  --- Helper to check whether player is currently surfing or riding a bicycle
+  local function isMountedOrSurfing(ctx, game)
+    if not ctx then return false end
+
+    -- Gen 1 / Gen 2 context flags
+    if ctx.onBike or ctx.cycling or ctx.biking or ctx.surfing or ctx.isSurfing then
+      return true
+    end
+
+    if ctx.state then
+      local stateStr = tostring(ctx.state):upper()
+      if stateStr:find("BIKE") or stateStr:find("CYCL") or stateStr:find("SURF") then
+        return true
+      end
+    end
+
+    -- Check player entity directly if present
+    local p = ctx.player or (game and (game.player or (game.overworld and game.overworld.player)))
+    if p then
+      if p.onBike or p.cycling or p.biking or p.surfing or p.isSurfing then
+        return true
+      end
+    end
+
+    return false
+  end
+
+  --- Helper to detect if B button is pressed across different engine APIs
+  local function isBDown(ctx, game)
+    local input = ctx and ctx.input
+    if not input and game then input = game.input end
+    if not input and mod then input = mod.input end
+
+    if input and type(input.isDown) == "function" then
+      return input:isDown("b")
+    end
+
+    -- Fallback to Love2D keyboard/joystick if direct input is not provided
+    if love and love.keyboard and love.keyboard.isDown then
+      if love.keyboard.isDown("x") or love.keyboard.isDown("b") or love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift") then
+        return true
+      end
+    end
+
+    return false
+  end
+
+  -- Wrap movement.speed hook (primary speed modifier hook across Recomp engines)
   if mod.hooks and type(mod.hooks.wrap) == "function" then
     mod.hooks:wrap("movement.speed", function(next, frames, ctx)
       local base = tonumber(next and next(frames, ctx) or frames) or WALK_FRAMES
@@ -60,13 +109,12 @@ function RunningModule.initHooks(mod, moduleManager)
       end
 
       -- If player is on a bicycle or surfing, preserve standard behavior
-      if ctx.onBike or ctx.surfing then
+      if isMountedOrSurfing(ctx) then
         return base
       end
 
       -- Check if B button is held
-      local input = ctx.input
-      if not (input and type(input.isDown) == "function" and input:isDown("b")) then
+      if not isBDown(ctx) then
         return base
       end
 
@@ -96,7 +144,6 @@ function RunningModule.initHooks(mod, moduleManager)
   end
 
   -- Restore duration immediately when a script or cutscene begins
-  -- (e.g., Oak escorting player to lab, Pewter museum guide, Viridian catching tutorial)
   if mod.events and type(mod.events.on) == "function" then
     mod.events:on("script.started", function()
       restore()

@@ -530,6 +530,7 @@ function MoveRelearnerModule.register(moduleManager)
     desc = "Relearn natural level-up moves.",
     default = "RELEARN",
     values = { "OFF", "RELEARN", "RELEARN+TMS" },
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       MoveRelearnerModule.init(mod, mgr)
     end,

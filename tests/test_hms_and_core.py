@@ -6,7 +6,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class TestHMsAndCore(unittest.TestCase):
     def test_forget_hms_contains_all_five_hms(self):
-        path = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "forget_hms.lua")
+        path = os.path.join(ROOT_DIR, "mods", "modules", "forget_hms.lua")
         self.assertTrue(os.path.exists(path), "forget_hms.lua not found")
         with open(path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -18,7 +18,7 @@ class TestHMsAndCore(unittest.TestCase):
         self.assertEqual(hms, expected, f"HM mismatch in forget_hms.lua: {hms} vs {expected}")
 
     def test_running_shoes_configuration(self):
-        path = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "running.lua")
+        path = os.path.join(ROOT_DIR, "mods", "modules", "running.lua")
         self.assertTrue(os.path.exists(path), "running.lua not found")
         with open(path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -28,7 +28,7 @@ class TestHMsAndCore(unittest.TestCase):
         self.assertIn("SPEED_FACTOR = 2", content)
 
     def test_exp_share_configuration(self):
-        path = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "exp_share.lua")
+        path = os.path.join(ROOT_DIR, "mods", "modules", "exp_share.lua")
         self.assertTrue(os.path.exists(path), "exp_share.lua not found")
         with open(path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -37,7 +37,7 @@ class TestHMsAndCore(unittest.TestCase):
         self.assertIn('label = "EXP SHARE"', content)
 
     def test_all_modules_registered_in_init(self):
-        path = os.path.join(ROOT_DIR, "mods", "gen1", "init.lua")
+        path = os.path.join(ROOT_DIR, "mods", "init.lua")
         self.assertTrue(os.path.exists(path), "init.lua not found")
         with open(path, "r", encoding="utf-8") as f:
             content = f.read()

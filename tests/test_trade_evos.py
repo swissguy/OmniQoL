@@ -6,7 +6,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class TestTradeEvos(unittest.TestCase):
     def setUp(self):
-        self.file_path = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "trade_evos.lua")
+        self.file_path = os.path.join(ROOT_DIR, "mods", "modules", "trade_evos.lua")
         self.assertTrue(os.path.exists(self.file_path), "trade_evos.lua does not exist")
         with open(self.file_path, "r", encoding="utf-8") as f:
             self.content = f.read()

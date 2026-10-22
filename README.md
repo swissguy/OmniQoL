@@ -17,7 +17,7 @@ Every feature is designed as an independent module that can be individually togg
 
 | Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✨ Catch All 151** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
@@ -32,8 +32,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, Pikachu follower synchronization (8f follow / 4f catch-up), native options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -47,8 +47,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full EXP Share support with Pikachu happiness on level-up, options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -77,8 +77,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Wild starters, version exclusives, Safari mons outside Safari, mutually exclusive fossils & Hitmons, wild Eevee, room-reentry legendary respawns & Mew #151 |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 151 wild availability, Weedle/Koffing/Meowth/Magmar/Electabuzz restorations, wild Raichu, room-reentry legendary respawns & Mew #151 |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -92,8 +92,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Free Move Reminder in every Pokémon Center lobby, pre-evolution moves up to current level (remedying early stone/trade evos), Level 1 starting moves, full move replacement UI, options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Free Move Reminder in every Pokémon Center lobby, Yellow-adjusted learnsets, pre-evolution moves up to current level, options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -107,8 +107,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Freely replace and forget HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any move via Level Up, TM, or Move Relearner; separate options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Freely replace and forget HM moves whenever learning any move via Level Up, TM, or Move Relearner; separate options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full 2x dash, usable everywhere, native options menu toggle |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |

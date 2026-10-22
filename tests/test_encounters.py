@@ -3,7 +3,7 @@ import re
 import unittest
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CATCH_151_PATH = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "catch_151.lua")
+CATCH_151_PATH = os.path.join(ROOT_DIR, "mods", "modules", "catch_151.lua")
 GUIDE_PATH = os.path.join(ROOT_DIR, "POKEDEX_151_GUIDE.md")
 
 def parse_route_rosters(content):

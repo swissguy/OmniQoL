@@ -644,6 +644,7 @@ function Catch151Module.register(moduleManager)
     label = "CATCH 151",
     desc = "Catch all 151 wild Pokemon.",
     default = true,
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       Catch151Module.init(mod, mgr)
     end,

@@ -2,14 +2,14 @@
   "id": "omni_qol",
   "title": "OmniQoL",
   "author": "Swissguy",
-  "version": "0.2.0-alpha",
+  "version": "0.3.0-alpha",
   "categories": [
     "QOL",
     "GAMEPLAY"
   ],
   "repo": "https://github.com/swissguy/OmniQoL",
   "github": "swissguy/OmniQoL",
-  "summary": "Modular Quality of Life suite for Pokémon Red, Blue & Yellow with Running Shoes, EXP Share, Trade Evolutions at Lv 40, Catch 151, Move Relearner & HM forgetting in native Options menu.",
+  "summary": "Cross-generation modular Quality of Life suite for Pokémon Red, Blue, Yellow, Gold, Silver & Crystal. Features Running Shoes, EXP Share, Trade Evolutions at Lv 40, Catch 151, Move Relearner & HM forgetting in native Options menu.",
   "tags": [
     "qol",
     "running",
@@ -18,13 +18,17 @@
     "catch-151",
     "relearner",
     "options",
-    "pikachu"
+    "pikachu",
+    "gen2"
   ],
   "api": 2,
   "games": [
     "red",
     "blue",
-    "yellow"
+    "yellow",
+    "gold",
+    "silver",
+    "crystal"
   ],
   "license": "MIT"
 }

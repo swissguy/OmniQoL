@@ -24,7 +24,7 @@ def get_token():
     creds = dict(line.split("=", 1) for line in stdout.strip().splitlines() if "=" in line)
     return creds.get("password")
 
-def publish(tag="v0.2.0-alpha", version="0.2.0-alpha"):
+def publish(tag="v0.3.0-alpha", version="0.3.0-alpha"):
     token = get_token()
     if not token:
         print("[Error] Could not retrieve GitHub credentials from Git Credential Manager.")
@@ -32,8 +32,13 @@ def publish(tag="v0.2.0-alpha", version="0.2.0-alpha"):
 
     repo = "swissguy/OmniQoL"
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    zip_name = f"omni-qol-gen1-v{version}.zip"
+    zip_name = f"omni-qol-v{version}.zip"
     zip_path = os.path.join(root_dir, zip_name)
+    if not os.path.exists(zip_path):
+        legacy_name = f"omni-qol-gen1-v{version}.zip"
+        if os.path.exists(os.path.join(root_dir, legacy_name)):
+            zip_name = legacy_name
+            zip_path = os.path.join(root_dir, zip_name)
 
     if not os.path.exists(zip_path):
         print(f"[Error] Release archive not found at: {zip_path}")
@@ -42,37 +47,26 @@ def publish(tag="v0.2.0-alpha", version="0.2.0-alpha"):
     print(f"[Release] Publishing {tag} to GitHub ({repo})...")
 
     # Release Notes
-    body = f"""## 🌟 OmniQoL v{version} — Early Kanto Routes, 100% Version Parity & Test Suite
+    body = f"""## 🌟 OmniQoL v{version} — Cross-Generation Support & Gen 2 Running Shoes
 
-### 🗺️ Standardized Early Kanto Routes (Red, Blue & Yellow)
-Every route has been rebalanced for **100% Cross-Version Parity** across Pokémon Red, Blue, and Yellow:
-- ✅ **Route 1**: Vanilla verified (Pidgey Lv 2–5, Rattata Lv 2–4).
-- ✅ **Route 2**: Uniform 20% distribution across Pidgey, Rattata, Weedle, Caterpie, and wild **Bulbasaur** (Lv 2–5).
-- ✅ **Route 22**: Uniform 20% distribution across Rattata, Spearow, Nidoran♀, Nidoran♂, and early **Mankey** (Lv 2–5).
-- ✅ **Viridian Forest**: 8 species total—7 base species at ~13.3% each (Caterpie, Metapod, Weedle, Kakuna, Pidgey, Pikachu, **Bulbasaur**) and rare **Pidgeotto** (Lv 9) at ~6.7%.
-- ✅ **Route 3**: Uniform ~16.7% distribution across Pidgey, Spearow, Jigglypuff, Mankey, Sandshrew, and wild **Charmander** (Lv 6–10).
-- ✅ **Mt. Moon (1F–B2F)**: Uniform 25% distribution across Zubat, Geodude, Paras, and **Clefairy** with vertical progression (1F: Lv 7–10, B1F: Lv 8–11, B2F: Lv 9–12).
-- ✅ **Route 4**: Uniform ~16.7% distribution across Rattata, Spearow, Ekans, Sandshrew, Mankey, and wild **Charmander** (Lv 8–12).
-
----
-
-### 🧪 Automated Quality Assurance
-- **Comprehensive Test Suite**: 24 unit tests covering Manifest schemas, encounter distribution math, cross-version parity, guide synchronization, trade evolution level gating, Move Relearner / TM tutor rules, and HM deletion.
-- **Pre-Build Gate**: `scripts/build_release.py` automatically validates the test suite before packaging.
-- **Continuous Integration**: GitHub Actions CI workflow running multi-version matrix tests across Python 3.10, 3.11, and 3.12.
+### 🏃 Gen 2 Running Shoes (Gold, Silver, Crystal)
+OmniQoL is now a single, cross-generation release supporting both Generation 1 and Generation 2:
+- ✅ **Running Shoes in Gen 2**: Hold B to run at 2x speed outdoors, indoors, and in caves/dungeons across Pokémon Gold, Silver, and Crystal.
+- ✅ **Preserved Mechanics**: Natural Bicycle and Surf speeds preserved.
+- ✅ **Dynamic Detection**: Engine automatically detects active generation, safely isolating Gen 1-specific modules until future ports are completed.
 
 ---
 
 ### 📦 Installation
-1. Download `omni-qol-gen1-v{version}.zip` below.
-2. Extract the `omni_qol` folder into your game's `mods` directory (e.g. `%APPDATA%\\pokemon-love2d\\mods\\omni_qol`).
-3. Launch Pokémon Red, Blue, or Yellow on Gen1Recomp!
+1. Download `{zip_name}` below.
+2. Extract the `omni_qol` folder into your game's `mods` directory (e.g. `%APPDATA%\\pokemon-love2d\\mods\\omni_qol` or `%APPDATA%\\pokemon-crystal-love2d\\mods\\omni_qol`).
+3. Launch Pokémon Red, Blue, Yellow, Gold, Silver, or Crystal!
 """
 
     release_payload = {
         "tag_name": tag,
         "target_commitish": "main",
-        "name": f"v{version}: Early Kanto Route Balancing, 100% Parity & Test Suite",
+        "name": f"v{version}: Cross-Generation Mod Suite & Gen 2 Running Shoes",
         "body": body,
         "draft": False,
         "prerelease": True,
@@ -98,45 +92,64 @@ Every route has been rebalanced for **100% Cross-Version Parity** across Pokémo
             print(f"[Release] Created release #{release_data['id']}: {release_data['html_url']}")
     except urllib.error.HTTPError as e:
         err_body = e.read().decode("utf-8")
-        print(f"[Error] Failed to create release: HTTP {e.code} - {err_body}")
-        # If release already exists for tag, try to fetch it
         if "already_exists" in err_body:
-            req_get = urllib.request.Request(
+            print(f"[Release] Release {tag} already exists. Fetching existing release...")
+            get_req = urllib.request.Request(
                 f"https://api.github.com/repos/{repo}/releases/tags/{tag}",
                 headers=headers,
             )
-            with urllib.request.urlopen(req_get) as resp_get:
-                release_data = json.loads(resp_get.read().decode("utf-8"))
-                print(f"[Release] Using existing release: {release_data['html_url']}")
+            with urllib.request.urlopen(get_req) as get_resp:
+                release_data = json.loads(get_resp.read().decode("utf-8"))
         else:
+            print(f"[Error] Failed to create release: {e.code} {e.reason}\n{err_body}")
             sys.exit(1)
 
-    # 2. Upload Binary Asset (.zip)
-    upload_url = release_data.get("upload_url", "").replace("{?name,label}", "")
+    upload_url = release_data["upload_url"].split("{")[0]
+    upload_url += f"?name={zip_name}"
+
+    # Check if asset already exists and delete it if needed
+    for asset in release_data.get("assets", []):
+        if asset["name"] == zip_name:
+            print(f"[Release] Deleting pre-existing asset #{asset['id']} ({zip_name})...")
+            del_req = urllib.request.Request(
+                asset["url"],
+                headers=headers,
+                method="DELETE",
+            )
+            urllib.request.urlopen(del_req)
+            break
+
+    print(f"[Release] Uploading asset {zip_name} ({os.path.getsize(zip_path) / 1024:.1f} KB)...")
     with open(zip_path, "rb") as f:
         zip_bytes = f.read()
 
-    asset_url = f"{upload_url}?name={zip_name}"
-    req_upload = urllib.request.Request(
-        asset_url,
+    upload_headers = {
+        **headers,
+        "Content-Type": "application/zip",
+        "Content-Length": str(len(zip_bytes)),
+    }
+    upload_req = urllib.request.Request(
+        upload_url,
         data=zip_bytes,
-        headers={
-            **headers,
-            "Content-Type": "application/zip",
-        },
+        headers=upload_headers,
         method="POST",
     )
 
-    print(f"[Release] Uploading {zip_name} ({len(zip_bytes) / 1024:.1f} KB)...")
     try:
-        with urllib.request.urlopen(req_upload) as resp_upload:
-            asset_data = json.loads(resp_upload.read().decode("utf-8"))
+        with urllib.request.urlopen(upload_req) as upload_resp:
+            asset_data = json.loads(upload_resp.read().decode("utf-8"))
             print(f"[Release] Successfully uploaded asset: {asset_data['browser_download_url']}")
     except urllib.error.HTTPError as e:
-        err_body = e.read().decode("utf-8")
-        print(f"[Warning] Asset upload response: HTTP {e.code} - {err_body}")
+        print(f"[Error] Failed to upload asset: {e.code} {e.reason}\n{e.read().decode('utf-8')}")
+        sys.exit(1)
 
-    print(f"\n[SUCCESS] Published GitHub Release: {release_data['html_url']}")
+    print(f"\n[OmniQoL] Successfully published {tag} to GitHub!")
 
 if __name__ == "__main__":
-    publish()
+    v = "0.3.0-alpha"
+    t = f"v{v}"
+    if len(sys.argv) > 1:
+        t = sys.argv[1]
+    if len(sys.argv) > 2:
+        v = sys.argv[2]
+    publish(tag=t, version=v)

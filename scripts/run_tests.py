@@ -2,7 +2,7 @@
 """
 OmniQoL Test Suite Runner
 Discovers and executes all unit tests, schema validations, and parity checks
-for OmniQoL Gen 1.
+for OmniQoL across supported generations.
 """
 
 import os
@@ -15,7 +15,7 @@ def run():
     tests_dir = os.path.join(root_dir, "tests")
 
     print("=" * 70)
-    print("OmniQoL Gen 1 — Test Suite")
+    print("OmniQoL (Cross-Generation) — Test Suite")
     print("=" * 70)
 
     loader = unittest.TestLoader()

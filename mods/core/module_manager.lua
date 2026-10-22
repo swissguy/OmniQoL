@@ -1,14 +1,18 @@
 -- ============================================================================
--- OmniQoL: Core Module Manager (Generation 1: Red, Blue, Yellow)
--- Handles registration, state lookup, per-save persistence, and global defaults.
+-- OmniQoL: Core Module Manager (Generation 1 & Generation 2)
+-- Handles registration, state lookup, per-save persistence, global defaults,
+-- and generation/game compatibility filtering.
 -- ============================================================================
 
 local ModuleManager = {}
 ModuleManager.__index = ModuleManager
 
-function ModuleManager.new(mod)
+function ModuleManager.new(mod, gameDetector)
   local self = setmetatable({}, ModuleManager)
   self.mod = mod
+  self.detector = gameDetector
+  self.game = gameDetector and gameDetector.detectGame(mod) or "red"
+  self.generation = gameDetector and gameDetector.detectGeneration(mod) or "gen1"
   self.modules = {}          -- list for ordered iteration
   self.modulesById = {}      -- map for quick lookup
   self.globalDefaults = {}   -- fallback storage for Title Screen / New Game
@@ -16,11 +20,39 @@ function ModuleManager.new(mod)
 end
 
 --- Registers a new QoL module.
--- @param def Table containing module metadata and lifecycle hooks
+-- @param def Table containing module metadata, compatibility constraints, and lifecycle hooks
 function ModuleManager:register(def)
   assert(def and def.id, "Module definition must have an 'id'")
   assert(def.label, "Module definition must have a 'label'")
   if def.default == nil then def.default = true end
+
+  -- Check generation compatibility
+  if def.supportedGenerations then
+    local genMatch = false
+    for _, gen in ipairs(def.supportedGenerations) do
+      if gen == self.generation then
+        genMatch = true
+        break
+      end
+    end
+    if not genMatch then
+      return nil
+    end
+  end
+
+  -- Check specific game compatibility
+  if def.supportedGames then
+    local gameMatch = false
+    for _, g in ipairs(def.supportedGames) do
+      if g == self.game then
+        gameMatch = true
+        break
+      end
+    end
+    if not gameMatch then
+      return nil
+    end
+  end
 
   local modEntry = {
     id = def.id,
@@ -29,6 +61,8 @@ function ModuleManager:register(def)
     default = def.default,
     values = def.values,
     init = def.init,
+    supportedGenerations = def.supportedGenerations,
+    supportedGames = def.supportedGames,
   }
 
   table.insert(self.modules, modEntry)
@@ -148,94 +182,61 @@ function ModuleManager:cycle(id, dir)
   if not entry then return end
   dir = dir or 1
 
-  if entry.values and #entry.values > 0 then
-    local cur = tostring(self:getValue(id)):upper()
+  if entry.values then
+    local cur = self:getValue(id)
     local curIdx = 1
-    for idx, v in ipairs(entry.values) do
-      if v:upper() == cur then
-        curIdx = idx
+    for i, v in ipairs(entry.values) do
+      if v == cur then
+        curIdx = i
         break
       end
     end
     local nextIdx = curIdx + dir
-    if nextIdx > #entry.values then nextIdx = 1 end
-    if nextIdx < 1 then nextIdx = #entry.values end
-    local nextVal = entry.values[nextIdx]
-    self:setValue(id, nextVal)
-    return nextVal
+    if nextIdx > #entry.values then
+      nextIdx = 1
+    elseif nextIdx < 1 then
+      nextIdx = #entry.values
+    end
+    self:setValue(id, entry.values[nextIdx])
   else
     local cur = self:isEnabled(id)
-    local nxt = not cur
-    self:setEnabled(id, nxt)
-    return nxt
+    self:setEnabled(id, not cur)
   end
 end
 
---- Toggles a module's state (calls cycle forward).
--- @param id string
--- @return any The new state
-function ModuleManager:toggle(id)
-  return self:cycle(id, 1)
-end
-
---- Gets a formatted display badge for the Options menu row.
--- @param id string
--- @return string e.g. "[ON ]", "[OFF]", "[RELEARN]", "[REL+TMS]"
-function ModuleManager:getDisplayStatus(id)
-  local entry = self.modulesById[id]
-  if entry and entry.values then
-    local val = tostring(self:getValue(id)):upper()
-    if val == "OFF" then
-      return "[OFF]"
-    elseif val == "RELEARN" then
-      return "[RELEARN]"
-    elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
-      return "[REL+TMS]"
-    else
-      return "[" .. val:sub(1, 7) .. "]"
-    end
-  else
-    return self:isEnabled(id) and "[ON ]" or "[OFF]"
-  end
-end
-
---- Returns a concise summary string for display in the Options menu row.
--- e.g. "RUNNING: ON" or "1 ACTIVE"
--- @return string
-function ModuleManager:getSummary()
-  local activeCount = 0
-  local total = #self.modules
-
-  for _, modDef in ipairs(self.modules) do
-    if self:isEnabled(modDef.id) then
-      activeCount = activeCount + 1
-    end
-  end
-
-  if total == 1 then
-    local onlyMod = self.modules[1]
-    local enabled = self:isEnabled(onlyMod.id)
-    return string.format("%s: %s", onlyMod.label, enabled and "ON" or "OFF")
-  elseif activeCount == 0 then
-    return "ALL OFF"
-  elseif activeCount == total then
-    return "ALL ACTIVE"
-  else
-    return string.format("%d ACTIVE", activeCount)
-  end
-end
-
---- Returns the list of all registered modules.
+--- Gets all registered module entries.
 -- @return table
 function ModuleManager:getAll()
   return self.modules
 end
 
---- Returns a specific module definition by ID.
+--- Gets module entry by ID.
 -- @param id string
 -- @return table|nil
 function ModuleManager:get(id)
   return self.modulesById[id]
+end
+
+--- Generates a compact summary string of active modules for the Options Menu row.
+-- @return string
+function ModuleManager:getSummary()
+  local total = #self.modules
+  if total == 0 then return "NONE" end
+
+  local enabledCount = 0
+  for _, entry in ipairs(self.modules) do
+    if self:isEnabled(entry.id) then
+      enabledCount = enabledCount + 1
+    end
+  end
+
+  if enabledCount == total then
+    return "ALL ON"
+  elseif enabledCount == 0 then
+    return "ALL OFF"
+  else
+    return string.format("%d/%d ON", enabledCount, total)
+  end
 end
 
 return ModuleManager
