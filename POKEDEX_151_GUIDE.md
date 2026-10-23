@@ -252,7 +252,7 @@ The following tables list every location in Kanto in chronological progression o
 | | NPC Trade | **Farfetch'd** (DUX) | Trade a Spearow in the house next to the Fan Club. |
 | **S.S. Anne** | Event Gift | HM01 **Cut** | Rub captain's back to receive Cut. |
 | ✅ **Route 11** | Wild Grass | Drowzee, Ekans, Sandshrew, Mr. Mime, Kangaskhan (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew cross-version rivals, wild Mr. Mime, and Kangaskhan outside Safari Zone. |
-| **Diglett's Cave** | Wild Cave | Diglett (Lv 15–22), **Dugtrio** (Lv 29–31) | High-speed Ground Pokémon shortcut between Route 11 and Route 2. |
+| ✅ **Diglett's Cave** | Wild Caves | Diglett (Lv 15–22, 95%), **Dugtrio** (Lv 29–31, 5%) | **OmniQoL**: Weighted cave roster preserving iconic 95% Diglett and rare 5% overleveled Dugtrio shortcut across Red, Blue, and Yellow. |
 | **Route 9** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Ekans, Sandshrew, Nidoran♀, Nidorina, Nidoran♂, Nidorino | Heading east toward Rock Tunnel. |
 | **Route 10** | Wild Grass | Voltorb, Magnemite, Ekans, Sandshrew, **Hitmonlee** (Lv 20–22), **Hitmonchan** (Lv 20–22) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added to route grass. |
 | | Surfing | Slowpoke (Lv 15), Slowbro (Lv 20) *(Yellow)* | River stream leading to the Power Plant. |
