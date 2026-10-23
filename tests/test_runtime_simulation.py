@@ -233,5 +233,34 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             self.assertEqual(manifest_data["version"], source_manifest["version"])
             self.assertEqual(manifest_data["games"], source_manifest["games"])
 
+    def test_settings_menu_layout_and_authentic_cursor(self):
+        """Verifies settings_menu.lua uses authentic cursor code 0xED and safe layout boundaries."""
+        settings_path = os.path.join(self.mods_dir, "core", "settings_menu.lua")
+        with open(settings_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Authentic Pokemon cursor arrow 0xED
+        self.assertIn("0xED", content, "settings_menu.lua must use authentic Pokemon cursor code 0xED")
+        self.assertIn("Font.drawCode(0xED, 8, yPos)", content)
+
+        # Scroll indicator arrows at correct list margins (144, 26) and (144, 70)
+        self.assertIn('Font.draw("^", 144, 26)', content)
+        self.assertIn('Font.draw("v", 144, 70)', content)
+
+        # Label clipping to prevent overlap
+        self.assertIn(":sub(1, 9)", content)
+
+        # Bottom info box must be 7 rows (y: 88 to 144) to prevent bottom collision with prompt
+        self.assertIn("Font.drawBox(0, 11, 20, 7)", content)
+
+        # Description text max width must be 16 characters to prevent right border cutoff
+        self.assertIn("wrapDesc(desc, 16)", content)
+
+        # ModuleManager must implement getDisplayStatus
+        mm_path = os.path.join(self.mods_dir, "core", "module_manager.lua")
+        with open(mm_path, "r", encoding="utf-8") as f:
+            mm_content = f.read()
+        self.assertIn("function ModuleManager:getDisplayStatus(id)", mm_content)
+
 if __name__ == "__main__":
     unittest.main()

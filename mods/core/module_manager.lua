@@ -224,6 +224,27 @@ function ModuleManager:cycle(id, dir)
   end
 end
 
+--- Gets a formatted display badge for the Options menu row.
+-- @param id string
+-- @return string e.g. "[ON ]", "[OFF]", "[RELEARN]", "[REL+TMS]"
+function ModuleManager:getDisplayStatus(id)
+  local entry = self.modulesById[id]
+  if entry and entry.values then
+    local val = tostring(self:getValue(id)):upper()
+    if val == "OFF" then
+      return "[OFF]"
+    elseif val == "RELEARN" then
+      return "[RELEARN]"
+    elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
+      return "[REL+TMS]"
+    else
+      return "[" .. val:sub(1, 7) .. "]"
+    end
+  else
+    return self:isEnabled(id) and "[ON ]" or "[OFF]"
+  end
+end
+
 --- Gets all registered module entries compatible with active game/generation.
 -- @param game Optional Game instance for dynamic filtering
 -- @return table

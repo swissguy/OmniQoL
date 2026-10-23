@@ -130,41 +130,60 @@ function SettingsMenu.setup(mod, moduleManager)
             if i <= total then
               local modDef = modules[i]
               local yPos = startY + (slot - 1) * stepY
+              local isSelected = (i == selectedIndex)
+              local statusTag = moduleManager.getDisplayStatus and moduleManager:getDisplayStatus(modDef.id)
+                or (moduleManager:isEnabled(modDef.id, game) and "[ON ]" or "[OFF]")
 
-              if i == selectedIndex then
-                Font.draw(">", 10, yPos)
+              -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
+              if isSelected then
+                if type(Font.drawCode) == "function" then
+                  Font.drawCode(0xED, 8, yPos)
+                else
+                  Font.draw(">", 8, yPos)
+                end
               end
 
-              Font.draw(modDef.label, 18, yPos)
+              -- Label at x=16 (fits within 8-9 characters)
+              local label = (modDef.label or ""):sub(1, 9)
+              Font.draw(label, 16, yPos)
 
-              local rawVal = moduleManager:getValue(modDef.id)
-              local valStr = (rawVal == true and "ON") or (rawVal == false and "OFF") or tostring(rawVal or "OFF")
-              local valX = 150 - (#valStr * 8)
-              Font.draw(valStr, valX, yPos)
+              -- Position badge based on width
+              local tagX = (statusTag:len() > 6) and 78 or 104
+              Font.draw(statusTag, tagX, yPos)
             end
           end
 
-          -- Description box: 20 columns x 5 rows (y: 88 to 128)
-          Font.drawBox(0, 11, 20, 5)
-          local curMod = modules[selectedIndex]
-          if curMod then
-            local descLine1, descLine2 = wrapDesc(curMod.desc, 18)
-            Font.draw(descLine1, 8, 98)
-            if #descLine2 > 0 then
-              Font.draw(descLine2, 8, 108)
+          -- Draw scroll indicator arrows if more modules exist
+          if scrollOffset > 0 then
+            Font.draw("^", 144, 26)
+          end
+          if scrollOffset + maxVisible < total then
+            Font.draw("v", 144, 70)
+          end
+
+          -- Bottom info box: 20 columns x 7 rows (y: 88 to 144)
+          Font.drawBox(0, 11, 20, 7)
+          local activeDef = modules[selectedIndex]
+          if activeDef then
+            local desc = activeDef.desc or ""
+            if activeDef.id == "move_relearner" then
+              local val = tostring(moduleManager:getValue("move_relearner")):upper()
+              if val == "OFF" then
+                desc = "Move Relearner is disabled."
+              elseif val == "RELEARN+TMS" or val == "RELEARN+TM" then
+                desc = "Teach level-up moves & all TMs."
+              else
+                desc = "Relearn natural level-up moves."
+              end
+            end
+            local line1, line2 = wrapDesc(desc, 16)
+            Font.draw(line1, 16, 98)
+            if #line2 > 0 then
+              Font.draw(line2, 16, 112)
             end
           end
 
-          -- Scroll arrows & help indicator
-          if total > maxVisible then
-            if scrollOffset > 0 then
-              Font.draw("^", 148, 10)
-            end
-            if scrollOffset + maxVisible < total then
-              Font.draw("v", 148, 76)
-            end
-          end
-
+          -- Bottom controls prompt: y=126 ends at y=134 (safely above bottom border at 136)
           Font.draw("A/</>:CHG B:EXIT", 16, 126)
         end
 
