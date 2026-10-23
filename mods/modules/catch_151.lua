@@ -194,6 +194,16 @@ local ROUTE_ROSTERS = {
       { species = "KANGASKHAN", minLevel = 16, maxLevel = 20 },
     },
   },
+  ROUTE_9 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "EKANS",     minLevel = 16, maxLevel = 20 },
+      { species = "SANDSHREW", minLevel = 16, maxLevel = 20 },
+      { species = "NIDORINA",  minLevel = 16, maxLevel = 20 },
+      { species = "NIDORINO",  minLevel = 16, maxLevel = 20 },
+      { species = "SPEAROW",   minLevel = 16, maxLevel = 20 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------

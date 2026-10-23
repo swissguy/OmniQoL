@@ -58,17 +58,17 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#020** | **Raticate** | Normal | Evolve Rattata at **Level 20** OR **Wild**: Routes 16, 17, 18, 21. |
 | **#021** | **Spearow** | Normal / Flying | **Wild**: Routes 3, 4, 9, 10, 11, 16, 17, 18, 22, 23. |
 | **#022** | **Fearow** | Normal / Flying | Evolve Spearow at **Level 20** OR **Wild**: Routes 17, 18, 23. |
-| **#023** | **Ekans** | Poison | **Wild**: Route 4 (Lv 8–12), Routes 11, 23 *(Red; added to Blue & Yellow on Routes 4, 11, 23)*. |
+| **#023** | **Ekans** | Poison | **Wild**: Routes 4, 9, 11, 23 *(Red; added to Blue & Yellow on Routes 4, 9, 11, 23)*. |
 | **#024** | **Arbok** | Poison | Evolve Ekans at **Level 22** OR **Wild**: Route 23 *(Red; added to Blue & Yellow on Route 23)*. |
 | **#025** | **Pikachu** | Electric | **Starter**: Yellow.<br>**Wild**: Viridian Forest, Power Plant *(Red/Blue/Yellow)*. |
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
-| **#027** | **Sandshrew** | Ground | **Wild**: Routes 3, 4, 11, 23 *(Blue; added to Red on Routes 4, 11, 23; wild on Route 3 in all versions)*. |
+| **#027** | **Sandshrew** | Ground | **Wild**: Routes 3, 4, 9, 11, 23 *(Blue; added to Red on Routes 4, 9, 11, 23; wild on Route 3 in all versions)*. |
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
 | **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
-| **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
+| **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Route 9 (Lv 16–20), Safari Zone. |
 | **#031** | **Nidoqueen** | Poison / Ground | Evolve Nidorina with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#032** | **Nidoran♂** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
-| **#033** | **Nidorino** | Poison | Evolve Nidoran♂ at **Level 16** OR **Wild**: Routes 9, 11, Safari Zone. |
+| **#033** | **Nidorino** | Poison | Evolve Nidoran♂ at **Level 16** OR **Wild**: Route 9 (Lv 16–20), Safari Zone. |
 | **#034** | **Nidoking** | Poison / Ground | Evolve Nidorino with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#035** | **Clefairy** | Normal | **Wild**: Mt. Moon; Prize at Celadon Game Corner. |
 | **#036** | **Clefable** | Normal | Evolve Clefairy with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon)*. |
@@ -253,7 +253,7 @@ The following tables list every location in Kanto in chronological progression o
 | **S.S. Anne** | Event Gift | HM01 **Cut** | Rub captain's back to receive Cut. |
 | ✅ **Route 11** | Wild Grass | Drowzee, Ekans, Sandshrew, Mr. Mime, Kangaskhan (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew cross-version rivals, wild Mr. Mime, and Kangaskhan outside Safari Zone. |
 | ✅ **Diglett's Cave** | Wild Caves | Diglett (Lv 15–22), **Dugtrio** (Lv 29–31) | High-speed Ground Pokémon shortcut. Encounters verified and kept vanilla. |
-| **Route 9** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Ekans, Sandshrew, Nidoran♀, Nidorina, Nidoran♂, Nidorino | Heading east toward Rock Tunnel. |
+| ✅ **Route 9** | Wild Grass | Ekans, Sandshrew, Nidorina, Nidorino, Spearow (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew version rivals, mid-stage Nidos, and Spearow. |
 | **Route 10** | Wild Grass | Voltorb, Magnemite, Ekans, Sandshrew, **Hitmonlee** (Lv 20–22), **Hitmonchan** (Lv 20–22) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added to route grass. |
 | | Surfing | Slowpoke (Lv 15), Slowbro (Lv 20) *(Yellow)* | River stream leading to the Power Plant. |
 | | Fishing | **Old Rod**: Magikarp (Lv 5)<br>**Good Rod**: Poliwag (Lv 10), Goldeen (Lv 10)<br>**Super Rod**: Poliwag (Lv 15), Goldeen (Lv 15), **Dratini** (Lv 15–20) | **OmniQoL**: Wild Dratini catchable outside Safari Zone using Super Rod! |
