@@ -39,7 +39,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#001** | **Bulbasaur** | Grass / Poison | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Cerulean City *(Yellow)*.<br>**Wild**: Viridian Forest (Lv 4–6), Route 2 (Lv 4–5). |
 | **#002** | **Ivysaur** | Grass / Poison | Evolve Bulbasaur at **Level 16**. |
 | **#003** | **Venusaur** | Grass / Poison | Evolve Ivysaur at **Level 32**. |
-| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Route 4 (Lv 8–12), Rock Tunnel 1F (Lv 14–16). |
+| **#004** | **Charmander** | Fire | **Starter**: Oak's Lab *(Red/Blue)*; Gift on Route 24 *(Yellow)*.<br>**Wild**: Route 3 (Lv 8–10), Route 4 (Lv 8–12). |
 | **#005** | **Charmeleon** | Fire | Evolve Charmander at **Level 16**. |
 | **#006** | **Charizard** | Fire / Flying | Evolve Charmeleon at **Level 36**. |
 | **#007** | **Squirtle** | Water | **Starter**: Oak's Lab *(Red/Blue)*; Gift in Vermilion City *(Yellow)*.<br>**Wild**: Route 24 (Lv 10–14), Route 25 (Lv 12–17). |
@@ -110,7 +110,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#072** | **Tentacool** | Water / Poison | **Wild**: Surfing on Routes 19, 20, 21, Seafoam Islands (Lv 5–40); Super Rod on Routes 12, 13, 19, 20, 21, Viridian City (Lv 15). |
 | **#073** | **Tentacruel** | Water / Poison | Evolve Tentacool at **Level 30** OR **Wild**: Surfing on Routes 19, 20, Seafoam Islands (Lv 30–40). |
 | **#074** | **Geodude** | Rock / Ground | **Wild**: Mt. Moon, Rock Tunnel, Victory Road. |
-| **#075** | **Graveler** | Rock / Ground | Evolve Geodude at **Level 25** OR **Wild**: Victory Road. |
+| **#075** | **Graveler** | Rock / Ground | Evolve Geodude at **Level 25** OR **Wild**: Rock Tunnel (Lv 18–24), Victory Road. |
 | **#076** | **Golem** | Rock / Ground | Evolve Graveler at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
 | **#077** | **Ponyta** | Fire | **Wild**: Route 17, Pokémon Mansion. |
 | **#078** | **Rapidash** | Fire | Evolve Ponyta at **Level 40** OR **Wild**: Cerulean Cave. |
@@ -150,7 +150,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#112** | **Rhydon** | Ground / Rock | Evolve Rhyhorn at **Level 42** OR **Wild**: Cerulean Cave. |
 | **#113** | **Chansey** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Route 14 (Lv 24–26), Route 23 (Lv 40–44), Cerulean Cave 1F (Lv 50–55). |
 | **#114** | **Tangela** | Grass | **Wild**: Route 21 *(Red/Blue)*, Safari Zone.<br>**Outside Safari**: Route 12 (Lv 22–25) & Route 21 (Lv 26–30) *(added to Yellow)*. |
-| **#115** | **Kangaskhan** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Rock Tunnel 1F (Lv 16–18) & Route 11 (Lv 16–20). |
+| **#115** | **Kangaskhan** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Route 11 (Lv 16–20) & Rock Tunnel (Lv 18–24). |
 | **#116** | **Horsea** | Water | **Wild**: Surfing on Seafoam Islands (Lv 25–30); Super Rod on Routes 13, 19, 20, 21, Seafoam Islands (Lv 15). |
 | **#117** | **Seadra** | Water | Evolve Horsea at **Level 32** OR **Wild**: Seafoam Islands, Cerulean Cave. |
 | **#118** | **Goldeen** | Water | **Wild**: Good Rod (Lv 10) in any body of water across Kanto; Super Rod (Lv 15) on Routes 6, 10, 12, 22, 24, Cerulean City. |
@@ -257,7 +257,7 @@ The following tables list every location in Kanto in chronological progression o
 | ✅ **Route 10** | Wild Grass | Voltorb, Magnemite, Machop, Hitmonlee, Hitmonchan (Lv 18–22) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Power Plant electric theme and early Fighting Dojo fighters. |
 | | Surfing | Slowpoke (Lv 15), Slowbro (Lv 20) *(Yellow)* | River stream leading to the Power Plant. |
 | | Fishing | **Old Rod**: Magikarp (Lv 5)<br>**Good Rod**: Poliwag (Lv 10), Goldeen (Lv 10)<br>**Super Rod**: Poliwag (Lv 15), Goldeen (Lv 15), **Dratini** (Lv 15–20) | **OmniQoL**: Wild Dratini catchable outside Safari Zone using Super Rod! |
-| **Rock Tunnel (1F & B1F)** | Wild Caves | Zubat, Geodude, Graveler, Machop, Onix, **Charmander** (Lv 14–16), **Kangaskhan** (Lv 16–18) | **OmniQoL**: Wild Charmander & Kangaskhan added to 1F. Flash recommended. |
+| ✅ **Rock Tunnel (1F & B1F)** | Wild Caves | Kangaskhan, Onix, Machop, Geodude, Graveler (Lv 18–24) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow, with floor progression (1F: Lv 18–22, B1F: Lv 20–24); wild Kangaskhan outside Safari Zone, and wild Graveler. Flash recommended. |
 | **Pokémon Tower** | Wild Floors | Gastly (Lv 18–25), Haunter (Lv 20–25), Cubone (Lv 20–22) | Silph Scope required to identify Marowak ghost on 6F. |
 | (Lavender Town) | Event Gift | **Poké Flute** | Rescue Mr. Fuji on top floor (7F) to receive Poké Flute. |
 

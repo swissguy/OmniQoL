@@ -5,7 +5,7 @@
 -- Features:
 -- 1. Wild Starters in Thematic Habitats:
 --    - Bulbasaur: Viridian Forest (Lv 4-6), Route 2 (Lv 4-5)
---    - Charmander: Route 3 (Lv 8-10), Rock Tunnel 1F (Lv 14-16)
+--    - Charmander: Route 3 (Lv 8-10), Route 4 (Lv 8-12)
 --    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 12-17)
 -- 2. Version Exclusives & Missing Pokémon Across Red, Blue, and Yellow:
 --    - Ekans / Arbok: Route 4, Route 11, Route 23 (Blue & Yellow)
@@ -24,7 +24,7 @@
 --    - Wild Raichu: Power Plant & Cerulean Cave (Yellow, since Starter Pikachu rejects Thunder Stone)
 -- 3. Safari Zone Exclusives Accessible Outside Safari Zone (Normal Battles & Pokéballs):
 --    - Chansey: Route 14 (Lv 24-26), Route 23 (Lv 40-44)
---    - Kangaskhan: Rock Tunnel 1F (Lv 16-18), Route 11 (Lv 16-20)
+--    - Kangaskhan: Route 11 (Lv 16-20), Rock Tunnel (Lv 18-24)
 --    - Tauros: Route 17 (Lv 25-28), Route 18 (Lv 25-28)
 --    - Scyther: Route 15 (Lv 24-26)
 --    - Pinsir: Route 14 (Lv 24-26)
@@ -214,17 +214,32 @@ local ROUTE_ROSTERS = {
       { species = "HITMONCHAN", minLevel = 18, maxLevel = 22 },
     },
   },
+  ROCK_TUNNEL_1F = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "KANGASKHAN", minLevel = 18, maxLevel = 22 },
+      { species = "ONIX",       minLevel = 18, maxLevel = 22 },
+      { species = "MACHOP",     minLevel = 18, maxLevel = 22 },
+      { species = "GEODUDE",    minLevel = 18, maxLevel = 22 },
+      { species = "GRAVELER",   minLevel = 18, maxLevel = 22 },
+    },
+  },
+  ROCK_TUNNEL_B1F = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "KANGASKHAN", minLevel = 20, maxLevel = 24 },
+      { species = "ONIX",       minLevel = 20, maxLevel = 24 },
+      { species = "MACHOP",     minLevel = 20, maxLevel = 24 },
+      { species = "GEODUDE",    minLevel = 20, maxLevel = 24 },
+      { species = "GRAVELER",   minLevel = 20, maxLevel = 24 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
 -- Wild Encounter Tables by Map Identifier / Alias (Additions)
 -- ----------------------------------------------------------------------------
 local WILD_ADDITIONS = {
-  -- --- Starters ---
-  ROCK_TUNNEL_1F = {
-    { species = "CHARMANDER", minLevel = 14, maxLevel = 16, rate = 0.06, type = "grass" },
-    { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.08, type = "grass" },
-  },
 
   -- --- Version Exclusives & Missing Pokémon ---
   ROUTE_7 = {
