@@ -30,10 +30,10 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Vanilla NPC Trades**: In-game NPC trades (e.g., Machoke in Pokémon Blue/Yellow) do not immediately auto-evolve upon receipt; they evolve upon their next level-up to 40+.
 
 ### ✨ Module 4: Catch All 151 Pokémon (Gen 1)
-- **Wild Starters**: Bulbasaur, Charmander, and Squirtle appear in the wild in thematic habitats across Kanto.
+- **Wild Starters**: Bulbasaur (Route 2 & Viridian Forest), Charmander (Routes 3 & 4), and Squirtle (Routes 24 & 25) appear in the wild in thematic habitats across Kanto.
 - **Cross-Version Exclusives**: All missing and version-exclusive Pokémon from Red, Blue, and Yellow are catchable across all three games in counterpart routes.
 - **Safari Zone Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes for standard battles and captures with regular Pokéballs.
-- **Mutually Exclusive & Single-Choice Pokémon**: Wild encounters for unchosen fossils (Omanyte/Kabuto), Dojo fighters (Hitmonlee/Hitmonchan), wild Eevee (enabling all 3 Eeveelutions), and trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon).
+- **Mutually Exclusive & Single-Choice Pokémon**: Wild encounters for unchosen fossils (Omanyte/Kabuto), Dojo fighters (Hitmonlee/Hitmonchan on Route 10 & Victory Road), wild Eevee (Routes 25, 8 & 17, enabling all 3 Eeveelutions), and trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon).
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their room or map if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequence, respawning on room re-entry if not caught.
 - **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.

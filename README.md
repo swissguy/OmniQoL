@@ -157,7 +157,7 @@ OmniQoL/
 │       ├── meta.json           # Index metadata & compatibility schema
 │       ├── description.md      # Public mod description
 │       └── thumbnail.png       # Mod artwork thumbnail
-├── tests/                      # Automated test suite (Python unittest, 37 tests)
+├── tests/                      # Automated test suite (Python unittest, 38 tests)
 │   ├── test_manifest.py        # Metadata & config validation
 │   ├── test_gen2_running.py    # Gen 2 compatibility, detection & Running module tests
 │   ├── test_runtime_simulation.py # End-to-end engine mock, syntax & speed math tests
@@ -198,10 +198,10 @@ OmniQoL/
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`TRADE EVOS`), enabled by default.
 
 ### Module 4: Catch All 151 Pokémon (Gen 1)
-- **Wild Starters**: Bulbasaur, Charmander, and Squirtle can be encountered and caught in the wild across thematic Kanto routes.
+- **Wild Starters**: Bulbasaur (Route 2 & Viridian Forest), Charmander (Routes 3 & 4), and Squirtle (Routes 24 & 25) can be encountered and caught in the wild across thematic Kanto routes.
 - **Version Exclusives & Missing Pokémon**: All version-locked Pokémon from Red, Blue, and Yellow are cross-available in counterpart wild habitats.
 - **Safari Zone Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes, allowing conventional battle and capture without fleeing or Safari Balls.
-- **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (Routes 25, 8 & 17, allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their map/room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, respawning on room re-entry if not caught.
 - **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.

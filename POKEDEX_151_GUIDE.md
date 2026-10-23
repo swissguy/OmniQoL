@@ -51,12 +51,12 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#013** | **Weedle** | Bug / Poison | **Wild**: Viridian Forest, Route 2. |
 | **#014** | **Kakuna** | Bug / Poison | Evolve Weedle at **Level 7** OR **Wild**: Viridian Forest *(Red/Blue; added to Yellow in Viridian Forest)*. |
 | **#015** | **Beedrill** | Bug / Poison | Evolve Kakuna at **Level 10**. |
-| **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 5, 6, 7, 8, 12, 21, 24, 25, Viridian Forest. |
+| **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 7, 8, 12, 21, Viridian Forest. |
 | **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest. |
 | **#018** | **Pidgeot** | Normal / Flying | Evolve Pidgeotto at **Level 36**. |
-| **#019** | **Rattata** | Normal | **Wild**: Routes 1, 2, 4, 9, 16, 21, 22. |
+| **#019** | **Rattata** | Normal | **Wild**: Routes 1, 2, 4, 16, 21, 22. |
 | **#020** | **Raticate** | Normal | Evolve Rattata at **Level 20** OR **Wild**: Routes 16, 17, 18, 21. |
-| **#021** | **Spearow** | Normal / Flying | **Wild**: Routes 3, 4, 9, 10, 11, 16, 17, 18, 22, 23. |
+| **#021** | **Spearow** | Normal / Flying | **Wild**: Routes 3, 4, 9, 16, 17, 18, 22, 23. |
 | **#022** | **Fearow** | Normal / Flying | Evolve Spearow at **Level 20** OR **Wild**: Routes 17, 18, 23. |
 | **#023** | **Ekans** | Poison | **Wild**: Routes 4, 9, 11, 23 *(Red; added to Blue & Yellow on Routes 4, 9, 11, 23)*. |
 | **#024** | **Arbok** | Poison | Evolve Ekans at **Level 22** OR **Wild**: Route 23 *(Red; added to Blue & Yellow on Route 23)*. |
@@ -64,19 +64,19 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#026** | **Raichu** | Electric | Evolve Pikachu with **Thunder Stone** *(Red/Blue)*.<br>**Wild**: Power Plant (Lv 34–38) & Cerulean Cave *(Yellow, since starter Pikachu rejects stone)*. |
 | **#027** | **Sandshrew** | Ground | **Wild**: Routes 3, 4, 9, 11, 23 *(Blue; added to Red on Routes 4, 9, 11, 23; wild on Route 3 in all versions)*. |
 | **#028** | **Sandslash** | Ground | Evolve Sandshrew at **Level 22** OR **Wild**: Route 23 *(Blue; added to Red on Route 23)*. |
-| **#029** | **Nidoran♀** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
+| **#029** | **Nidoran♀** | Poison | **Wild**: Route 22, Safari Zone. |
 | **#030** | **Nidorina** | Poison | Evolve Nidoran♀ at **Level 16** OR **Wild**: Route 9 (Lv 16–20), Safari Zone. |
 | **#031** | **Nidoqueen** | Poison / Ground | Evolve Nidorina with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
-| **#032** | **Nidoran♂** | Poison | **Wild**: Routes 22, 9, Safari Zone. |
+| **#032** | **Nidoran♂** | Poison | **Wild**: Route 22, Safari Zone. |
 | **#033** | **Nidorino** | Poison | Evolve Nidoran♂ at **Level 16** OR **Wild**: Route 9 (Lv 16–20), Safari Zone. |
 | **#034** | **Nidoking** | Poison / Ground | Evolve Nidorino with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon, Rocket Hideout)*. |
 | **#035** | **Clefairy** | Normal | **Wild**: Mt. Moon; Prize at Celadon Game Corner. |
 | **#036** | **Clefable** | Normal | Evolve Clefairy with **Moon Stone** *(Celadon Dept. Store 4F, Mt. Moon)*. |
 | **#037** | **Vulpix** | Fire | **Wild**: Routes 7, 8, Pokémon Mansion *(Blue; added to Red on Routes 7, 8, Mansion)*. |
 | **#038** | **Ninetales** | Fire | Evolve Vulpix with **Fire Stone** *(Celadon Dept. Store)*. |
-| **#039** | **Jigglypuff** | Normal | **Wild**: Route 3 *(Red/Blue)*; Routes 5, 6, 7, 8 *(Yellow)*. |
+| **#039** | **Jigglypuff** | Normal | **Wild**: Routes 3, 5, 6 (Lv 6–18); Routes 7, 8. |
 | **#040** | **Wigglytuff** | Normal | Evolve Jigglypuff with **Moon Stone** *(Celadon Dept. Store 4F)*. |
-| **#041** | **Zubat** | Poison / Flying | **Wild**: Mt. Moon, Rock Tunnel, Seafoam Islands, Cerulean Cave. |
+| **#041** | **Zubat** | Poison / Flying | **Wild**: Mt. Moon, Seafoam Islands, Cerulean Cave. |
 | **#042** | **Golbat** | Poison / Flying | Evolve Zubat at **Level 22** OR **Wild**: Seafoam Islands, Victory Road, Cerulean Cave. |
 | **#043** | **Oddish** | Grass / Poison | **Wild**: Routes 24, 25, 12, 13 *(Red; added to Blue on Routes 24, 25, 12, 13)*. |
 | **#044** | **Gloom** | Grass / Poison | Evolve Oddish at **Level 21** OR **Wild**: Routes 12, 13, 14, 15 *(Red; added to Blue on Route 13)*. |
@@ -98,7 +98,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#060** | **Poliwag** | Water | **Wild**: Good Rod (Lv 10) in any body of water across Kanto; Super Rod (Lv 15) in Cerulean City, Routes 10, 22, 23. |
 | **#061** | **Poliwhirl** | Water | Evolve Poliwag at **Level 25** OR **Wild**: Route 23 *(Surfing in Yellow)*; Super Rod in Cerulean City, Route 23, Cerulean Cave (Lv 23). |
 | **#062** | **Poliwrath** | Water / Fighting | Evolve Poliwhirl with **Water Stone** *(Celadon Dept. Store)*. |
-| **#063** | **Abra** | Psychic | **Wild**: Routes 24, 25; Prize at Celadon Game Corner. |
+| **#063** | **Abra** | Psychic | **Wild**: Routes 5, 6, 24, 25; Prize at Celadon Game Corner. |
 | **#064** | **Kadabra** | Psychic | Evolve Abra at **Level 16** OR **Wild**: Cerulean Cave. |
 | **#065** | **Alakazam** | Psychic | Evolve Kadabra at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
 | **#066** | **Machop** | Fighting | **Wild**: Route 10 (Lv 18–22), Rock Tunnel, Victory Road. |
