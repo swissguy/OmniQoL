@@ -174,6 +174,16 @@ local ROUTE_ROSTERS = {
       { species = "DITTO",      minLevel = 14, maxLevel = 18 },
     },
   },
+  ROUTE_6 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "MANKEY",     minLevel = 15, maxLevel = 18 },
+      { species = "MEOWTH",     minLevel = 15, maxLevel = 18 },
+      { species = "ABRA",       minLevel = 15, maxLevel = 18 },
+      { species = "JIGGLYPUFF", minLevel = 15, maxLevel = 18 },
+      { species = "PSYDUCK",    minLevel = 15, maxLevel = 18 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -187,10 +197,6 @@ local WILD_ADDITIONS = {
   },
 
   -- --- Version Exclusives & Missing Pokémon ---
-  ROUTE_6 = {
-    { species = "MEOWTH",     minLevel = 12, maxLevel = 14, rate = 0.15, type = "grass", game = { "red", "yellow" } },
-    { species = "MANKEY",     minLevel = 12, maxLevel = 14, rate = 0.15, type = "grass", game = "blue" },
-  },
   ROUTE_7 = {
     { species = "VULPIX",     minLevel = 18, maxLevel = 20, rate = 0.15, type = "grass", game = "red" },
     { species = "GROWLITHE",  minLevel = 18, maxLevel = 20, rate = 0.15, type = "grass", game = "blue" },

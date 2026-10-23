@@ -84,7 +84,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#051** | **Dugtrio** | Ground | Evolve Diglett at **Level 26** OR **Wild**: Diglett's Cave. |
 | **#052** | **Meowth** | Normal | **Wild**: Routes 5, 6, 7, 8 *(Blue; added to Red & Yellow on Routes 5, 6, 7, 8)*. |
 | **#053** | **Persian** | Normal | Evolve Meowth at **Level 28**. |
-| **#054** | **Psyduck** | Water | **Wild**: Routes 4, 24, Safari Zone, Cerulean Cave *(Surfing/Fishing)*. |
+| **#054** | **Psyduck** | Water | **Wild**: Route 6 (Lv 15–18) *(Grass)*; Routes 4, 24, Safari Zone, Cerulean Cave *(Surfing/Fishing)*. |
 | **#055** | **Golduck** | Water | Evolve Psyduck at **Level 33** OR **Wild**: Seafoam Islands, Cerulean Cave. |
 | **#056** | **Mankey** | Fighting | **Wild**: Routes 3, 4, 5, 6, 22 *(Native to Routes 3, 4, 22 in Yellow, Routes 5, 6 in Red; added across Routes 3, 4, 5, 6, 22 in Red, Blue, and Yellow)*. |
 | **#057** | **Primeape** | Fighting | Evolve Mankey at **Level 28** OR **Wild**: Route 23 *(Red/Yellow)*. |
@@ -233,7 +233,7 @@ The following tables list every location in Kanto in chronological progression o
 | ✅ **Route 25** | Wild Grass | Squirtle, Abra, Oddish, Bellsprout, Eevee (Lv 12–17) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; wild Squirtle, Oddish, Bellsprout, and early wild Eevee enabled. |
 | | Surfing / Rods | Psyduck, Krabby, Goldeen, Kingler | Water encounters near Bill's Sea Cottage. |
 | ✅ **Route 5** | Wild Grass | Mankey, Meowth, Abra, Jigglypuff, Ditto (Lv 14–18) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Mankey & Meowth cross-version rivals, and wild Ditto outside Day Care. |
-| **Route 6** | Wild Grass | Pidgey, Pidgeotto, Rattata, Jigglypuff, Abra, **Meowth** (Lv 12–14), **Mankey** (Lv 12–14) | **OmniQoL**: Meowth & Mankey cross-version restored. |
+| ✅ **Route 6** | Wild Grass | Mankey, Meowth, Abra, Jigglypuff, Psyduck (Lv 15–18) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Mankey & Meowth cross-version rivals, and wild grass Psyduck enabled. |
 | | Surfing / Rods | Psyduck, Golduck, Shellder, Krabby, Poliwag | Water encounters. |
 | **Vermilion City** | Gift (Officer) | **Squirtle** (Lv 10) *(Yellow)* | Gift from Officer Jenny in center of town after winning Thunder Badge. |
 | | NPC Gift | **Old Rod** (Fishing Guru); **Bike Voucher** (Fan Club) | Trade Bike Voucher for Bicycle at Cerulean Bike Shop. |
