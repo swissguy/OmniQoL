@@ -223,8 +223,8 @@ The following tables list every location in Kanto in chronological progression o
 | ✅ **Route 3** | Wild Grass | Pidgey, Spearow, Jigglypuff, Mankey, Sandshrew (Lv 6–10), **Charmander** (Lv 8–10) | **OmniQoL**: Wild Charmander added; Sandshrew & Mankey enabled across all versions; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 | ✅ **Mt. Moon (1F–B2F)** | Wild Caves | Zubat, Geodude, Paras, Clefairy (Lv 7–12) | **OmniQoL**: All 4 cave species balanced with equal uniform appearance rates (25% each) across Red, Blue, and Yellow, with floor progression (1F: Lv 7–10, B1F: Lv 8–11, B2F: Lv 9–12). |
 | | Choice Event | **Helix Fossil** (Omanyte) OR **Dome Fossil** (Kabuto) | Choose 1 from Super Nerd; **OmniQoL** also adds wild Omanyte/Kabuto to Seafoam. |
-| ✅ **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
-| | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–12) | **OmniQoL**: Wild Charmander added; Ekans, Sandshrew, and Mankey cross-version enabled; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
+| **Route 4** | NPC Purchase | **Magikarp** (¥500) | Sold by salesman in the Pokémon Center. |
+| ✅ **Route 4** | Wild Grass | Rattata, Spearow, Ekans, Sandshrew, Mankey, **Charmander** (Lv 8–12) | **OmniQoL**: Wild Charmander added; Ekans, Sandshrew, and Mankey cross-version enabled; all 6 species balanced with equal uniform appearance rates (~16.7% each) across Red, Blue, and Yellow. |
 
 ---
 
