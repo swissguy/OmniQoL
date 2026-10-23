@@ -82,7 +82,7 @@ class TestEncounters(unittest.TestCase):
 
     def test_rosters_parsed_successfully(self):
         self.assertGreater(len(self.rosters), 0, "No rosters found in ROUTE_ROSTERS")
-        expected_routes = ["ROUTE_2", "ROUTE_22", "VIRIDIAN_FOREST", "ROUTE_3", "MT_MOON_1F", "MT_MOON_B1F", "MT_MOON_B2F", "ROUTE_4", "ROUTE_24", "ROUTE_25"]
+        expected_routes = ["ROUTE_2", "ROUTE_22", "VIRIDIAN_FOREST", "ROUTE_3", "MT_MOON_1F", "MT_MOON_B1F", "MT_MOON_B2F", "ROUTE_4", "ROUTE_24", "ROUTE_25", "ROUTE_5"]
         for r in expected_routes:
             self.assertIn(r, self.rosters, f"Expected {r} in ROUTE_ROSTERS")
 
@@ -146,6 +146,7 @@ class TestEncounters(unittest.TestCase):
             "Route 4": ["ROUTE_4"],
             "Route 24": ["ROUTE_24"],
             "Route 25": ["ROUTE_25"],
+            "Route 5": ["ROUTE_5"],
         }
 
         for comp in self.completed_routes:

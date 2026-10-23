@@ -162,7 +162,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#129** | **Magikarp** | Water | **Wild**: Old Rod in any body of water; Purchase from salesman in Route 4 Pokémon Center for ¥500. |
 | **#130** | **Gyarados** | Water / Flying | Evolve Magikarp at **Level 20** OR **Wild**: Safari Zone, Cerulean Cave. |
 | **#131** | **Lapras** | Water / Ice | **Gift**: Silph Co. 7F from the receptionist after defeating the rival. |
-| **#132** | **Ditto** | Normal | **Wild**: Routes 13, 14, 15, 23, Cerulean Cave. |
+| **#132** | **Ditto** | Normal | **Wild**: Route 5 (Lv 14–18), Routes 13, 14, 15, 23, Cerulean Cave. |
 | **#133** | **Eevee** | Normal | **Gift**: Rooftop room of Celadon Mansion (1 free).<br>**Wild**: Route 25 (Lv 12–17), Route 8 (Lv 18–22), Route 17 (Lv 22–25) *(allows evolving all 3 Eeveelutions)*. |
 | **#134** | **Vaporeon** | Water | Evolve Eevee with **Water Stone** *(Celadon Dept. Store)*. |
 | **#135** | **Jolteon** | Electric | Evolve Eevee with **Thunder Stone** *(Celadon Dept. Store)*. |
@@ -232,7 +232,7 @@ The following tables list every location in Kanto in chronological progression o
 | | Surfing / Rods | Goldeen, Seaking, Poliwag, Psyduck, Krabby | Water encounters. |
 | ✅ **Route 25** | Wild Grass | Squirtle, Abra, Oddish, Bellsprout, Eevee (Lv 12–17) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; wild Squirtle, Oddish, Bellsprout, and early wild Eevee enabled. |
 | | Surfing / Rods | Psyduck, Krabby, Goldeen, Kingler | Water encounters near Bill's Sea Cottage. |
-| **Route 5** | Wild Grass | Pidgey, Pidgeotto, Rattata, Jigglypuff, Abra, **Meowth** (Lv 10–12), **Mankey** (Lv 10–12) | **OmniQoL**: Meowth & Mankey cross-version restored. Day Care located here. |
+| ✅ **Route 5** | Wild Grass | Mankey, Meowth, Abra, Jigglypuff, Ditto (Lv 14–18) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Mankey & Meowth cross-version rivals, and wild Ditto outside Day Care. |
 | **Route 6** | Wild Grass | Pidgey, Pidgeotto, Rattata, Jigglypuff, Abra, **Meowth** (Lv 12–14), **Mankey** (Lv 12–14) | **OmniQoL**: Meowth & Mankey cross-version restored. |
 | | Surfing / Rods | Psyduck, Golduck, Shellder, Krabby, Poliwag | Water encounters. |
 | **Vermilion City** | Gift (Officer) | **Squirtle** (Lv 10) *(Yellow)* | Gift from Officer Jenny in center of town after winning Thunder Badge. |
