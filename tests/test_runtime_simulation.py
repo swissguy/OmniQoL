@@ -258,6 +258,20 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         # Consolidated message check
         self.assertEqual(battle.messages, ["The rest of the\nteam gained EXP!"])
 
+    def test_gen2_battle_shape_and_priority_in_exp_share(self):
+        """Verifies exp_share.lua handles Gen 2 battle shape (battle.party, battle.player) and priority 90."""
+        exp_share_path = os.path.join(self.mods_dir, "modules", "exp_share.lua")
+        with open(exp_share_path, "r", encoding="utf-8") as f:
+            code = f.read()
+
+        # Priority 90 registration
+        self.assertIn(', 90)', code, "exp_share hooks must run at priority 90 to preempt conflicting overhaul hooks")
+
+        # Gen 2 battle shape support
+        self.assertIn("battle.party", code, "exp_share must resolve battle.party for Gen 2 battle shape")
+        self.assertIn("resolvePlayerParty", code, "exp_share must implement robust multi-gen party resolution")
+        self.assertIn("sayBattleMessage", code, "exp_share must implement defensive battle message emission")
+
     def test_zip_release_archive_content_and_integrity(self):
         """Builds and inspects the distribution archive for 100% path accuracy."""
         with open(self.manifest_path, "r", encoding="utf-8") as f:
