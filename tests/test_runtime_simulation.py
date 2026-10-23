@@ -205,7 +205,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
                 self.statExp = stat_exp
                 self.exp = exp
 
-        class MockBattle:
+        class MockGen1Battle:
             def __init__(self, party):
                 self.party = party
                 self.messages = []
@@ -214,49 +214,86 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             def sayNext(self, msg):
                 self.messages.append(msg)
 
+        class MockGen2Battle:
+            def __init__(self, party):
+                self.party = party
+                # Gen 2 VM lacks sayNext on battle table
+
+        # --- 1. Gen 1 Simulation (sayNext available -> consolidated announcement, silent benched shares) ---
         mon1 = MockMon("Pikachu", hp=30)
         mon2 = MockMon("Cyndaquil", hp=25)
         mon3 = MockMon("FaintedMon", hp=0)
 
         party = [mon1, mon2, mon3]
-        battle = MockBattle(party)
-        alive_battlers = [mon1]
+        battle1 = MockGen1Battle(party)
+        alive1 = [mon1]
 
-        # Simulate exp_award wrap
-        awarded = []
-        def apply_share(mon, split, announce):
+        awarded1 = []
+        def apply_share1(mon, split, announce):
             base = 100
-            gain = base if mon in alive_battlers else max(1, base // 2)
+            gain = base if mon in alive1 else max(1, base // 2)
             mon.exp += gain
             mon.statExp += 50 * split
-            awarded.append({"mon": mon.name, "exp": gain, "announce": announce})
+            awarded1.append({"mon": mon.name, "exp": gain, "announce": announce})
 
-        # Distribution logic matching exp_share.lua
-        for m in alive_battlers:
-            apply_share(m, 1, True)
+        for m in alive1:
+            apply_share1(m, 1, True)
 
-        benched = [m for m in party if m not in alive_battlers and m.hp > 0]
-        if len(benched) > 0:
-            battle.sayNext("The rest of the\nteam gained EXP!")
-            for m in benched:
-                apply_share(m, 1, False)
+        benched1 = [m for m in party if m not in alive1 and m.hp > 0]
+        # In Gen 1, sayNext exists -> sayBattleMessage succeeds
+        has_msg1 = hasattr(battle1, "sayNext") and callable(battle1.sayNext)
+        if has_msg1:
+            battle1.sayNext("The rest of the\nteam gained EXP!")
+        announce_benched1 = not has_msg1
+        for m in benched1:
+            apply_share1(m, 1, announce_benched1)
 
         # Active battler (Pikachu): 100 EXP (100%), 50 Stat EXP (100%), announce=True
         self.assertEqual(mon1.exp, 100)
         self.assertEqual(mon1.statExp, 50)
-        self.assertTrue(awarded[0]["announce"])
+        self.assertTrue(awarded1[0]["announce"])
 
-        # Benched living mon (Cyndaquil): 50 EXP (50%), 50 Stat EXP (100%), announce=False
+        # Benched living mon (Cyndaquil) in Gen 1: 50 EXP (50%), 50 Stat EXP (100%), announce=False
         self.assertEqual(mon2.exp, 50)
         self.assertEqual(mon2.statExp, 50)
-        self.assertFalse(awarded[1]["announce"])
+        self.assertFalse(awarded1[1]["announce"])
 
         # Fainted mon: 0 EXP, 0 Stat EXP
         self.assertEqual(mon3.exp, 0)
         self.assertEqual(mon3.statExp, 0)
+        self.assertEqual(battle1.messages, ["The rest of the\nteam gained EXP!"])
 
-        # Consolidated message check
-        self.assertEqual(battle.messages, ["The rest of the\nteam gained EXP!"])
+        # --- 2. Gen 2 Simulation (sayNext unavailable -> native per-mon announcement & EXP bar) ---
+        g2_mon1 = MockMon("Totodile", hp=35)
+        g2_mon2 = MockMon("Pidgey", hp=20)
+        g2_party = [g2_mon1, g2_mon2]
+        battle2 = MockGen2Battle(g2_party)
+        alive2 = [g2_mon1]
+
+        awarded2 = []
+        def apply_share2(mon, split, announce):
+            base = 120
+            gain = base if mon in alive2 else max(1, base // 2)
+            mon.exp += gain
+            mon.statExp += 60 * split
+            awarded2.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        for m in alive2:
+            apply_share2(m, 1, True)
+
+        benched2 = [m for m in g2_party if m not in alive2 and m.hp > 0]
+        has_msg2 = hasattr(battle2, "sayNext") and callable(getattr(battle2, "sayNext"))
+        announce_benched2 = not has_msg2
+        for m in benched2:
+            apply_share2(m, 1, announce_benched2)
+
+        # Active battler (Totodile): announce=True
+        self.assertEqual(g2_mon1.exp, 120)
+        self.assertTrue(awarded2[0]["announce"])
+
+        # Benched living mon (Pidgey) in Gen 2: announce=True (gives player in-battle notification & EXP bar)
+        self.assertEqual(g2_mon2.exp, 60)
+        self.assertTrue(awarded2[1]["announce"])
 
     def test_gen2_battle_shape_and_priority_in_exp_share(self):
         """Verifies exp_share.lua handles Gen 2 battle shape (battle.party, battle.player) and priority 90."""
@@ -271,6 +308,8 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         self.assertIn("battle.party", code, "exp_share must resolve battle.party for Gen 2 battle shape")
         self.assertIn("resolvePlayerParty", code, "exp_share must implement robust multi-gen party resolution")
         self.assertIn("sayBattleMessage", code, "exp_share must implement defensive battle message emission")
+        self.assertIn("announceBenched", code, "exp_share must dynamically announce EXP when consolidated text is unavailable")
+        self.assertIn("consolidatedAnnounced", code, "exp_share must track consolidated message emission")
 
     def test_zip_release_archive_content_and_integrity(self):
         """Builds and inspects the distribution archive for 100% path accuracy."""

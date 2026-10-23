@@ -85,9 +85,13 @@ function ExpShareModule.initHooks(mod, moduleManager)
     return nil
   end
 
-  -- Helper to safely display consolidated battle message across Gen 1 & Gen 2 engines
-  local function sayBattleMessage(battle, msg)
-    if not battle then return end
+  -- Helper to safely display consolidated battle message across Gen 1 & Gen 2 engines.
+  -- Returns true if a consolidated message method was found and successfully called,
+  -- or false if the engine lacks custom text queuing (e.g. Gen 2 bytecode VM).
+  local function sayBattleMessage(battle, a2, a3)
+    local ctx = (type(a2) == "table" and a2) or nil
+    local msg = (ctx and a3) or a2
+    if not msg then return false end
 
     local text = msg
     local okStrings, Strings = pcall(require, "src.core.Strings")
@@ -96,17 +100,28 @@ function ExpShareModule.initHooks(mod, moduleManager)
       if okConv and resConv then text = resConv end
     end
 
-    if type(battle.sayNext) == "function" then
-      pcall(battle.sayNext, battle, text)
-    elseif type(battle.say) == "function" then
-      pcall(battle.say, battle, text)
-    elseif type(battle.message) == "function" then
-      pcall(battle.message, battle, text)
-    elseif type(battle.print) == "function" then
-      pcall(battle.print, battle, text)
-    elseif type(battle.textbox) == "function" then
-      pcall(battle.textbox, battle, text)
+    local candidates = {
+      { obj = battle, fns = { "sayNext", "say", "message", "print", "textbox", "queueMessage" } },
+      { obj = ctx,    fns = { "sayNext", "say", "message", "print", "textbox", "queueMessage" } },
+      { obj = (battle and type(battle) == "table" and battle.ui), fns = { "sayNext", "say", "message", "print", "textbox" } },
+      { obj = (mod and type(mod) == "table" and mod.battle),      fns = { "sayNext", "say", "message", "print" } },
+    }
+
+    for _, candidate in ipairs(candidates) do
+      if candidate.obj and type(candidate.obj) == "table" then
+        for _, fnName in ipairs(candidate.fns) do
+          local fn = candidate.obj[fnName]
+          if type(fn) == "function" then
+            local ok = pcall(fn, candidate.obj, text)
+            if ok then
+              return true
+            end
+          end
+        end
+      end
     end
+
+    return false
   end
 
   -- 1. Hook exp.gain to award 50% EXP to benched party members (Priority 90)
@@ -189,16 +204,20 @@ function ExpShareModule.initHooks(mod, moduleManager)
 
       -- 3) Distribute 50% EXP & full Stat EXP to benched members
       if #benched > 0 then
-        -- Print single consolidated notification for benched members
-        sayBattleMessage(battle, "The rest of the\nteam gained EXP!")
+        -- Attempt to queue single consolidated notification for benched members
+        local consolidatedAnnounced = sayBattleMessage(battle, ctx, "The rest of the\nteam gained EXP!")
 
-        -- Apply shares silently; if a mon levels up, applyShare automatically
-        -- queues its level-up fanfare, stat box, and move learning prompt.
+        -- Determine announcement behavior:
+        -- In Gen 1 recomp, sayBattleMessage successfully queues "The rest of the team gained EXP!"
+        -- via sayNext, so benched mons pass announce = false to suppress individual repetitive boxes.
+        -- In Gen 2 recomp (or when consolidated text is unsupported by the engine), announce = true
+        -- ensures every recipient displays its native in-battle gain text and EXP bar animation.
+        local announceBenched = not consolidatedAnnounced
+
         for _, mon in ipairs(benched) do
           benchedMons[mon] = true
           -- split = 1 ensures full (100%) Stat EXP is added to mon.statExp
-          -- announce = false suppresses individual repetitive "X gained Y EXP" boxes
-          local okShare, err = pcall(applyShare, mon, 1, false)
+          local okShare, err = pcall(applyShare, mon, 1, announceBenched)
           benchedMons[mon] = nil
           if not okShare and mod and mod.log and mod.log.error then
             mod.log:error("[OmniQoL] Error applying EXP share to benched mon: " .. tostring(err))
