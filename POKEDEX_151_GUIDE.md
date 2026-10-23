@@ -258,7 +258,7 @@ The following tables list every location in Kanto in chronological progression o
 | | Surfing | Slowpoke (Lv 15), Slowbro (Lv 20) *(Yellow)* | River stream leading to the Power Plant. |
 | | Fishing | **Old Rod**: Magikarp (Lv 5)<br>**Good Rod**: Poliwag (Lv 10), Goldeen (Lv 10)<br>**Super Rod**: Poliwag (Lv 15), Goldeen (Lv 15), **Dratini** (Lv 15–20) | **OmniQoL**: Wild Dratini catchable outside Safari Zone using Super Rod! |
 | ✅ **Rock Tunnel (1F & B1F)** | Wild Caves | Kangaskhan, Onix, Machop, Geodude, Graveler (Lv 18–24) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow, with floor progression (1F: Lv 18–22, B1F: Lv 20–24); wild Kangaskhan outside Safari Zone, and wild Graveler. Flash recommended. |
-| **Pokémon Tower** | Wild Floors | Gastly (Lv 18–25), Haunter (Lv 20–25), Cubone (Lv 20–22) | Silph Scope required to identify Marowak ghost on 6F. |
+| ✅ **Pokémon Tower** | Wild Floors | Gastly (Lv 18–25), Haunter (Lv 20–25), Cubone (Lv 20–22) | Silph Scope required to identify Marowak ghost on 6F. Encounters verified and kept vanilla. |
 | (Lavender Town) | Event Gift | **Poké Flute** | Rescue Mr. Fuji on top floor (7F) to receive Poké Flute. |
 
 ---

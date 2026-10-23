@@ -160,7 +160,7 @@ class TestEncounters(unittest.TestCase):
             if not name_match:
                 continue
             name = name_match.group(1).strip()
-            if name in ["Route 1", "Diglett's Cave"]:
+            if name in ["Route 1", "Diglett's Cave", "Pokémon Tower"]:
                 continue
 
             self.assertIn(name, guide_to_roster_keys, f"Completed route '{name}' has no known roster mapping")
