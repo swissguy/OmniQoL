@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install LuaJIT compiler
+        run: sudo apt-get update && sudo apt-get install -y luajit
+
       - name: Run OmniQoL Test Suite
         run: python scripts/run_tests.py -v
 

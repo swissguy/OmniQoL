@@ -6,7 +6,7 @@
 -- 1. Wild Starters in Thematic Habitats:
 --    - Bulbasaur: Viridian Forest (Lv 4-6), Route 2 (Lv 4-5)
 --    - Charmander: Route 3 (Lv 8-10), Rock Tunnel 1F (Lv 14-16)
---    - Squirtle: Route 24 (Lv 8-10), Route 25 (Lv 10-12)
+--    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 12-17)
 -- 2. Version Exclusives & Missing Pokémon Across Red, Blue, and Yellow:
 --    - Ekans / Arbok: Route 4, Route 11, Route 23 (Blue & Yellow)
 --    - Sandshrew / Sandslash: Route 4, Route 11, Route 23 (Red)
@@ -33,7 +33,7 @@
 -- 4. Mutually Exclusive & In-Game Trade Pokémon Made Wild:
 --    - Fossils: Omanyte & Kabuto in Seafoam Islands B3F/B4F Water (Lv 28-32)
 --    - Fighting Dojo: Hitmonlee & Hitmonchan in Victory Road 2F (Lv 40-44) & Route 10 (Lv 20-22)
---    - Eevee: Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
+--    - Eevee: Route 25 (Lv 12-17), Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
 --    - Porygon: Route 7 (Lv 18-22) & Cerulean Cave 1F (Lv 48-52)
 --    - Farfetch'd: Route 12 (Lv 22-24) & Route 13 (Lv 24-26)
 --    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 14-16)
@@ -144,6 +144,26 @@ local ROUTE_ROSTERS = {
       { species = "CHARMANDER", minLevel = 8, maxLevel = 12 },
     },
   },
+  ROUTE_24 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "SQUIRTLE",   minLevel = 10, maxLevel = 14 },
+      { species = "ABRA",       minLevel = 10, maxLevel = 14 },
+      { species = "ODDISH",     minLevel = 10, maxLevel = 14 },
+      { species = "BELLSPROUT", minLevel = 10, maxLevel = 14 },
+      { species = "VENONAT",    minLevel = 10, maxLevel = 14 },
+    },
+  },
+  ROUTE_25 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "SQUIRTLE",   minLevel = 12, maxLevel = 17 },
+      { species = "ABRA",       minLevel = 12, maxLevel = 17 },
+      { species = "ODDISH",     minLevel = 12, maxLevel = 17 },
+      { species = "BELLSPROUT", minLevel = 12, maxLevel = 17 },
+      { species = "EEVEE",      minLevel = 12, maxLevel = 17 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -154,16 +174,6 @@ local WILD_ADDITIONS = {
   ROCK_TUNNEL_1F = {
     { species = "CHARMANDER", minLevel = 14, maxLevel = 16, rate = 0.06, type = "grass" },
     { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.08, type = "grass" },
-  },
-  ROUTE_24 = {
-    { species = "SQUIRTLE",   minLevel = 8,  maxLevel = 10, rate = 0.08, type = "grass" },
-    { species = "BELLSPROUT", minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "red" },
-    { species = "ODDISH",     minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "blue" },
-  },
-  ROUTE_25 = {
-    { species = "SQUIRTLE",   minLevel = 10, maxLevel = 12, rate = 0.08, type = "grass" },
-    { species = "BELLSPROUT", minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "red" },
-    { species = "ODDISH",     minLevel = 10, maxLevel = 12, rate = 0.15, type = "grass", game = "blue" },
   },
 
   -- --- Version Exclusives & Missing Pokémon ---
@@ -452,8 +462,28 @@ local function mapMatches(currentMap, targetMap, aliases)
   return false
 end
 
+--- High-entropy random helper prioritizing engine / LÖVE2D RNG over C rand
+local function getRandom(a, b, rngFn)
+  local fn = rngFn
+  if not fn or type(fn) ~= "function" then
+    if love and love.math and type(love.math.random) == "function" then
+      fn = love.math.random
+    else
+      fn = math.random
+    end
+  end
+
+  if a and b then
+    return fn(a, b)
+  elseif a then
+    return fn(a)
+  else
+    return fn()
+  end
+end
+
 --- Returns a matching added encounter for the current map, zone, and game
-local function getAddedWildEncounter(mapId, zoneType, game, mod)
+local function getAddedWildEncounter(mapId, zoneType, game, mod, rngFn)
   local norm = normalizeMapKey(mapId)
   local additions = WILD_ADDITIONS[norm]
   if not additions then
@@ -500,7 +530,7 @@ local function getAddedWildEncounter(mapId, zoneType, game, mod)
     totalWeight = totalWeight + (entry.rate or 0.10)
   end
 
-  local roll = math.random() * totalWeight
+  local roll = getRandom(nil, nil, rngFn) * totalWeight
   local accum = 0
   local choice = validPool[1]
   for _, entry in ipairs(validPool) do
@@ -513,7 +543,7 @@ local function getAddedWildEncounter(mapId, zoneType, game, mod)
 
   local level = choice.minLevel
   if choice.maxLevel and choice.maxLevel > choice.minLevel then
-    level = math.random(choice.minLevel, choice.maxLevel)
+    level = getRandom(choice.minLevel, choice.maxLevel, rngFn)
   end
 
   -- Total rate capped at 0.50 so vanilla Pokémon retain at least 50% appearance rate
@@ -532,7 +562,7 @@ end
 
 
 --- Gets encounter from custom route roster if defined
-local function getRouteRosterEncounter(mapId, terrain, game, mod)
+local function getRouteRosterEncounter(mapId, terrain, game, mod, rngFn)
   if not mapId then return nil end
   local norm = normalizeMapKey(mapId)
   local roster = ROUTE_ROSTERS[norm]
@@ -577,14 +607,14 @@ local function getRouteRosterEncounter(mapId, terrain, game, mod)
   local choice
   if roster.mode == "uniform" then
     -- Equal probability across all valid species on this route
-    choice = validPool[math.random(#validPool)]
+    choice = validPool[getRandom(#validPool, nil, rngFn)]
   else
     -- Weighted by entry.weight or entry.rate
     local totalWeight = 0
     for _, e in ipairs(validPool) do
       totalWeight = totalWeight + (e.weight or e.rate or 1)
     end
-    local roll = math.random() * totalWeight
+    local roll = getRandom(nil, nil, rngFn) * totalWeight
     local accum = 0
     choice = validPool[1]
     for _, e in ipairs(validPool) do
@@ -598,7 +628,7 @@ local function getRouteRosterEncounter(mapId, terrain, game, mod)
 
   local level = choice.minLevel
   if choice.maxLevel and choice.maxLevel > choice.minLevel then
-    level = math.random(choice.minLevel, choice.maxLevel)
+    level = getRandom(choice.minLevel, choice.maxLevel, rngFn)
   end
 
   return {
@@ -614,6 +644,7 @@ function Catch151Module.register(moduleManager)
     label = "CATCH 151",
     desc = "Catch all 151 wild Pokemon.",
     default = true,
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       Catch151Module.init(mod, mgr)
     end,
@@ -670,18 +701,24 @@ function Catch151Module.init(mod, moduleManager)
         return result
       end
 
+      -- If already overridden by encounter.roll, preserve without re-rolling
+      if enc and enc.isRosterOverride then
+        return enc
+      end
+
       local mapId = ctx and ctx.mapId
       local terrain = ctx and ctx.terrain or "grass"
+      local rng = ctx and ctx.rng
 
       -- 1a. Check if map has a custom route roster (e.g. Route 2 uniform roster)
-      local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+      local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod, rng)
       if rosterMon then
-        return { species = rosterMon.species, level = rosterMon.level }
+        return { species = rosterMon.species, level = rosterMon.level, isRosterOverride = true }
       end
 
       -- 1b. Check additions table
-      local added = getAddedWildEncounter(mapId, terrain, nil, mod)
-      if added and math.random() < added.rate then
+      local added = getAddedWildEncounter(mapId, terrain, nil, mod, rng)
+      if added and getRandom(nil, nil, rng) < added.rate then
         return { species = added.species, level = added.level }
       end
 
@@ -697,11 +734,13 @@ function Catch151Module.init(mod, moduleManager)
 
       local mapId = ctx and ctx.mapId
       local terrain = ctx and ctx.terrain or "grass"
+      local rng = ctx and ctx.rng
       if enc then
-        local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod)
+        local rosterMon = getRouteRosterEncounter(mapId, terrain, nil, mod, rng)
         if rosterMon then
           enc.species = rosterMon.species
           enc.level = rosterMon.level
+          enc.isRosterOverride = true
         end
       end
 
@@ -743,7 +782,7 @@ function Catch151Module.init(mod, moduleManager)
           local newDist = {}
           local validEntries = {}
           local totalWeight = 0
-          for _, entry in ipairs(roster[terrain]) do
+          for _, entry in ipairs(rosterList) do
             local match = true
             if entry.game then
               if type(entry.game) == "table" then

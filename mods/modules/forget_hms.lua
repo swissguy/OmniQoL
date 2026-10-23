@@ -45,6 +45,7 @@ function ForgetHMsModule.register(moduleManager)
     label = "FORGET HMS",
     desc = "Freely replace and forget HMs.",
     default = true,
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       ForgetHMsModule.init(mod, mgr)
     end,

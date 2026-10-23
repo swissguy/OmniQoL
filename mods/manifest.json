@@ -1,0 +1,19 @@
+{
+  "id": "omni_qol",
+  "name": "OmniQoL",
+  "version": "0.2.1",
+  "entry": "init.lua",
+  "api": 2,
+  "games": [
+    "gen1",
+    "gen2",
+    "red",
+    "blue",
+    "yellow",
+    "gold",
+    "silver",
+    "crystal"
+  ],
+  "priority": 10,
+  "description": "All-in-one modular Quality of Life suite for Pokémon native recompilations (Gen 1: Red, Blue, Yellow; Gen 2: Gold, Silver, Crystal). Features Running Shoes across Gen 1 and Gen 2 (with Pikachu follower sync on Yellow), modern Gen 6+ EXP Share, Trade Evolutions at Lv. 40, Catch All 151 Pokémon, Move Relearner in all Pokémon Centers, and freely replaceable HM moves, all with native Options Menu integration."
+}

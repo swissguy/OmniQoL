@@ -1,11 +1,12 @@
 -- ============================================================================
--- OmniQoL: Quality of Life Mod Entry Point (Gen 1: Red, Blue, Yellow)
--- Target: Pokemon Gen1Recomp (bryanthaboi/gen1recomp)
+-- OmniQoL: Quality of Life Mod Entry Point
+-- Target Engines: Gen1Recomp & Gen2Recomp (bryanthaboi/gen1recomp, gen2recomp)
+-- Supported Games: Red, Blue, Yellow, Gold, Silver, Crystal
 -- ============================================================================
 
 return function(mod)
   -- Determine base path of the mod and ensure package.path can resolve submodules
-  local modDir = mod.dir or mod.path or "mods/gen1"
+  local modDir = mod.dir or mod.path or "mods"
   local cleanDir = modDir:gsub("\\", "/")
   if not package.path:find(cleanDir, 1, true) then
     package.path = cleanDir .. "/?.lua;" .. cleanDir .. "/?/init.lua;" .. package.path
@@ -21,6 +22,11 @@ return function(mod)
     -- Try prefixing with mod directory
     local fullReqPath = cleanDir:gsub("^mods/", ""):gsub("/", ".") .. "." .. reqPath
     ok, res = pcall(require, fullReqPath)
+    if ok and res then return res end
+
+    -- Try prefixing with omni_qol
+    local omniReqPath = "omni_qol." .. reqPath
+    ok, res = pcall(require, omniReqPath)
     if ok and res then return res end
 
     -- Try love.filesystem.load
@@ -39,21 +45,33 @@ return function(mod)
       if not doPath:match("%.lua$") then doPath = doPath .. ".lua" end
       ok, res = pcall(dofile, doPath)
       if ok and res then return res end
+
+      -- Also test relative to current working directory
+      if not doPath:find("^mods/") then
+        local fallbackPath = "mods/" .. relPath
+        if not fallbackPath:match("%.lua$") then fallbackPath = fallbackPath .. ".lua" end
+        ok, res = pcall(dofile, fallbackPath)
+        if ok and res then return res end
+      end
     end
 
     error(string.format("[OmniQoL] Could not load module: %s", relPath))
   end
 
-  -- Initialize Core Framework
+  -- Initialize Core Framework & Game Detection
+  local GameDetector = loadModule("core/game_detector.lua")
   local ModuleManager = loadModule("core/module_manager.lua")
   local SettingsMenu = loadModule("core/settings_menu.lua")
 
-  local manager = ModuleManager.new(mod)
+  local manager = ModuleManager.new(mod, GameDetector)
+  local gen = manager:getGeneration()
+  local gameId = manager:getGame()
 
-  -- Register Modules
+  -- Register Running Module (Universal: Gen 1 & Gen 2)
   local RunningModule = loadModule("modules/running.lua")
   RunningModule.register(manager)
 
+  -- Register Gen 1 Modules (gated by supportedGenerations = {"gen1"} inside ModuleManager)
   local ExpShareModule = loadModule("modules/exp_share.lua")
   ExpShareModule.register(manager)
 
@@ -72,10 +90,22 @@ return function(mod)
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
+  -- Expose mod manager via official Gen1Recomp Inter-Mod API (mod.exports)
+  mod.exports = manager
+
   -- Log successful boot
-  if mod.log and type(mod.log.info) == "function" then
-    mod.log:info("OmniQoL suite loaded successfully for Gen 1 (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).")
+  local logMsg
+  if gen == "gen2" then
+    logMsg = string.format("OmniQoL suite loaded successfully for Gen 2 [%s] (Running Shoes active).", gameId:upper())
   else
-    print("[OmniQoL] Loaded successfully for Pokémon Red, Blue & Yellow (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).")
+    logMsg = string.format("OmniQoL suite loaded successfully for Gen 1 [%s] (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).", gameId:upper())
   end
+
+  if mod.log and type(mod.log.info) == "function" then
+    mod.log:info(logMsg)
+  else
+    print("[OmniQoL] " .. logMsg)
+  end
+
+  return manager
 end

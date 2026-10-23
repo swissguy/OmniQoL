@@ -1,5 +1,5 @@
 -- ============================================================================
--- OmniQoL: Options Menu & Settings Screen Integration (Gen 1: Red, Blue, Yellow)
+-- OmniQoL: Options Menu & Settings Screen Integration (Gen 1 & Gen 2)
 -- Injects 'OMNIQOL' entry into the native Options Menu (accessible both
 -- during gameplay and on the Title Screen), while leaving the top-level
 -- overworld Start Menu clean and vanilla.
@@ -8,17 +8,24 @@
 local SettingsMenu = {}
 
 function SettingsMenu.setup(mod, moduleManager)
-  -- 1. Register fallback engine options if mod.options API exists
+  -- 1. Register fallback engine options if mod.options API exists (Recipe R34 compliant)
   if mod.options and type(mod.options.define) == "function" then
     local optionDefs = {}
     for _, modEntry in ipairs(moduleManager:getAll()) do
-      table.insert(optionDefs, {
+      local def = {
+        id = modEntry.id,
         key = modEntry.id,
         label = modEntry.label,
-        type = "toggle",
+        name = modEntry.label,
+        type = "boolean",
         default = modEntry.default,
-      })
+        description = modEntry.desc,
+      }
+      table.insert(optionDefs, def)
+      -- Support individual option definition registration
+      pcall(function() mod.options:define(def) end)
     end
+    -- Support batch option definitions registration
     pcall(function() mod.options:define(optionDefs) end)
   end
 
@@ -34,7 +41,7 @@ function SettingsMenu.setup(mod, moduleManager)
         local state = { isOpaque = true }
 
         function state:update()
-          local modules = moduleManager:getAll()
+          local modules = moduleManager:getAll(game)
           local total = #modules
           if total == 0 then
             if game.input and game.input:wasPressed("b") then
@@ -103,7 +110,7 @@ function SettingsMenu.setup(mod, moduleManager)
         end
 
         function state:draw()
-          local modules = moduleManager:getAll()
+          local modules = moduleManager:getAll(game)
           if not Font or type(Font.drawBox) ~= "function" then
             return
           end
@@ -125,7 +132,7 @@ function SettingsMenu.setup(mod, moduleManager)
               local yPos = startY + (slot - 1) * stepY
               local isSelected = (i == selectedIndex)
               local statusTag = moduleManager.getDisplayStatus and moduleManager:getDisplayStatus(modDef.id)
-                or (moduleManager:isEnabled(modDef.id) and "[ON ]" or "[OFF]")
+                or (moduleManager:isEnabled(modDef.id, game) and "[ON ]" or "[OFF]")
 
               -- Draw authentic Pokemon triangle cursor arrow (0xED) or fallback
               if isSelected then
@@ -196,15 +203,16 @@ function SettingsMenu.setup(mod, moduleManager)
         id = "omni_qol",
         label = "OMNIQOL",
         value = function(g)
-          return moduleManager:getSummary()
+          return moduleManager:getSummary(g or game)
         end,
         activate = function(g)
+          local target = g or game
           if mod.ui and type(mod.ui.push) == "function" then
-            mod.ui.push(g, screenId)
-          elseif g.stack and type(g.stack.push) == "function" then
+            mod.ui.push(target, screenId)
+          elseif target and target.stack and type(target.stack.push) == "function" then
             local screenDef = mod.content and mod.content.screens and mod.content.screens:get(screenId)
             if screenDef and screenDef.new then
-              g.stack:push(screenDef.new(g))
+              target.stack:push(screenDef.new(target))
             end
           end
         end,

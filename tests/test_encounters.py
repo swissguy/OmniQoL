@@ -3,7 +3,7 @@ import re
 import unittest
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CATCH_151_PATH = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "catch_151.lua")
+CATCH_151_PATH = os.path.join(ROOT_DIR, "mods", "modules", "catch_151.lua")
 GUIDE_PATH = os.path.join(ROOT_DIR, "POKEDEX_151_GUIDE.md")
 
 def parse_route_rosters(content):
@@ -82,7 +82,7 @@ class TestEncounters(unittest.TestCase):
 
     def test_rosters_parsed_successfully(self):
         self.assertGreater(len(self.rosters), 0, "No rosters found in ROUTE_ROSTERS")
-        expected_routes = ["ROUTE_2", "ROUTE_22", "VIRIDIAN_FOREST", "ROUTE_3", "MT_MOON_1F", "MT_MOON_B1F", "MT_MOON_B2F", "ROUTE_4"]
+        expected_routes = ["ROUTE_2", "ROUTE_22", "VIRIDIAN_FOREST", "ROUTE_3", "MT_MOON_1F", "MT_MOON_B1F", "MT_MOON_B2F", "ROUTE_4", "ROUTE_24", "ROUTE_25"]
         for r in expected_routes:
             self.assertIn(r, self.rosters, f"Expected {r} in ROUTE_ROSTERS")
 
@@ -144,6 +144,8 @@ class TestEncounters(unittest.TestCase):
             "Route 3": ["ROUTE_3"],
             "Mt. Moon (1F–B2F)": ["MT_MOON_1F", "MT_MOON_B1F", "MT_MOON_B2F"],
             "Route 4": ["ROUTE_4"],
+            "Route 24": ["ROUTE_24"],
+            "Route 25": ["ROUTE_25"],
         }
 
         for comp in self.completed_routes:

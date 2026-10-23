@@ -3,7 +3,7 @@ import re
 import unittest
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT_DIR, "mods", "gen1", "modules", "relearner_data.lua")
+DATA_PATH = os.path.join(ROOT_DIR, "mods", "modules", "relearner_data.lua")
 
 def load_data_tables():
     with open(DATA_PATH, "r", encoding="utf-8") as f:

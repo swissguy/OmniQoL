@@ -28,6 +28,7 @@ function ExpShareModule.register(moduleManager)
     label = "EXP SHARE",
     desc = "Party shares EXP and Stat EXP.",
     default = true,
+    supportedGenerations = { "gen1" },
     init = function(mod, mgr)
       ExpShareModule.initHooks(mod, mgr)
     end,
