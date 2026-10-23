@@ -32,7 +32,7 @@
 --    - Tangela: Route 12 (Lv 22-25), Route 21 (Lv 28-30)
 -- 4. Mutually Exclusive & In-Game Trade Pokémon Made Wild:
 --    - Fossils: Omanyte & Kabuto in Seafoam Islands B3F/B4F Water (Lv 28-32)
---    - Fighting Dojo: Hitmonlee & Hitmonchan in Victory Road 2F (Lv 40-44) & Route 10 (Lv 20-22)
+--    - Fighting Dojo: Hitmonlee & Hitmonchan in Victory Road 2F (Lv 40-44) & Route 10 (Lv 18-22)
 --    - Eevee: Route 25 (Lv 12-17), Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
 --    - Porygon: Route 7 (Lv 18-22) & Cerulean Cave 1F (Lv 48-52)
 --    - Farfetch'd: Route 12 (Lv 22-24) & Route 13 (Lv 24-26)
@@ -204,6 +204,16 @@ local ROUTE_ROSTERS = {
       { species = "SPEAROW",   minLevel = 16, maxLevel = 20 },
     },
   },
+  ROUTE_10 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "VOLTORB",    minLevel = 18, maxLevel = 22 },
+      { species = "MAGNEMITE",  minLevel = 18, maxLevel = 22 },
+      { species = "MACHOP",     minLevel = 18, maxLevel = 22 },
+      { species = "HITMONLEE",  minLevel = 18, maxLevel = 22 },
+      { species = "HITMONCHAN", minLevel = 18, maxLevel = 22 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -228,8 +238,6 @@ local WILD_ADDITIONS = {
     { species = "EEVEE",      minLevel = 18, maxLevel = 22, rate = 0.08, type = "grass" },
   },
   ROUTE_10 = {
-    { species = "HITMONLEE",  minLevel = 20, maxLevel = 22, rate = 0.05, type = "grass" },
-    { species = "HITMONCHAN", minLevel = 20, maxLevel = 22, rate = 0.05, type = "grass" },
     { species = "DRATINI",    minLevel = 15, maxLevel = 20, rate = 0.10, type = "water" },
   },
   ROUTE_12 = {

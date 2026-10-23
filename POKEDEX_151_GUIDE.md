@@ -101,7 +101,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#063** | **Abra** | Psychic | **Wild**: Routes 24, 25; Prize at Celadon Game Corner. |
 | **#064** | **Kadabra** | Psychic | Evolve Abra at **Level 16** OR **Wild**: Cerulean Cave. |
 | **#065** | **Alakazam** | Psychic | Evolve Kadabra at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
-| **#066** | **Machop** | Fighting | **Wild**: Rock Tunnel, Victory Road. |
+| **#066** | **Machop** | Fighting | **Wild**: Route 10 (Lv 18–22), Rock Tunnel, Victory Road. |
 | **#067** | **Machoke** | Fighting | Evolve Machop at **Level 28** OR **Wild**: Victory Road. |
 | **#068** | **Machamp** | Fighting | Evolve Machoke at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
 | **#069** | **Bellsprout** | Grass / Poison | **Wild**: Routes 24, 25, 12, 13 *(Blue; added to Red on Routes 24, 25, 12, 13)*. |
@@ -116,7 +116,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#078** | **Rapidash** | Fire | Evolve Ponyta at **Level 40** OR **Wild**: Cerulean Cave. |
 | **#079** | **Slowpoke** | Water / Psychic | **Wild**: Route 10, Safari Zone, Cerulean Cave *(Surfing)*; Safari Zone, Route 23 *(Super Rod)*. |
 | **#080** | **Slowbro** | Water / Psychic | Evolve Slowpoke at **Level 37** OR **Wild**: Seafoam Islands, Cerulean Cave. |
-| **#081** | **Magnemite** | Electric | **Wild**: Route 10, Power Plant. |
+| **#081** | **Magnemite** | Electric | **Wild**: Route 10 (Lv 18–22), Power Plant. |
 | **#082** | **Magneton** | Electric | Evolve Magnemite at **Level 30** OR **Wild**: Power Plant, Cerulean Cave. |
 | **#083** | **Farfetch'd** | Normal / Flying | In-game NPC trade *(Vermilion City in Red/Blue)*.<br>**Wild**: Routes 12 & 13 *(Yellow; added to Red & Blue on Routes 12 & 13)*. |
 | **#084** | **Doduo** | Normal / Flying | **Wild**: Routes 16, 17, 18, Safari Zone. |
@@ -135,14 +135,14 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#097** | **Hypno** | Psychic | Evolve Drowzee at **Level 26** OR **Wild**: Cerulean Cave. |
 | **#098** | **Krabby** | Water | **Wild**: Super Rod on Routes 6, 11, 12, 13, 24, 25, Seafoam Islands (Lv 15). |
 | **#099** | **Kingler** | Water | Evolve Krabby at **Level 28** OR **Wild**: Seafoam Islands, Cerulean Cave. |
-| **#100** | **Voltorb** | Electric | **Wild**: Route 10, Power Plant. |
+| **#100** | **Voltorb** | Electric | **Wild**: Route 10 (Lv 18–22), Power Plant. |
 | **#101** | **Electrode** | Electric | Evolve Voltorb at **Level 30** OR **Wild**: Power Plant, Cerulean Cave. |
 | **#102** | **Exeggcute** | Grass / Psychic | **Wild**: Safari Zone. |
 | **#103** | **Exeggutor** | Grass / Psychic | Evolve Exeggcute with **Leaf Stone** *(Celadon Dept. Store)*. |
 | **#104** | **Cubone** | Ground | **Wild**: Pokémon Tower. |
 | **#105** | **Marowak** | Ground | Evolve Cubone at **Level 28** OR **Wild**: Victory Road, Cerulean Cave. |
-| **#106** | **Hitmonlee** | Fighting | **Gift**: Fighting Dojo in Saffron City (pick left Pokéball).<br>**Wild**: Victory Road 2F (Lv 40–44) & Route 10 (Lv 20–22). |
-| **#107** | **Hitmonchan** | Fighting | **Gift**: Fighting Dojo in Saffron City (pick right Pokéball).<br>**Wild**: Victory Road 2F (Lv 40–44) & Route 10 (Lv 20–22). |
+| **#106** | **Hitmonlee** | Fighting | **Gift**: Fighting Dojo in Saffron City (pick left Pokéball).<br>**Wild**: Victory Road 2F (Lv 40–44) & Route 10 (Lv 18–22). |
+| **#107** | **Hitmonchan** | Fighting | **Gift**: Fighting Dojo in Saffron City (pick right Pokéball).<br>**Wild**: Victory Road 2F (Lv 40–44) & Route 10 (Lv 18–22). |
 | **#108** | **Lickitung** | Normal | In-game trade *(Route 18 in Red/Blue)*; Route 15 *(Yellow)*.<br>**Wild**: Routes 15 & 18 (Lv 22–25) *(added to Red & Blue)*. |
 | **#109** | **Koffing** | Poison | **Wild**: Pokémon Mansion *(Red/Blue; added to Yellow in Mansion & Route 16)*. |
 | **#110** | **Weezing** | Poison | Evolve Koffing at **Level 35** OR **Wild**: Pokémon Mansion *(Red/Blue; added to Yellow in Mansion B1F)*. |
@@ -254,7 +254,7 @@ The following tables list every location in Kanto in chronological progression o
 | ✅ **Route 11** | Wild Grass | Drowzee, Ekans, Sandshrew, Mr. Mime, Kangaskhan (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew cross-version rivals, wild Mr. Mime, and Kangaskhan outside Safari Zone. |
 | ✅ **Diglett's Cave** | Wild Caves | Diglett (Lv 15–22), **Dugtrio** (Lv 29–31) | High-speed Ground Pokémon shortcut. Encounters verified and kept vanilla. |
 | ✅ **Route 9** | Wild Grass | Ekans, Sandshrew, Nidorina, Nidorino, Spearow (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew version rivals, mid-stage Nidos, and Spearow. |
-| **Route 10** | Wild Grass | Voltorb, Magnemite, Ekans, Sandshrew, **Hitmonlee** (Lv 20–22), **Hitmonchan** (Lv 20–22) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added to route grass. |
+| ✅ **Route 10** | Wild Grass | Voltorb, Magnemite, Machop, Hitmonlee, Hitmonchan (Lv 18–22) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Power Plant electric theme and early Fighting Dojo fighters. |
 | | Surfing | Slowpoke (Lv 15), Slowbro (Lv 20) *(Yellow)* | River stream leading to the Power Plant. |
 | | Fishing | **Old Rod**: Magikarp (Lv 5)<br>**Good Rod**: Poliwag (Lv 10), Goldeen (Lv 10)<br>**Super Rod**: Poliwag (Lv 15), Goldeen (Lv 15), **Dratini** (Lv 15–20) | **OmniQoL**: Wild Dratini catchable outside Safari Zone using Super Rod! |
 | **Rock Tunnel (1F & B1F)** | Wild Caves | Zubat, Geodude, Graveler, Machop, Onix, **Charmander** (Lv 14–16), **Kangaskhan** (Lv 16–18) | **OmniQoL**: Wild Charmander & Kangaskhan added to 1F. Flash recommended. |
