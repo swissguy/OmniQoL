@@ -194,13 +194,6 @@ local ROUTE_ROSTERS = {
       { species = "KANGASKHAN", minLevel = 16, maxLevel = 20 },
     },
   },
-  DIGLETTS_CAVE = {
-    mode = "weighted", -- 95% Diglett, 5% rare high-level Dugtrio
-    grass = {
-      { species = "DIGLETT", minLevel = 15, maxLevel = 22, weight = 19 },
-      { species = "DUGTRIO", minLevel = 29, maxLevel = 31, weight = 1 },
-    },
-  },
 }
 
 -- ----------------------------------------------------------------------------
