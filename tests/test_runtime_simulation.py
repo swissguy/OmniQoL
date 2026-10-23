@@ -2,6 +2,8 @@ import os
 import re
 import json
 import zipfile
+import shutil
+import subprocess
 import unittest
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -61,6 +63,26 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
                 opens_paren, closes_paren,
                 f"Mismatched parentheses () in {rel}: {opens_paren} open vs {closes_paren} close"
             )
+
+        # If LuaJIT or Lua is available, perform true bytecode compiler syntax validation
+        luajit_bin = shutil.which("luajit") or shutil.which("lua")
+        if not luajit_bin:
+            candidate = os.path.expanduser(r"~\AppData\Local\Programs\LuaJIT\bin\luajit.exe")
+            if os.path.exists(candidate):
+                luajit_bin = candidate
+
+        if luajit_bin:
+            for fpath in lua_files:
+                norm_path = fpath.replace("\\", "/")
+                res = subprocess.run(
+                    [luajit_bin, "-e", f'local f, err = loadfile("{norm_path}"); if not f then io.stderr:write(tostring(err)); os.exit(1) end'],
+                    capture_output=True,
+                    text=True
+                )
+                self.assertEqual(
+                    res.returncode, 0,
+                    f"Lua bytecode compilation error in {os.path.relpath(fpath, ROOT_DIR)}:\n{res.stderr or res.stdout}"
+                )
 
     def test_module_definitions_and_supported_generations(self):
         """Ensures every module correctly defines supportedGenerations."""
