@@ -131,7 +131,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#093** | **Haunter** | Ghost / Poison | Evolve Gastly at **Level 25** OR **Wild**: Pokémon Tower. |
 | **#094** | **Gengar** | Ghost / Poison | Evolve Haunter at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
 | **#095** | **Onix** | Rock / Ground | **Wild**: Rock Tunnel, Victory Road. |
-| **#096** | **Drowzee** | Psychic | **Wild**: Route 11. |
+| **#096** | **Drowzee** | Psychic | **Wild**: Route 11 (Lv 16–20). |
 | **#097** | **Hypno** | Psychic | Evolve Drowzee at **Level 26** OR **Wild**: Cerulean Cave. |
 | **#098** | **Krabby** | Water | **Wild**: Super Rod on Routes 6, 11, 12, 13, 24, 25, Seafoam Islands (Lv 15). |
 | **#099** | **Kingler** | Water | Evolve Krabby at **Level 28** OR **Wild**: Seafoam Islands, Cerulean Cave. |
@@ -150,14 +150,14 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#112** | **Rhydon** | Ground / Rock | Evolve Rhyhorn at **Level 42** OR **Wild**: Cerulean Cave. |
 | **#113** | **Chansey** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Route 14 (Lv 24–26), Route 23 (Lv 40–44), Cerulean Cave 1F (Lv 50–55). |
 | **#114** | **Tangela** | Grass | **Wild**: Route 21 *(Red/Blue)*, Safari Zone.<br>**Outside Safari**: Route 12 (Lv 22–25) & Route 21 (Lv 26–30) *(added to Yellow)*. |
-| **#115** | **Kangaskhan** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Rock Tunnel 1F (Lv 16–18) & Route 11 (Lv 18–20). |
+| **#115** | **Kangaskhan** | Normal | **Wild**: Safari Zone.<br>**Outside Safari**: Rock Tunnel 1F (Lv 16–18) & Route 11 (Lv 16–20). |
 | **#116** | **Horsea** | Water | **Wild**: Surfing on Seafoam Islands (Lv 25–30); Super Rod on Routes 13, 19, 20, 21, Seafoam Islands (Lv 15). |
 | **#117** | **Seadra** | Water | Evolve Horsea at **Level 32** OR **Wild**: Seafoam Islands, Cerulean Cave. |
 | **#118** | **Goldeen** | Water | **Wild**: Good Rod (Lv 10) in any body of water across Kanto; Super Rod (Lv 15) on Routes 6, 10, 12, 22, 24, Cerulean City. |
 | **#119** | **Seaking** | Water | Evolve Goldeen at **Level 33** OR **Wild**: Cerulean Cave. |
 | **#120** | **Staryu** | Water | **Wild**: Surfing on Seafoam Islands (Lv 25–30); Super Rod on Routes 19, 20, 21, Seafoam Islands (Lv 15). |
 | **#121** | **Starmie** | Water / Psychic | Evolve Staryu with **Water Stone** *(Celadon Dept. Store)*. |
-| **#122** | **Mr. Mime** | Psychic | In-game trade *(Route 2)*.<br>**Wild**: Route 21 (Lv 20–24) & Route 11 (Lv 14–16). |
+| **#122** | **Mr. Mime** | Psychic | In-game trade *(Route 2)*.<br>**Wild**: Route 21 (Lv 20–24) & Route 11 (Lv 16–20). |
 | **#123** | **Scyther** | Bug / Flying | **Wild**: Safari Zone / Game Corner prize *(Red/Yellow)*.<br>**Outside Safari**: Route 15 (Lv 24–26) *(accessible in Red, Blue, and Yellow)*. |
 | **#124** | **Jynx** | Ice / Psychic | In-game trade *(Cerulean City)*.<br>**Wild**: Seafoam Islands B1F (Lv 28–32) *(accessible in Red, Blue, and Yellow)*. |
 | **#125** | **Electabuzz** | Electric | **Wild**: Power Plant *(Red; added to Blue & Yellow in Power Plant Lv 33–36)*. |
@@ -251,7 +251,7 @@ The following tables list every location in Kanto in chronological progression o
 | | NPC Gift | **Old Rod** (Fishing Guru); **Bike Voucher** (Fan Club) | Trade Bike Voucher for Bicycle at Cerulean Bike Shop. |
 | | NPC Trade | **Farfetch'd** (DUX) | Trade a Spearow in the house next to the Fan Club. |
 | **S.S. Anne** | Event Gift | HM01 **Cut** | Rub captain's back to receive Cut. |
-| **Route 11** | Wild Grass | Spearow, Drowzee, Ekans, Sandshrew, **Mr. Mime** (Lv 14–16), **Kangaskhan** (Lv 16–18) | **OmniQoL**: Kangaskhan outside Safari; wild Mr. Mime; Ekans/Sandshrew restored. |
+| ✅ **Route 11** | Wild Grass | Drowzee, Ekans, Sandshrew, Mr. Mime, Kangaskhan (Lv 16–20) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Ekans & Sandshrew cross-version rivals, wild Mr. Mime, and Kangaskhan outside Safari Zone. |
 | **Diglett's Cave** | Wild Cave | Diglett (Lv 15–22), **Dugtrio** (Lv 29–31) | High-speed Ground Pokémon shortcut between Route 11 and Route 2. |
 | **Route 9** | Wild Grass | Rattata, Raticate, Spearow, Fearow, Ekans, Sandshrew, Nidoran♀, Nidorina, Nidoran♂, Nidorino | Heading east toward Rock Tunnel. |
 | **Route 10** | Wild Grass | Voltorb, Magnemite, Ekans, Sandshrew, **Hitmonlee** (Lv 20–22), **Hitmonchan** (Lv 20–22) | **OmniQoL**: Wild Hitmonlee & Hitmonchan added to route grass. |

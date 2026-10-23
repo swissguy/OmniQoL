@@ -24,7 +24,7 @@
 --    - Wild Raichu: Power Plant & Cerulean Cave (Yellow, since Starter Pikachu rejects Thunder Stone)
 -- 3. Safari Zone Exclusives Accessible Outside Safari Zone (Normal Battles & Pokéballs):
 --    - Chansey: Route 14 (Lv 24-26), Route 23 (Lv 40-44)
---    - Kangaskhan: Rock Tunnel 1F (Lv 16-18), Route 11 (Lv 18-20)
+--    - Kangaskhan: Rock Tunnel 1F (Lv 16-18), Route 11 (Lv 16-20)
 --    - Tauros: Route 17 (Lv 25-28), Route 18 (Lv 25-28)
 --    - Scyther: Route 15 (Lv 24-26)
 --    - Pinsir: Route 14 (Lv 24-26)
@@ -36,7 +36,7 @@
 --    - Eevee: Route 25 (Lv 12-17), Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
 --    - Porygon: Route 7 (Lv 18-22) & Cerulean Cave 1F (Lv 48-52)
 --    - Farfetch'd: Route 12 (Lv 22-24) & Route 13 (Lv 24-26)
---    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 14-16)
+--    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 16-20)
 --    - Lickitung: Route 15 (Lv 22-25) & Route 18 (Lv 22-25)
 --    - Jynx: Seafoam Islands B1F/B2F (Lv 28-32)
 -- 5. Immediate Legendary & Stationary Respawns on Room/Map Re-entry:
@@ -184,6 +184,16 @@ local ROUTE_ROSTERS = {
       { species = "PSYDUCK",    minLevel = 15, maxLevel = 18 },
     },
   },
+  ROUTE_11 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "DROWZEE",    minLevel = 16, maxLevel = 20 },
+      { species = "EKANS",      minLevel = 16, maxLevel = 20 },
+      { species = "SANDSHREW",  minLevel = 16, maxLevel = 20 },
+      { species = "MR_MIME",    minLevel = 16, maxLevel = 20 },
+      { species = "KANGASKHAN", minLevel = 16, maxLevel = 20 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -211,12 +221,6 @@ local WILD_ADDITIONS = {
     { species = "HITMONLEE",  minLevel = 20, maxLevel = 22, rate = 0.05, type = "grass" },
     { species = "HITMONCHAN", minLevel = 20, maxLevel = 22, rate = 0.05, type = "grass" },
     { species = "DRATINI",    minLevel = 15, maxLevel = 20, rate = 0.10, type = "water" },
-  },
-  ROUTE_11 = {
-    { species = "EKANS",      minLevel = 11, maxLevel = 14, rate = 0.15, type = "grass", game = { "blue", "yellow" } },
-    { species = "SANDSHREW",  minLevel = 11, maxLevel = 14, rate = 0.15, type = "grass", game = "red" },
-    { species = "MR_MIME",    minLevel = 14, maxLevel = 16, rate = 0.08, type = "grass" },
-    { species = "KANGASKHAN", minLevel = 16, maxLevel = 18, rate = 0.06, type = "grass" },
   },
   ROUTE_12 = {
     { species = "BELLSPROUT", minLevel = 22, maxLevel = 24, rate = 0.15, type = "grass", game = "red" },
