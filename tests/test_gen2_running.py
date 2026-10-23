@@ -12,6 +12,7 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
         self.detector_path = os.path.join(self.mods_dir, "core", "game_detector.lua")
         self.manager_path = os.path.join(self.mods_dir, "core", "module_manager.lua")
         self.running_path = os.path.join(self.mods_dir, "modules", "running.lua")
+        self.exp_share_path = os.path.join(self.mods_dir, "modules", "exp_share.lua")
         self.init_path = os.path.join(self.mods_dir, "init.lua")
 
     def test_game_detector_definitions(self):
@@ -48,10 +49,18 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
         self.assertIn("isMountedOrSurfingOrSliding", content)
         self.assertIn("isBDown", content)
 
+    def test_exp_share_module_supports_gen1_and_gen2(self):
+        self.assertTrue(os.path.exists(self.exp_share_path), "exp_share.lua not found")
+        with open(self.exp_share_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        self.assertIn('supportedGenerations = { "gen1", "gen2" }', content)
+        self.assertIn('id = "exp_share"', content)
+        self.assertIn('label = "EXP SHARE"', content)
+
     def test_gen1_modules_gated_to_gen1(self):
         gen1_exclusive = [
             "catch_151.lua",
-            "exp_share.lua",
             "forget_hms.lua",
             "move_relearner.lua",
             "trade_evos.lua"

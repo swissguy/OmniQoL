@@ -1,5 +1,5 @@
 -- ============================================================================
--- OmniQoL: EXP Share Module (Gen 1: Red, Blue, Yellow)
+-- OmniQoL: EXP Share Module (Gen 1 & Gen 2: Red, Blue, Yellow, Gold, Silver, Crystal)
 --
 -- Features:
 -- - Modern Gen 6+ EXP Distribution:
@@ -28,7 +28,7 @@ function ExpShareModule.register(moduleManager)
     label = "EXP SHARE",
     desc = "Party shares EXP and Stat EXP.",
     default = true,
-    supportedGenerations = { "gen1" },
+    supportedGenerations = { "gen1", "gen2" },
     init = function(mod, mgr)
       ExpShareModule.initHooks(mod, mgr)
     end,

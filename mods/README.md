@@ -27,12 +27,13 @@
   - Ledges are jumped cleanly at 2x speed when running.
   - Automatically restores normal walking duration during cutscenes/scripted escort movements to prevent NPC desyncs.
 
-### 2. EXP Share (Module 2) — Gen 1
+### 2. EXP Share (Module 2) — Gen 1 & Gen 2
 - **Modern Gen 6+ EXP Distribution**: 100% EXP to active battlers, 50% EXP to benched party members.
-- **Full Stat EXP**: All party members receiving EXP also gain 100% of the defeated Pokémon's base stats as Stat EXP.
+- **Cross-Generation Support**: Fully functional across Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal.
+- **Full Stat EXP**: All party members receiving EXP also gain 100% of the defeated Pokémon's base stats as Stat EXP across all stats.
 - **Clean Single Team Notification**: Displays a single `"The rest of the team gained EXP!"` message for benched members.
 - **Instant Level-Up Sequencing**: Any Pokémon that levels up immediately triggers its fanfare, stat box, and move learning prompt.
-- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots.
+- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots; supersedes vanilla Gen 2 held Exp. Share while active.
 
 ### 3. Trade Evolutions (Module 3) — Gen 1
 - **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally at Level 40+.

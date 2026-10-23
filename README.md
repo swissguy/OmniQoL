@@ -18,7 +18,7 @@ Every feature is designed as an independent module that can be individually togg
 | Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
-| **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✨ Catch All 151 / 251** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🧠 Move Relearner** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
@@ -47,8 +47,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full EXP Share support with Pikachu happiness on level-up, options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle, supersedes held Exp. Share |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle, supersedes held Exp. Share |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -121,7 +121,7 @@ Every feature is designed as an independent module that can be individually togg
 
 For each module, development follows a structured multi-generation workflow:
 1. **Gen 1**: Pokémon Red & Blue *(Complete)* ➔ Pokémon Yellow *(Complete)*
-2. **Gen 2**: Pokémon Gold & Silver *(Running Shoes complete, remainder Next Up)* ➔ Pokémon Crystal
+2. **Gen 2**: Pokémon Gold, Silver & Crystal *(Running Shoes & EXP Share complete, remainder Next Up)*
 3. **Gen 3**: Pokémon FireRed & LeafGreen ➔ Pokémon Ruby & Sapphire ➔ Pokémon Emerald
 
 ---
@@ -141,7 +141,7 @@ OmniQoL/
 │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   └── modules/
 │       ├── running.lua         # Running Shoes (Gen 1 & Gen 2; Pikachu sync in Yellow)
-│       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
+│       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP; Gen 1 & Gen 2)
 │       ├── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
 │       ├── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
 │       ├── forget_hms.lua      # Forget & overwrite HM moves freely
@@ -182,12 +182,13 @@ OmniQoL/
 - **Overworld Safety Guards**: Preserves normal Bicycle and Surf speeds, preserves authentic Gen 2 Ice Path sliding momentum, and automatically restores normal walking duration during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
 - **Options Menu Integration**: Accessible directly through the native **Options Menu** (`OPTION`), both during gameplay and on the Title Screen, while keeping the overworld Start Menu pure vanilla.
 
-### Module 2: EXP Share (Gen 1)
+### Module 2: EXP Share (Gen 1 & Gen 2)
 - **Modern Gen 6+ EXP Distribution**: Active battlers receive a full 100% EXP share each (Gen 8+ style, no switching penalty), while non-fainted party members on the bench receive 50% EXP. Fainted Pokémon receive 0 EXP.
-- **Full Stat EXP (Gen 6+ style)**: All party members that receive EXP also gain 100% of the defeated enemy's base stats as Stat EXP (Gen 1's EVs) across all stats.
-- **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating vanilla Gen 1 Exp. All dialogue spam.
+- **Cross-Generation Support**: Fully functional across Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal.
+- **Full Stat EXP (Gen 6+ style)**: All party members that receive EXP also gain 100% of the defeated enemy's base stats as Stat EXP across all stats.
+- **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating dialogue spam.
 - **Immediate Level-Up Flow**: Any Pokémon that levels up immediately plays its level-up fanfare, displays its stat growth box, and prompts for new moves in sequence.
-- **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots.
+- **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots. Supersedes vanilla Gen 2 held Exp. Share while active, cleanly restoring vanilla item mechanics when toggled OFF.
 
 ### Module 3: Trade Evolutions (Gen 1)
 - **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally into Alakazam, Machamp, Golem, and Gengar upon reaching or gaining any level at or above Level 40.

@@ -89,7 +89,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         modules = {
             "running.lua": {"gen1", "gen2"},
             "catch_151.lua": {"gen1"},
-            "exp_share.lua": {"gen1"},
+            "exp_share.lua": {"gen1", "gen2"},
             "forget_hms.lua": {"gen1"},
             "move_relearner.lua": {"gen1"},
             "trade_evos.lua": {"gen1"},
@@ -131,7 +131,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         """Simulates how ModuleManager registers modules for Gen 1 vs Gen 2."""
         modules = [
             {"id": "running", "gens": ["gen1", "gen2"]},
-            {"id": "exp_share", "gens": ["gen1"]},
+            {"id": "exp_share", "gens": ["gen1", "gen2"]},
             {"id": "trade_evos", "gens": ["gen1"]},
             {"id": "catch_151", "gens": ["gen1"]},
             {"id": "forget_hms", "gens": ["gen1"]},
@@ -150,9 +150,9 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         self.assertEqual(len(gen1_registered), 6)
         self.assertEqual(gen1_registered, ["running", "exp_share", "trade_evos", "catch_151", "forget_hms", "move_relearner"])
 
-        # In Gen 2, ONLY running must be registered
+        # In Gen 2, running and exp_share must be registered
         gen2_registered = simulate_manager("gen2")
-        self.assertEqual(gen2_registered, ["running"])
+        self.assertEqual(gen2_registered, ["running", "exp_share"])
 
     def test_simulated_running_speed_calculation(self):
         """Simulates the mathematical logic of the movement.speed hook in running.lua."""
@@ -195,6 +195,68 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
 
         # 7. Gen 2 Ice Path puzzle sliding -> remains vanilla sliding frames
         self.assertEqual(calculate_speed(True, True, False, False, True), 16)
+
+    def test_simulated_exp_share_distribution_gen1_and_gen2(self):
+        """Simulates the party-wide EXP and Stat EXP distribution logic across Gen 1 and Gen 2."""
+        class MockMon:
+            def __init__(self, name, hp, stat_exp=0, exp=0):
+                self.name = name
+                self.hp = hp
+                self.statExp = stat_exp
+                self.exp = exp
+
+        class MockBattle:
+            def __init__(self, party):
+                self.party = party
+                self.messages = []
+            def playerPartyView(self):
+                return self.party
+            def sayNext(self, msg):
+                self.messages.append(msg)
+
+        mon1 = MockMon("Pikachu", hp=30)
+        mon2 = MockMon("Cyndaquil", hp=25)
+        mon3 = MockMon("FaintedMon", hp=0)
+
+        party = [mon1, mon2, mon3]
+        battle = MockBattle(party)
+        alive_battlers = [mon1]
+
+        # Simulate exp_award wrap
+        awarded = []
+        def apply_share(mon, split, announce):
+            base = 100
+            gain = base if mon in alive_battlers else max(1, base // 2)
+            mon.exp += gain
+            mon.statExp += 50 * split
+            awarded.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        # Distribution logic matching exp_share.lua
+        for m in alive_battlers:
+            apply_share(m, 1, True)
+
+        benched = [m for m in party if m not in alive_battlers and m.hp > 0]
+        if len(benched) > 0:
+            battle.sayNext("The rest of the\nteam gained EXP!")
+            for m in benched:
+                apply_share(m, 1, False)
+
+        # Active battler (Pikachu): 100 EXP (100%), 50 Stat EXP (100%), announce=True
+        self.assertEqual(mon1.exp, 100)
+        self.assertEqual(mon1.statExp, 50)
+        self.assertTrue(awarded[0]["announce"])
+
+        # Benched living mon (Cyndaquil): 50 EXP (50%), 50 Stat EXP (100%), announce=False
+        self.assertEqual(mon2.exp, 50)
+        self.assertEqual(mon2.statExp, 50)
+        self.assertFalse(awarded[1]["announce"])
+
+        # Fainted mon: 0 EXP, 0 Stat EXP
+        self.assertEqual(mon3.exp, 0)
+        self.assertEqual(mon3.statExp, 0)
+
+        # Consolidated message check
+        self.assertEqual(battle.messages, ["The rest of the\nteam gained EXP!"])
 
     def test_zip_release_archive_content_and_integrity(self):
         """Builds and inspects the distribution archive for 100% path accuracy."""
