@@ -69,7 +69,7 @@ OmniQoL is now a single, cross-generation release supporting both Generation 1 a
         "name": f"v{version}: Cross-Generation Mod Suite & Gen 2 Running Shoes",
         "body": body,
         "draft": False,
-        "prerelease": True,
+        "prerelease": False,
     }
 
     headers = {
