@@ -8,11 +8,11 @@
 --    - Charmander: Route 3 (Lv 8-10), Route 4 (Lv 8-12)
 --    - Squirtle: Route 24 (Lv 10-14), Route 25 (Lv 12-17)
 -- 2. Version Exclusives & Missing Pokémon Across Red, Blue, and Yellow:
---    - Ekans / Arbok: Route 4, Route 11, Route 23 (Blue & Yellow)
---    - Sandshrew / Sandslash: Route 4, Route 11, Route 23 (Red)
+--    - Ekans / Arbok: Route 4, Route 9, Route 11, Route 23 (Blue & Yellow)
+--    - Sandshrew / Sandslash: Route 3, Route 4, Route 9, Route 11, Route 23 (Red)
 --    - Oddish / Gloom: Route 24, Route 25, Route 12, Route 13 (Blue)
 --    - Bellsprout / Weepinbell: Route 24, Route 25, Route 12, Route 13 (Red)
---    - Mankey / Primeape: Route 3, Route 4, Route 5 (Blue)
+--    - Mankey / Primeape: Route 22, Route 3, Route 4, Route 5, Route 6 (Blue/Red/Yellow)
 --    - Meowth / Persian: Route 5, Route 6, Route 7, Route 8 (Red & Yellow)
 --    - Growlithe / Arcanine: Route 7, Route 8, Pokémon Mansion (Blue)
 --    - Vulpix / Ninetales: Route 7, Route 8, Pokémon Mansion (Red)
@@ -21,6 +21,7 @@
 --    - Weedle / Kakuna / Beedrill: Viridian Forest (Yellow)
 --    - Electabuzz: Power Plant (Blue & Yellow)
 --    - Magmar: Pokémon Mansion (Red & Yellow)
+--    - Psyduck: Route 6 (Lv 15-18 grass in Red, Blue, and Yellow)
 --    - Wild Raichu: Power Plant & Cerulean Cave (Yellow, since Starter Pikachu rejects Thunder Stone)
 -- 3. Safari Zone Exclusives Accessible Outside Safari Zone (Normal Battles & Pokéballs):
 --    - Chansey: Route 14 (Lv 24-26), Route 23 (Lv 40-44)
@@ -39,6 +40,7 @@
 --    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 16-20)
 --    - Lickitung: Route 15 (Lv 22-25) & Route 18 (Lv 22-25)
 --    - Jynx: Seafoam Islands B1F/B2F (Lv 28-32)
+--    - Ditto: Route 5 (Lv 14-18) outside the Pokémon Day Care
 -- 5. Immediate Legendary & Stationary Respawns on Room/Map Re-entry:
 --    - Articuno (Seafoam Islands B4F)
 --    - Zapdos (Power Plant)
