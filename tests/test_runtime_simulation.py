@@ -93,6 +93,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             "forget_hms.lua": {"gen1"},
             "move_relearner.lua": {"gen1"},
             "trade_evos.lua": {"gen1"},
+            "improved_inventory.lua": {"gen1"},
         }
 
         for filename, expected_gens in modules.items():
@@ -136,6 +137,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             {"id": "catch_151", "gens": ["gen1"]},
             {"id": "forget_hms", "gens": ["gen1"]},
             {"id": "move_relearner", "gens": ["gen1"]},
+            {"id": "improved_inventory", "gens": ["gen1"]},
         ]
 
         def simulate_manager(target_gen):
@@ -145,10 +147,10 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
                     registered.append(m["id"])
             return registered
 
-        # In Gen 1, all 6 modules must be registered
+        # In Gen 1, all 7 modules must be registered
         gen1_registered = simulate_manager("gen1")
-        self.assertEqual(len(gen1_registered), 6)
-        self.assertEqual(gen1_registered, ["running", "exp_share", "trade_evos", "catch_151", "forget_hms", "move_relearner"])
+        self.assertEqual(len(gen1_registered), 7)
+        self.assertEqual(gen1_registered, ["running", "exp_share", "trade_evos", "catch_151", "forget_hms", "move_relearner", "improved_inventory"])
 
         # In Gen 2, running and exp_share must be registered
         gen2_registered = simulate_manager("gen2")

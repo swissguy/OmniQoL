@@ -23,6 +23,7 @@ Every feature is designed as an independent module that can be individually togg
 | **✨ Catch All 151 / 251** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🧠 Move Relearner** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✂️ Forget HM Moves** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🎒 Improved Inventory** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -115,6 +116,21 @@ Every feature is designed as an independent module that can be individually togg
 
 </details>
 
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 7: Improved Inventory</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | 99-item Bag & PC Storage, Left/Right D-pad page jumping, auto-sorting A-Z & TMs numerically, safe PC deposit on disable |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | 99-item Bag & PC Storage, Left/Right D-pad page jumping, auto-sorting A-Z & TMs numerically, safe PC deposit on disable |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target (expansion for Gen 2 Items pocket) |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
 ---
 
 ## 🗺️ Multi-Game Rollout Roadmap
@@ -146,7 +162,8 @@ OmniQoL/
 │       ├── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
 │       ├── forget_hms.lua      # Forget & overwrite HM moves freely
 │       ├── relearner_data.lua  # 151 learnsets, starting moves & evolution ancestry
-│       └── move_relearner.lua  # Move Reminder NPC in all Pokémon Centers
+│       ├── move_relearner.lua  # Move Reminder NPC in all Pokémon Centers
+│       └── improved_inventory.lua # 99-item Bag & PC storage, page navigation & auto-sorting
 ├── scripts/
 │   ├── build_release.py        # Automated release packager (with pre-build test gate)
 │   ├── publish_release.py      # Automated GitHub release publisher
@@ -157,14 +174,15 @@ OmniQoL/
 │       ├── meta.json           # Index metadata & compatibility schema
 │       ├── description.md      # Public mod description
 │       └── thumbnail.png       # Mod artwork thumbnail
-├── tests/                      # Automated test suite (Python unittest, 41 tests)
+├── tests/                      # Automated test suite (Python unittest, 47 tests)
 │   ├── test_manifest.py        # Metadata & config validation
 │   ├── test_gen2_running.py    # Gen 2 compatibility, detection & Running module tests
 │   ├── test_runtime_simulation.py # End-to-end engine mock, syntax & speed math tests
 │   ├── test_encounters.py      # Encounter table & version parity verification
 │   ├── test_trade_evos.py      # Trade evolution rules & level gating
 │   ├── test_relearner.py       # Move relearner, learnsets, TM & HM rules
-│   └── test_hms_and_core.py    # HM deletion, Running shoes & module lifecycle
+│   ├── test_hms_and_core.py    # HM deletion, Running shoes & module lifecycle
+│   └── test_improved_inventory.py # 99-item bag/PC capacity, sorting & toggle-off safety
 ├── POKEDEX_151_GUIDE.md        # Comprehensive 151 Pokémon & Area-by-Area guide
 └── README.md
 ```
@@ -228,6 +246,15 @@ OmniQoL/
 - **Freely Overwrite HM Moves**: Overwrites and replaces HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (whether through Level-Up, TM items, or the Move Relearner).
 - **No More Trapped Movesets**: Removes the permanent HM lock present in vanilla Gen 1, eliminating the need to save/carry dedicated HM slaves.
 - **Dedicated Independent Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`FORGET HMS`), enabled by default.
+
+### Module 7: Improved Inventory (Gen 1)
+- **Expanded Bag Capacity**: Holds up to 99 unique items (expanded from vanilla 20), preserving standard 99 quantity stacks.
+- **Expanded PC Item Storage**: Holds up to 99 unique items (expanded from vanilla 50), preventing storage bottlenecks when depositing items from the Bag.
+- **Deterministic Automatic Sorting**:
+  - Regular items and Key Items are always kept cleanly sorted in alphabetical order (A–Z).
+  - TMs (`TM01` through `TM50`) and HMs (`HM01` through `HM05`) are grouped together at the bottom and sorted numerically.
+- **Page-Jumping Navigation**: Press Left or Right on the D-Pad while browsing Bag or PC Item lists to jump by 5 items per press for rapid scrolling, preserving `SELECT` and standard controls.
+- **Safe Toggle-OFF Protection**: Toggling OFF in the Options menu (`INVENTORY`) automatically deposits excess items (>20) to PC Item Storage. If PC storage cannot fit all excess items, disabling is safely blocked with a notification to prevent any item loss.
 
 ---
 

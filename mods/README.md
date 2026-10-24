@@ -57,6 +57,13 @@
 ### 6. Forget HM Moves (Module 6) — Gen 1
 - **Replace HMs Freely**: Overwrite Cut, Fly, Surf, Strength, and Flash during normal level-up move learning, TM teaching, or Move Relearner sessions without needing a Move Deleter.
 
+### 7. Improved Inventory (Module 7) — Gen 1
+- **Expanded Bag Capacity**: Holds up to 99 unique items (expanded from vanilla 20), preserving standard 99-item quantity stacks.
+- **Expanded PC Item Storage**: Holds up to 99 unique items (expanded from vanilla 50), preventing PC storage bottlenecks.
+- **Automatic Organization**: Regular items and Key Items are always kept cleanly sorted alphabetically (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) in numerical sequence.
+- **Page-Jumping Ergonomics**: Press Left or Right D-Pad while browsing Bag or PC Item lists to jump by 5 items per press for fast scrolling.
+- **Safe Toggle-OFF Guard**: Toggling OFF in the Options menu automatically deposits excess items (>20) to PC storage; safely blocks disabling with user feedback if PC storage cannot fit all excess items.
+
 ---
 
 ## In-Game Configuration & Options Menu

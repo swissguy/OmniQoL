@@ -51,6 +51,8 @@ function ModuleManager:register(def)
     default = def.default,
     values = def.values,
     init = def.init,
+    beforeChange = def.beforeChange,
+    onChange = def.onChange,
     supportedGenerations = def.supportedGenerations,
     supportedGames = def.supportedGames,
   }
@@ -168,6 +170,13 @@ function ModuleManager:setValue(id, value)
   local entry = self.modulesById[id]
   if not entry then return false end
 
+  if entry.beforeChange and type(entry.beforeChange) == "function" then
+    local ok, allowed, reason = pcall(entry.beforeChange, self.mod, self, value)
+    if ok and allowed == false then
+      return false, reason
+    end
+  end
+
   self.globalDefaults[id] = value
   if self.mod and self.mod.options and type(self.mod.options.set) == "function" then
     pcall(function() self.mod.options:set(id, value) end)
@@ -177,6 +186,10 @@ function ModuleManager:setValue(id, value)
   local saveObj = self.mod and self.mod.save
   if saveObj and type(saveObj.set) == "function" then
     pcall(function() saveObj:set(id, value) end)
+  end
+
+  if entry.onChange and type(entry.onChange) == "function" then
+    pcall(entry.onChange, self.mod, self, value)
   end
 
   return true
@@ -199,7 +212,7 @@ end
 -- @param dir number (1 for forward, -1 for backward)
 function ModuleManager:cycle(id, dir)
   local entry = self.modulesById[id]
-  if not entry then return end
+  if not entry then return false end
   dir = dir or 1
 
   if entry.values then
@@ -217,10 +230,10 @@ function ModuleManager:cycle(id, dir)
     elseif nextIdx < 1 then
       nextIdx = #entry.values
     end
-    self:setValue(id, entry.values[nextIdx])
+    return self:setValue(id, entry.values[nextIdx])
   else
     local cur = self:isEnabled(id)
-    self:setEnabled(id, not cur)
+    return self:setEnabled(id, not cur)
   end
 end
 

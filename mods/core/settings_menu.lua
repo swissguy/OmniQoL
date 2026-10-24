@@ -70,12 +70,28 @@ function SettingsMenu.setup(mod, moduleManager)
             elseif game.input:wasPressed("left") then
               local targetMod = modules[selectedIndex]
               if targetMod then
-                moduleManager:cycle(targetMod.id, -1)
+                local ok, reason = moduleManager:cycle(targetMod.id, -1)
+                if ok == false and reason then
+                  pcall(function()
+                    local Sound = require("src.core.Sound")
+                    if Sound and type(Sound.play) == "function" then
+                      Sound.play("collision")
+                    end
+                  end)
+                end
               end
             elseif game.input:wasPressed("right") or game.input:wasPressed("a") then
               local targetMod = modules[selectedIndex]
               if targetMod then
-                moduleManager:cycle(targetMod.id, 1)
+                local ok, reason = moduleManager:cycle(targetMod.id, 1)
+                if ok == false and reason then
+                  pcall(function()
+                    local Sound = require("src.core.Sound")
+                    if Sound and type(Sound.play) == "function" then
+                      Sound.play("collision")
+                    end
+                  end)
+                end
               end
             elseif game.input:wasPressed("b") then
               game.stack:pop()
@@ -174,6 +190,13 @@ function SettingsMenu.setup(mod, moduleManager)
                 desc = "Teach level-up moves & all TMs."
               else
                 desc = "Relearn natural level-up moves."
+              end
+            elseif activeDef.id == "improved_inventory" then
+              local val = moduleManager:isEnabled("improved_inventory", game)
+              if not val then
+                desc = "Vanilla 20 Bag and 50 PC items."
+              else
+                desc = "99 Bag & PC, page jump, auto-sort."
               end
             end
             local line1, line2 = wrapDesc(desc, 16)

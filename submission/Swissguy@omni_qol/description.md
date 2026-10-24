@@ -59,11 +59,19 @@ Every feature is designed as an independent module that can be turned on or off 
 - **Eliminates Trapped Movesets**: Removes the permanent HM lock present in vanilla Gen 1.
 - **Dedicated Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`FORGET HMS`), enabled by default.
 
+### 🎒 Module 7: Improved Inventory (Gen 1)
+- **99 Unique Bag Items**: Expands player inventory capacity from 20 up to 99 unique item slots, preserving standard 99 quantity stacks.
+- **99 Unique PC Storage Items**: Expands PC Item Storage capacity from 50 up to 99 unique item slots to match the Bag and prevent storage bottlenecks.
+- **Automatic Organization**: Regular items and Key Items are always kept strictly sorted in alphabetical order (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) grouped in numerical sequence.
+- **Page-Jumping Ergonomics**: Press Left or Right D-Pad while browsing Bag or PC Item lists to jump by 5 items per press, while keeping `SELECT` and standard inputs intact.
+- **Safe Toggle-OFF Guard**: Toggling OFF in the Options menu automatically deposits excess items (>20) to PC Item Storage; if PC storage is full and cannot fit all excess items, disabling is safely blocked to protect player items against data loss.
+- **Dedicated Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`INVENTORY`), enabled by default.
+
 ### ⚙️ Native Options Menu Integration (`OMNIQOL`)
 - Injects an `OMNIQOL` entry directly into the native **Options Menu** (`OPTION`), accessible both in the overworld and on the Title Screen.
 - Custom interactive UI screen allows cycling module values (e.g., `[ON ]`/`[OFF]` or `[RELEARN]`/`[REL+TMS]`/`[OFF]`) with an authentic Pokémon arrow cursor.
 - Leaves the overworld Start Menu pure vanilla.
-- Dynamically displays available modules based on the active game generation (e.g. `RUNNING` & `EXP SHARE` in Gen 2; all 6 modules in Gen 1).
+- Dynamically displays available modules based on the active game generation (e.g. `RUNNING` & `EXP SHARE` in Gen 2; all 7 modules in Gen 1).
 - Settings are saved **per save file** during gameplay, and saved as **global defaults** when configured from the Title Screen.
 
 ---
