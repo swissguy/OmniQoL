@@ -197,5 +197,12 @@ class TestImprovedInventory(unittest.TestCase):
         self.assertFalse(can_disable)
         self.assertIn("PC needs 1 free slots", err)
 
+    def test_constants_patching_and_player_pc_engine_integration(self):
+        """Verifies integration with bryanthaboi/gen1recomp's constants registry and UI classes."""
+        self.assertIn('mod.content.constants:patch("bagSize"', self.content)
+        self.assertIn('mod.content.constants:patch("pcItemCap"', self.content)
+        self.assertIn('src.ui.PlayerPC', self.content)
+        self.assertIn('PlayerPC.pcItemCap = ImprovedInventory.EXPANDED_PC_CAPACITY', self.content)
+
 if __name__ == "__main__":
     unittest.main()

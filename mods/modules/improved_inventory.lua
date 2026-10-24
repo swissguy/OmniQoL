@@ -6,15 +6,17 @@
 -- - Expanded Bag Capacity:
 --   * Holds up to 99 unique items (expanded from vanilla 20).
 --   * Preserves standard 99 item quantity stacks.
+--   * Integrates with Gen1Recomp's official constants registry (bagSize).
 -- - Expanded PC Item Storage:
 --   * Holds up to 99 unique items (expanded from vanilla 50).
 --   * Prevents storage bottlenecks when depositing from the 99-item Bag.
+--   * Integrates with Gen1Recomp's PC constants (pcItemCap / pcItemSize).
 -- - Deterministic Automatic Sorting:
 --   * Regular items and Key Items are always sorted alphabetically (A-Z).
 --   * TMs and HMs are grouped at the bottom and sorted numerically:
 --     TM01 through TM50, followed by HM01 through HM05.
 -- - D-Pad Left / Right Page-Jumping Navigation:
---   * Jump up or down by 5 items per press in Bag and PC menus.
+--   * Jump up or down by 5 items per press in Bag and PC menus (BagMenu, ItemMenu, PlayerPC).
 --   * Preserves standard SELECT (item swapping) and directional navigation.
 -- - Options Menu Integration & Safe Toggle-OFF:
 --   * Configurable directly under OPTION -> OMNIQOL ('INVENTORY').
@@ -39,6 +41,19 @@ local TM_MIN_ID = 196
 local TM_MAX_ID = 245
 local HM_MIN_ID = 246
 local HM_MAX_ID = 250
+
+--- Applies or restores Gen1Recomp constants registry limits (bagSize, pcItemCap).
+function ImprovedInventory.applyConstants(mod, enabled)
+  if not mod or not mod.content or not mod.content.constants then return end
+  if type(mod.content.constants.patch) ~= "function" then return end
+
+  local bagCap = enabled and ImprovedInventory.EXPANDED_BAG_CAPACITY or ImprovedInventory.VANILLA_BAG_CAPACITY
+  local pcCap = enabled and ImprovedInventory.EXPANDED_PC_CAPACITY or ImprovedInventory.VANILLA_PC_CAPACITY
+
+  pcall(function() mod.content.constants:patch("bagSize", bagCap) end)
+  pcall(function() mod.content.constants:patch("pcItemCap", pcCap) end)
+  pcall(function() mod.content.constants:patch("pcItemSize", pcCap) end)
+end
 
 --- Extracts a sorting key for any item representation (table, string, or number).
 -- Returns { group = 1|2|3, index = number, name = string, id = any }
@@ -281,6 +296,10 @@ function ImprovedInventory.register(moduleManager)
       end
       return true
     end,
+    onChange = function(mod, mgr, newVal)
+      local isEnabled = (newVal == true or (newVal ~= false and newVal ~= "OFF" and newVal ~= "off"))
+      ImprovedInventory.applyConstants(mod, isEnabled)
+    end,
     init = function(mod, mgr)
       ImprovedInventory.initHooks(mod, mgr)
     end,
@@ -305,6 +324,9 @@ end
 
 --- Initializes all engine hooks, inventory hooks, and menu navigation wrappers.
 function ImprovedInventory.initHooks(mod, moduleManager)
+  -- Apply initial Gen1Recomp constants patch
+  ImprovedInventory.applyConstants(mod, moduleManager:isEnabled("improved_inventory"))
+
   -- 1. Hook engine capacity checks via mod.hooks if available
   if mod.hooks and type(mod.hooks.wrap) == "function" then
     -- Bag capacity hooks
@@ -438,7 +460,7 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     end
   end
 
-  -- 3. Hook BagMenu and ItemMenu UI for Left / Right page-jumping
+  -- 3. Hook BagMenu, ItemMenu, and PlayerPC UI for Left / Right page-jumping
   local function wrapMenuInput(MenuClass)
     if not MenuClass or type(MenuClass.handleInput) ~= "function" then return end
     local origHandle = MenuClass.handleInput
@@ -503,6 +525,14 @@ function ImprovedInventory.initHooks(mod, moduleManager)
   local okPCUI, PCItemMenu = pcall(require, "src.ui.PCItemMenu")
   if okPCUI and PCItemMenu then
     wrapMenuInput(PCItemMenu)
+  end
+
+  local okPlayerPC, PlayerPC = pcall(require, "src.ui.PlayerPC")
+  if okPlayerPC and PlayerPC then
+    if PlayerPC.pcItemCap then
+      PlayerPC.pcItemCap = ImprovedInventory.EXPANDED_PC_CAPACITY
+    end
+    wrapMenuInput(PlayerPC)
   end
 end
 
