@@ -13,8 +13,8 @@
 --   * Integrates with Gen1Recomp's PC constants (pcItemCap / pcItemSize).
 -- - Deterministic Automatic Sorting:
 --   * Regular items and Key Items are always sorted alphabetically (A-Z).
---   * TMs and HMs are grouped at the bottom and sorted numerically:
---     TM01 through TM50, followed by HM01 through HM05.
+--   * TMs and HMs (both TM01/HM01 and TM_<MOVE>/HM_<MOVE>) are grouped at the
+--     bottom and sorted numerically: TM01 through TM50, then HM01 through HM05.
 --   * CANCEL / Exit options are strictly grouped at the absolute bottom (Group 4).
 --   * Directly sorts save.bagOrder and save.pcOrder (Gen1Recomp inventory model).
 -- - D-Pad Left / Right Page-Jumping Navigation:
@@ -44,6 +44,69 @@ local TM_MAX_ID = 245
 local HM_MIN_ID = 246
 local HM_MAX_ID = 250
 
+-- Gen1Recomp named TM identifiers -> TM numbers (1..50)
+local GEN1_TM_NUMBERS = {
+  TM_MEGA_PUNCH = 1,
+  TM_RAZOR_WIND = 2,
+  TM_SWORDS_DANCE = 3,
+  TM_WHIRLWIND = 4,
+  TM_MEGA_KICK = 5,
+  TM_TOXIC = 6,
+  TM_HORN_DRILL = 7,
+  TM_BODY_SLAM = 8,
+  TM_TAKE_DOWN = 9,
+  TM_DOUBLE_EDGE = 10,
+  TM_BUBBLEBEAM = 11,
+  TM_WATER_GUN = 12,
+  TM_ICE_BEAM = 13,
+  TM_BLIZZARD = 14,
+  TM_HYPER_BEAM = 15,
+  TM_PAY_DAY = 16,
+  TM_SUBMISSION = 17,
+  TM_COUNTER = 18,
+  TM_SEISMIC_TOSS = 19,
+  TM_RAGE = 20,
+  TM_MEGA_DRAIN = 21,
+  TM_SOLARBEAM = 22,
+  TM_DRAGON_RAGE = 23,
+  TM_THUNDERBOLT = 24,
+  TM_THUNDER = 25,
+  TM_EARTHQUAKE = 26,
+  TM_FISSURE = 27,
+  TM_DIG = 28,
+  TM_PSYCHIC_M = 29,
+  TM_TELEPORT = 30,
+  TM_MIMIC = 31,
+  TM_DOUBLE_TEAM = 32,
+  TM_REFLECT = 33,
+  TM_BIDE = 34,
+  TM_METRONOME = 35,
+  TM_SELFDESTRUCT = 36,
+  TM_EGG_BOMB = 37,
+  TM_FIRE_BLAST = 38,
+  TM_SWIFT = 39,
+  TM_SKULL_BASH = 40,
+  TM_SOFTBOILED = 41,
+  TM_DREAM_EATER = 42,
+  TM_SKY_ATTACK = 43,
+  TM_REST = 44,
+  TM_THUNDER_WAVE = 45,
+  TM_PSYWAVE = 46,
+  TM_EXPLOSION = 47,
+  TM_ROCK_SLIDE = 48,
+  TM_TRI_ATTACK = 49,
+  TM_SUBSTITUTE = 50,
+}
+
+-- Gen1Recomp named HM identifiers -> HM numbers (1..5)
+local GEN1_HM_NUMBERS = {
+  HM_CUT = 1,
+  HM_FLY = 2,
+  HM_SURF = 3,
+  HM_STRENGTH = 4,
+  HM_FLASH = 5,
+}
+
 --- Applies or restores Gen1Recomp constants registry limits (bagSize, pcItemCap).
 function ImprovedInventory.applyConstants(mod, enabled)
   if not mod or not mod.content or not mod.content.constants then return end
@@ -59,7 +122,7 @@ end
 
 --- Extracts a sorting key for any item representation (table, string, or number).
 -- Returns { group = 1|2|3|4, index = number, name = string, id = any }
--- Group 1: General Items & Key Items (sorted alphabetically A-Z by name)
+-- Group 1: General Items & Key Items (sorted alphabetically A-Z by display name)
 -- Group 2: TMs (sorted numerically 1..50)
 -- Group 3: HMs (sorted numerically 1..5)
 -- Group 4: CANCEL / Exit options (always placed at the very bottom)
@@ -109,7 +172,47 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 1. Check for TM by string ID (e.g., 'TM01', 'TM_01', 'TM1', 'TM28_DIG')
+  -- 1. Check for TM / HM by machine table metadata (e.g. { machine = { kind = "TM", number = 28 } })
+  if type(item) == "table" and item.machine then
+    if item.machine.kind == "TM" then
+      return {
+        group = 2,
+        index = tonumber(item.machine.number) or 0,
+        name = rawName or idStr,
+        id = rawId,
+      }
+    elseif item.machine.kind == "HM" then
+      return {
+        group = 3,
+        index = tonumber(item.machine.number) or 0,
+        name = rawName or idStr,
+        id = rawId,
+      }
+    end
+  end
+
+  -- 2. Check for TM / HM by Gen1Recomp named move keys (e.g. 'TM_DIG', 'TM_MEGA_PUNCH', 'HM_CUT')
+  local namedTmNum = GEN1_TM_NUMBERS[rawId] or GEN1_TM_NUMBERS[idStr] or GEN1_TM_NUMBERS["TM_" .. idStr]
+  if namedTmNum then
+    return {
+      group = 2,
+      index = namedTmNum,
+      name = rawName or idStr,
+      id = rawId,
+    }
+  end
+
+  local namedHmNum = GEN1_HM_NUMBERS[rawId] or GEN1_HM_NUMBERS[idStr] or GEN1_HM_NUMBERS["HM_" .. idStr]
+  if namedHmNum then
+    return {
+      group = 3,
+      index = namedHmNum,
+      name = rawName or idStr,
+      id = rawId,
+    }
+  end
+
+  -- 3. Check for TM by string ID with numeric suffix (e.g., 'TM01', 'TM_01', 'TM1', 'TM28_DIG')
   local tmNum = idStr:match("^TM_?(%d+)")
   if tmNum then
     return {
@@ -120,7 +223,7 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 2. Check for HM by string ID (e.g., 'HM01', 'HM_01', 'HM1', 'HM01_CUT')
+  -- 4. Check for HM by string ID with numeric suffix (e.g., 'HM01', 'HM_01', 'HM1', 'HM01_CUT')
   local hmNum = idStr:match("^HM_?(%d+)")
   if hmNum then
     return {
@@ -131,7 +234,7 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 3. Check for TM or HM by numeric ID (standard Gen 1 RAM values)
+  -- 5. Check for TM or HM by numeric ID (standard Gen 1 RAM values: 196..245 for TM, 246..250 for HM)
   if type(rawId) == "number" then
     if rawId >= TM_MIN_ID and rawId <= TM_MAX_ID then
       return {
@@ -150,7 +253,7 @@ function ImprovedInventory.getItemSortKey(item)
     end
   end
 
-  -- 4. Regular item or Key Item (Group 1: Alphabetical by cleaned display name)
+  -- 6. Regular item or Key Item (Group 1: Alphabetical by cleaned display name)
   local displayName = rawName
   if not displayName or #displayName == 0 then
     if type(rawId) == "string" then

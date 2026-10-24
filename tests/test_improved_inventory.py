@@ -78,6 +78,73 @@ class TestImprovedInventory(unittest.TestCase):
         self.assertEqual(hm03_key[0], 3)
         self.assertEqual(hm03_key[1], 3)
 
+    def test_gen1recomp_named_tm_hm_sorting(self):
+        """Verifies that named TM/HM identifiers (e.g. TM_DIG, TM_MEGA_PUNCH, HM_CUT)
+        are categorized into Group 2 (TMs) and Group 3 (HMs), sorting AFTER regular items
+        like TOWN_MAP and X_SPECIAL, and BEFORE CANCEL.
+        """
+        # Ensure mapping tables are in the Lua file
+        self.assertIn("local GEN1_TM_NUMBERS = {", self.content)
+        self.assertIn("TM_MEGA_PUNCH = 1,", self.content)
+        self.assertIn("TM_DIG = 28,", self.content)
+        self.assertIn("TM_SUBSTITUTE = 50,", self.content)
+        self.assertIn("local GEN1_HM_NUMBERS = {", self.content)
+        self.assertIn("HM_CUT = 1,", self.content)
+        self.assertIn("HM_FLASH = 5,", self.content)
+
+        gen1_tm_map = {
+            "TM_MEGA_PUNCH": 1,
+            "TM_DIG": 28,
+            "TM_SUBSTITUTE": 50,
+        }
+        gen1_hm_map = {
+            "HM_CUT": 1,
+            "HM_FLASH": 5,
+        }
+
+        def get_sort_key(item_id):
+            id_str = str(item_id).upper().replace("ITEM_", "")
+            if id_str in ("CANCEL", "CANCEL_MENU", "EXIT", "QUIT") or item_id == 255:
+                return (4, 0, "CANCEL")
+            if id_str in gen1_tm_map:
+                return (2, gen1_tm_map[id_str], id_str)
+            if id_str in gen1_hm_map:
+                return (3, gen1_hm_map[id_str], id_str)
+            tm_match = re.match(r"^TM_?(\d+)", id_str)
+            if tm_match:
+                return (2, int(tm_match.group(1)), id_str)
+            hm_match = re.match(r"^HM_?(\d+)", id_str)
+            if hm_match:
+                return (3, int(hm_match.group(1)), id_str)
+            display_name = id_str.replace("_", " ").strip().upper()
+            return (1, 0, display_name)
+
+        inventory = [
+            "TM_DIG",
+            "TOWN_MAP",
+            "X_SPECIAL",
+            "CANCEL",
+            "HM_CUT",
+            "POTION",
+            "TM_MEGA_PUNCH",
+            "ANTIDOTE",
+            "X_ACCURACY",
+        ]
+
+        sorted_inv = sorted(inventory, key=get_sort_key)
+        expected = [
+            "ANTIDOTE",
+            "POTION",
+            "TOWN_MAP",
+            "X_ACCURACY",
+            "X_SPECIAL",
+            "TM_MEGA_PUNCH",  # TM01
+            "TM_DIG",         # TM28
+            "HM_CUT",         # HM01
+            "CANCEL",
+        ]
+        self.assertEqual(sorted_inv, expected)
+
     def test_sorting_order_full_inventory_with_cancel_at_bottom(self):
         """Verifies full list sorting: Items A-Z, then TMs 1-50, then HMs 1-5, and CANCEL always at the bottom."""
         def get_sort_key(item):
