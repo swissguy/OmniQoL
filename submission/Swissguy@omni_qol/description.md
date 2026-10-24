@@ -63,7 +63,7 @@ Every feature is designed as an independent module that can be turned on or off 
 - Injects an `OMNIQOL` entry directly into the native **Options Menu** (`OPTION`), accessible both in the overworld and on the Title Screen.
 - Custom interactive UI screen allows cycling module values (e.g., `[ON ]`/`[OFF]` or `[RELEARN]`/`[REL+TMS]`/`[OFF]`) with an authentic Pokémon arrow cursor.
 - Leaves the overworld Start Menu pure vanilla.
-- Dynamically displays available modules based on the active game generation (e.g. `RUNNING` in Gen 2; all 6 modules in Gen 1).
+- Dynamically displays available modules based on the active game generation (e.g. `RUNNING` & `EXP SHARE` in Gen 2; all 6 modules in Gen 1).
 - Settings are saved **per save file** during gameplay, and saved as **global defaults** when configured from the Title Screen.
 
 ---
@@ -72,7 +72,7 @@ Every feature is designed as an independent module that can be turned on or off 
 For each module, development follows a structured multi-generation sequence:
 - [x] **Gen 1**: Pokémon Red & Blue *(Complete)*
 - [x] **Gen 1**: Pokémon Yellow *(Complete)*
-- [x] **Gen 2**: Pokémon Gold, Silver & Crystal *(Running Shoes Complete; remainder in progress)*
+- [x] **Gen 2**: Pokémon Gold, Silver & Crystal *(Running Shoes & EXP Share Complete; remainder in progress)*
 - [ ] **Gen 3**: Pokémon FireRed & LeafGreen ➔ Pokémon Ruby & Sapphire ➔ Pokémon Emerald
 
 ---
