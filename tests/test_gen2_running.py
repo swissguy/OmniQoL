@@ -90,7 +90,7 @@ class TestGen2RunningAndArchitecture(unittest.TestCase):
         with open(self.manifest_path, "r", encoding="utf-8") as f:
             manifest = json.load(f)
 
-        self.assertEqual(manifest["version"], "0.2.2")
+        self.assertEqual(manifest["version"], "0.2.3")
         expected_games = ["gen1", "gen2", "red", "blue", "yellow", "gold", "silver", "crystal"]
         self.assertEqual(manifest["games"], expected_games)
 

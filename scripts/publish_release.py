@@ -24,7 +24,7 @@ def get_token():
     creds = dict(line.split("=", 1) for line in stdout.strip().splitlines() if "=" in line)
     return creds.get("password")
 
-def publish(tag="v0.2.2", version="0.2.2"):
+def publish(tag="v0.2.3", version="0.2.3"):
     token = get_token()
     if not token:
         print("[Error] Could not retrieve GitHub credentials from Git Credential Manager.")
@@ -148,7 +148,7 @@ def publish(tag="v0.2.2", version="0.2.2"):
     print(f"\n[OmniQoL] Successfully published {tag} to GitHub!")
 
 if __name__ == "__main__":
-    v = "0.2.2"
+    v = "0.2.3"
     t = f"v{v}"
     if len(sys.argv) > 1:
         t = sys.argv[1]

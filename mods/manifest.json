@@ -1,7 +1,7 @@
 {
   "id": "omni_qol",
   "name": "OmniQoL",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "entry": "init.lua",
   "api": 2,
   "games": [
