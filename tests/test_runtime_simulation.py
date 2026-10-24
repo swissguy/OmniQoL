@@ -217,7 +217,14 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         class MockGen2Battle:
             def __init__(self, party):
                 self.party = party
-                # Gen 2 VM lacks sayNext on battle table
+                self.events = []
+            def emit(self, event):
+                self.events.append(event)
+
+        class MockFallbackBattle:
+            def __init__(self, party):
+                self.party = party
+                # Neither sayNext nor emit present
 
         # --- 1. Gen 1 Simulation (sayNext available -> consolidated announcement, silent benched shares) ---
         mon1 = MockMon("Pikachu", hp=30)
@@ -263,7 +270,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         self.assertEqual(mon3.statExp, 0)
         self.assertEqual(battle1.messages, ["The rest of the\nteam gained EXP!"])
 
-        # --- 2. Gen 2 Simulation (sayNext unavailable -> native per-mon announcement & EXP bar) ---
+        # --- 2. Gen 2 Simulation (emit available -> single consolidated message, silent benched shares) ---
         g2_mon1 = MockMon("Totodile", hp=35)
         g2_mon2 = MockMon("Pidgey", hp=20)
         g2_party = [g2_mon1, g2_mon2]
@@ -282,18 +289,48 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
             apply_share2(m, 1, True)
 
         benched2 = [m for m in g2_party if m not in alive2 and m.hp > 0]
-        has_msg2 = hasattr(battle2, "sayNext") and callable(getattr(battle2, "sayNext"))
-        announce_benched2 = not has_msg2
+        # In Gen 2 recomp, battle.emit({ kind = "message", text = ... }) handles consolidated notification
+        has_emit = hasattr(battle2, "emit") and callable(battle2.emit)
+        if has_emit:
+            battle2.emit({"kind": "message", "text": "The rest of the\nteam gained EXP!"})
+        announce_benched2 = not has_emit
         for m in benched2:
             apply_share2(m, 1, announce_benched2)
 
-        # Active battler (Totodile): announce=True
+        # Active battler (Totodile): 120 EXP, announce=True
         self.assertEqual(g2_mon1.exp, 120)
         self.assertTrue(awarded2[0]["announce"])
 
-        # Benched living mon (Pidgey) in Gen 2: announce=True (gives player in-battle notification & EXP bar)
+        # Benched living mon (Pidgey) in Gen 2: 60 EXP, announce=False (single consolidated message shown)
         self.assertEqual(g2_mon2.exp, 60)
-        self.assertTrue(awarded2[1]["announce"])
+        self.assertFalse(awarded2[1]["announce"])
+        self.assertEqual(len(battle2.events), 1)
+        self.assertEqual(battle2.events[0], {"kind": "message", "text": "The rest of the\nteam gained EXP!"})
+
+        # --- 3. Fallback Simulation (neither sayNext nor emit available -> announce per mon) ---
+        fb_mon1 = MockMon("Chikorita", hp=30)
+        fb_mon2 = MockMon("Sentret", hp=18)
+        fb_party = [fb_mon1, fb_mon2]
+        battle3 = MockFallbackBattle(fb_party)
+        alive3 = [fb_mon1]
+
+        awarded3 = []
+        def apply_share3(mon, split, announce):
+            base = 100
+            gain = base if mon in alive3 else max(1, base // 2)
+            mon.exp += gain
+            awarded3.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        for m in alive3:
+            apply_share3(m, 1, True)
+
+        benched3 = [m for m in fb_party if m not in alive3 and m.hp > 0]
+        announce_benched3 = True
+        for m in benched3:
+            apply_share3(m, 1, announce_benched3)
+
+        self.assertTrue(awarded3[0]["announce"])
+        self.assertTrue(awarded3[1]["announce"])
 
     def test_gen2_battle_shape_and_priority_in_exp_share(self):
         """Verifies exp_share.lua handles Gen 2 battle shape (battle.party, battle.player) and priority 90."""
@@ -306,6 +343,8 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
 
         # Gen 2 battle shape support
         self.assertIn("battle.party", code, "exp_share must resolve battle.party for Gen 2 battle shape")
+        self.assertIn("battle.emit", code, "exp_share must support Gen 2 battle:emit for consolidated message emission")
+        self.assertIn('kind = "message"', code, "exp_share must emit message events in Gen 2")
         self.assertIn("resolvePlayerParty", code, "exp_share must implement robust multi-gen party resolution")
         self.assertIn("sayBattleMessage", code, "exp_share must implement defensive battle message emission")
         self.assertIn("announceBenched", code, "exp_share must dynamically announce EXP when consolidated text is unavailable")

@@ -86,8 +86,8 @@ function ExpShareModule.initHooks(mod, moduleManager)
   end
 
   -- Helper to safely display consolidated battle message across Gen 1 & Gen 2 engines.
-  -- Returns true if a consolidated message method was found and successfully called,
-  -- or false if the engine lacks custom text queuing (e.g. Gen 2 bytecode VM).
+  -- Gen 1 recomp (BattleState): battle:sayNext(text)
+  -- Gen 2 recomp (Battle): battle:emit({ kind = "message", text = text })
   local function sayBattleMessage(battle, a2, a3)
     local ctx = (type(a2) == "table" and a2) or nil
     local msg = (ctx and a3) or a2
@@ -100,11 +100,32 @@ function ExpShareModule.initHooks(mod, moduleManager)
       if okConv and resConv then text = resConv end
     end
 
+    -- 1. Gen 1 recomp: BattleState:sayNext(text)
+    if battle and type(battle.sayNext) == "function" then
+      local ok = pcall(battle.sayNext, battle, text)
+      if ok then return true end
+    end
+    if ctx and type(ctx.sayNext) == "function" then
+      local ok = pcall(ctx.sayNext, ctx, text)
+      if ok then return true end
+    end
+
+    -- 2. Gen 2 recomp: Battle:emit({ kind = "message", text = text })
+    if battle and type(battle.emit) == "function" then
+      local ok = pcall(battle.emit, battle, { kind = "message", text = text })
+      if ok then return true end
+    end
+    if ctx and type(ctx.emit) == "function" then
+      local ok = pcall(ctx.emit, ctx, { kind = "message", text = text })
+      if ok then return true end
+    end
+
+    -- 3. Fallbacks across engine facades
     local candidates = {
-      { obj = battle, fns = { "sayNext", "say", "message", "print", "textbox", "queueMessage" } },
-      { obj = ctx,    fns = { "sayNext", "say", "message", "print", "textbox", "queueMessage" } },
-      { obj = (battle and type(battle) == "table" and battle.ui), fns = { "sayNext", "say", "message", "print", "textbox" } },
-      { obj = (mod and type(mod) == "table" and mod.battle),      fns = { "sayNext", "say", "message", "print" } },
+      { obj = battle, fns = { "say", "message", "print", "textbox", "queueMessage" } },
+      { obj = ctx,    fns = { "say", "message", "print", "textbox", "queueMessage" } },
+      { obj = (battle and type(battle) == "table" and battle.ui), fns = { "sayNext", "say", "message", "print", "textbox", "emit" } },
+      { obj = (mod and type(mod) == "table" and mod.battle),      fns = { "sayNext", "say", "message", "print", "emit" } },
     }
 
     for _, candidate in ipairs(candidates) do
@@ -113,6 +134,9 @@ function ExpShareModule.initHooks(mod, moduleManager)
           local fn = candidate.obj[fnName]
           if type(fn) == "function" then
             local ok = pcall(fn, candidate.obj, text)
+            if not ok and fnName == "emit" then
+              ok = pcall(fn, candidate.obj, { kind = "message", text = text })
+            end
             if ok then
               return true
             end
@@ -208,10 +232,11 @@ function ExpShareModule.initHooks(mod, moduleManager)
         local consolidatedAnnounced = sayBattleMessage(battle, ctx, "The rest of the\nteam gained EXP!")
 
         -- Determine announcement behavior:
-        -- In Gen 1 recomp, sayBattleMessage successfully queues "The rest of the team gained EXP!"
-        -- via sayNext, so benched mons pass announce = false to suppress individual repetitive boxes.
-        -- In Gen 2 recomp (or when consolidated text is unsupported by the engine), announce = true
-        -- ensures every recipient displays its native in-battle gain text and EXP bar animation.
+        -- In Gen 1 & Gen 2 recomp, sayBattleMessage successfully queues "The rest of the team gained EXP!"
+        -- (via sayNext in Gen 1, or emit({ kind = "message" }) in Gen 2), so benched mons pass
+        -- announce = false to suppress individual repetitive boxes.
+        -- If consolidated text is unsupported by the engine, announce = true ensures every recipient
+        -- displays its native in-battle gain text and EXP bar animation.
         local announceBenched = not consolidatedAnnounced
 
         for _, mon in ipairs(benched) do
