@@ -27,12 +27,13 @@
   - Ledges are jumped cleanly at 2x speed when running.
   - Automatically restores normal walking duration during cutscenes/scripted escort movements to prevent NPC desyncs.
 
-### 2. EXP Share (Module 2) — Gen 1
+### 2. EXP Share (Module 2) — Gen 1 & Gen 2
 - **Modern Gen 6+ EXP Distribution**: 100% EXP to active battlers, 50% EXP to benched party members.
-- **Full Stat EXP**: All party members receiving EXP also gain 100% of the defeated Pokémon's base stats as Stat EXP.
+- **Cross-Generation Support**: Fully functional across Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal.
+- **Full Stat EXP**: All party members receiving EXP also gain 100% of the defeated Pokémon's base stats as Stat EXP across all stats.
 - **Clean Single Team Notification**: Displays a single `"The rest of the team gained EXP!"` message for benched members.
 - **Instant Level-Up Sequencing**: Any Pokémon that levels up immediately triggers its fanfare, stat box, and move learning prompt.
-- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots.
+- **Pure Software Toggle**: Enabled by default, occupying 0 Bag inventory slots; supersedes vanilla Gen 2 held Exp. Share while active.
 
 ### 3. Trade Evolutions (Module 3) — Gen 1
 - **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally at Level 40+.
@@ -42,10 +43,10 @@
 - **Vanilla NPC Trades**: In-game NPC trades do not immediately auto-evolve upon receipt.
 
 ### 4. Catch All 151 Pokémon (Module 4) — Gen 1
-- **Wild Starters**: Bulbasaur (Viridian Forest, Route 2), Charmander (Route 3, Rock Tunnel), and Squirtle (Routes 24 & 25) can be caught in the wild in authentic thematic habitats.
+- **Wild Starters**: Bulbasaur (Viridian Forest, Route 2), Charmander (Routes 3 & 4), and Squirtle (Routes 24 & 25) can be caught in the wild in authentic thematic habitats.
 - **Version Exclusives & Missing Pokémon**: Cross-pollinates Red, Blue, and Yellow version exclusives across all three games (e.g. Ekans/Arbok, Sandshrew/Sandslash, Oddish/Bellsprout, Meowth/Mankey, Vulpix/Growlithe, Koffing, Weedle line in Yellow, Electabuzz, Magmar, and wild Raichu).
 - **Safari Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes so players can battle and catch them with normal Pokéballs without fleeing mechanics.
-- **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 8 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 25, 8 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon leaving and re-entering the map or room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Encounter a stationary Lv. 50 Mew on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing.
 
@@ -55,6 +56,13 @@
 
 ### 6. Forget HM Moves (Module 6) — Gen 1
 - **Replace HMs Freely**: Overwrite Cut, Fly, Surf, Strength, and Flash during normal level-up move learning, TM teaching, or Move Relearner sessions without needing a Move Deleter.
+
+### 7. Improved Inventory (Module 7) — Gen 1
+- **Expanded Bag Capacity**: Holds up to 99 unique items (expanded from vanilla 20), preserving standard 99-item quantity stacks.
+- **Expanded PC Item Storage**: Holds up to 99 unique items (expanded from vanilla 50), preventing PC storage bottlenecks.
+- **Automatic Organization**: Regular items and Key Items are always kept cleanly sorted alphabetically (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) in numerical sequence., with menu exit and CANCEL options anchored at the absolute bottom.
+- **Page-Jumping Ergonomics**: Press Left or Right D-Pad while browsing Bag or PC Item lists to jump by 5 items per press for fast scrolling.
+- **Safe Toggle-OFF Guard**: Toggling OFF in the Options menu automatically deposits excess items (>20) to PC storage; safely blocks disabling with user feedback if PC storage cannot fit all excess items.
 
 ---
 

@@ -18,11 +18,12 @@ Every feature is designed as an independent module that can be individually togg
 | Module | Red & Blue<br>*(Gen 1)* | Yellow<br>*(Gen 1)* | Gold & Silver<br>*(Gen 2)* | Crystal<br>*(Gen 2)* | FireRed & LeafGreen<br>*(Gen 3)* | Ruby & Sapphire<br>*(Gen 3)* | Emerald<br>*(Gen 3)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **🏃 Running Shoes** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
-| **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🎓 EXP Share** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🔄 Trade Evolutions** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✨ Catch All 151 / 251** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **🧠 Move Relearner** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **✂️ Forget HM Moves** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
+| **🎒 Improved Inventory** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 | **⚙️ In-Game Mod Menu** | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) |
 
 <details>
@@ -47,8 +48,8 @@ Every feature is designed as an independent module that can be individually togg
 | :--- | :---: | :---: | :--- |
 | **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle |
 | **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Full EXP Share support with Pikachu happiness on level-up, options menu toggle |
-| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target |
-| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Gold & Silver** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle, supersedes held Exp. Share |
+| **Pokémon Crystal** | Gen 2 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | Modern Gen 6+ EXP (100% active battlers / 50% bench), 100% Stat EXP, clean single team notification, options menu toggle, supersedes held Exp. Share |
 | **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
 | **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
@@ -115,13 +116,28 @@ Every feature is designed as an independent module that can be individually togg
 
 </details>
 
+<details>
+<summary><b>🔍 View detailed status breakdown for Module 7: Improved Inventory</b></summary>
+
+| Game Target | Generation | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Pokémon Red & Blue** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | 99-item Bag & PC Storage, Left/Right D-pad page jumping, auto-sorting A-Z & TMs numerically, safe PC deposit on disable |
+| **Pokémon Yellow** | Gen 1 | ![Supported](https://img.shields.io/badge/✓%20Supported-brightgreen?style=flat-square) | 99-item Bag & PC Storage, Left/Right D-pad page jumping, auto-sorting A-Z & TMs numerically, safe PC deposit on disable |
+| **Pokémon Gold & Silver** | Gen 2 | ![Next Up](https://img.shields.io/badge/⏳%20Next%20Up-yellow?style=flat-square) | Next target (expansion for Gen 2 Items pocket) |
+| **Pokémon Crystal** | Gen 2 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon FireRed & LeafGreen** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Ruby & Sapphire** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+| **Pokémon Emerald** | Gen 3 | ![Planned](https://img.shields.io/badge/Planned-lightgrey?style=flat-square) | Planned |
+
+</details>
+
 ---
 
 ## 🗺️ Multi-Game Rollout Roadmap
 
 For each module, development follows a structured multi-generation workflow:
 1. **Gen 1**: Pokémon Red & Blue *(Complete)* ➔ Pokémon Yellow *(Complete)*
-2. **Gen 2**: Pokémon Gold & Silver *(Running Shoes complete, remainder Next Up)* ➔ Pokémon Crystal
+2. **Gen 2**: Pokémon Gold, Silver & Crystal *(Running Shoes & EXP Share complete, remainder Next Up)*
 3. **Gen 3**: Pokémon FireRed & LeafGreen ➔ Pokémon Ruby & Sapphire ➔ Pokémon Emerald
 
 ---
@@ -141,12 +157,13 @@ OmniQoL/
 │   │   └── settings_menu.lua   # Options Menu 'OMNIQOL' injection & custom UI
 │   └── modules/
 │       ├── running.lua         # Running Shoes (Gen 1 & Gen 2; Pikachu sync in Yellow)
-│       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP)
+│       ├── exp_share.lua       # Modern EXP Share (Gen 6+ style, 100% Stat EXP; Gen 1 & Gen 2)
 │       ├── trade_evos.lua      # Trade Evolutions at Lv. 40 + Lv. 100 Rare Candy
 │       ├── catch_151.lua       # Catch All 151 Pokémon, wild starters, respawns & Mew
 │       ├── forget_hms.lua      # Forget & overwrite HM moves freely
 │       ├── relearner_data.lua  # 151 learnsets, starting moves & evolution ancestry
-│       └── move_relearner.lua  # Move Reminder NPC in all Pokémon Centers
+│       ├── move_relearner.lua  # Move Reminder NPC in all Pokémon Centers
+│       └── improved_inventory.lua # 99-item Bag & PC storage, page navigation & auto-sorting
 ├── scripts/
 │   ├── build_release.py        # Automated release packager (with pre-build test gate)
 │   ├── publish_release.py      # Automated GitHub release publisher
@@ -157,14 +174,15 @@ OmniQoL/
 │       ├── meta.json           # Index metadata & compatibility schema
 │       ├── description.md      # Public mod description
 │       └── thumbnail.png       # Mod artwork thumbnail
-├── tests/                      # Automated test suite (Python unittest, 37 tests)
+├── tests/                      # Automated test suite (Python unittest, 51 tests)
 │   ├── test_manifest.py        # Metadata & config validation
 │   ├── test_gen2_running.py    # Gen 2 compatibility, detection & Running module tests
 │   ├── test_runtime_simulation.py # End-to-end engine mock, syntax & speed math tests
 │   ├── test_encounters.py      # Encounter table & version parity verification
 │   ├── test_trade_evos.py      # Trade evolution rules & level gating
 │   ├── test_relearner.py       # Move relearner, learnsets, TM & HM rules
-│   └── test_hms_and_core.py    # HM deletion, Running shoes & module lifecycle
+│   ├── test_hms_and_core.py    # HM deletion, Running shoes & module lifecycle
+│   └── test_improved_inventory.py # 99-item bag/PC capacity, sorting & toggle-off safety
 ├── POKEDEX_151_GUIDE.md        # Comprehensive 151 Pokémon & Area-by-Area guide
 └── README.md
 ```
@@ -182,12 +200,13 @@ OmniQoL/
 - **Overworld Safety Guards**: Preserves normal Bicycle and Surf speeds, preserves authentic Gen 2 Ice Path sliding momentum, and automatically restores normal walking duration during NPC escort cutscenes (e.g., Professor Oak) to prevent desyncs.
 - **Options Menu Integration**: Accessible directly through the native **Options Menu** (`OPTION`), both during gameplay and on the Title Screen, while keeping the overworld Start Menu pure vanilla.
 
-### Module 2: EXP Share (Gen 1)
+### Module 2: EXP Share (Gen 1 & Gen 2)
 - **Modern Gen 6+ EXP Distribution**: Active battlers receive a full 100% EXP share each (Gen 8+ style, no switching penalty), while non-fainted party members on the bench receive 50% EXP. Fainted Pokémon receive 0 EXP.
-- **Full Stat EXP (Gen 6+ style)**: All party members that receive EXP also gain 100% of the defeated enemy's base stats as Stat EXP (Gen 1's EVs) across all stats.
-- **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating vanilla Gen 1 Exp. All dialogue spam.
+- **Cross-Generation Support**: Fully functional across Pokémon Red, Blue, Yellow, Gold, Silver, and Crystal.
+- **Full Stat EXP (Gen 6+ style)**: All party members that receive EXP also gain 100% of the defeated enemy's base stats as Stat EXP across all stats.
+- **Streamlined Battle Text**: Active battlers display their standard EXP gain dialogue, followed by a single clean consolidated message (`"The rest of the team gained EXP!"`) for benched Pokémon, completely eliminating dialogue spam.
 - **Immediate Level-Up Flow**: Any Pokémon that levels up immediately plays its level-up fanfare, displays its stat growth box, and prompts for new moves in sequence.
-- **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots.
+- **Pure Software Toggle**: Available immediately from the start of the game, toggled ON/OFF in the `OMNIQOL` Options Menu, occupying 0 Bag inventory slots. Supersedes vanilla Gen 2 held Exp. Share while active, cleanly restoring vanilla item mechanics when toggled OFF.
 
 ### Module 3: Trade Evolutions (Gen 1)
 - **Level 40 Evolution**: Kadabra, Machoke, Graveler, and Haunter evolve naturally into Alakazam, Machamp, Golem, and Gengar upon reaching or gaining any level at or above Level 40.
@@ -198,10 +217,10 @@ OmniQoL/
 - **Options Menu Integration**: Toggleable on/off anytime under `OPTION ➔ OMNIQOL` (`TRADE EVOS`), enabled by default.
 
 ### Module 4: Catch All 151 Pokémon (Gen 1)
-- **Wild Starters**: Bulbasaur, Charmander, and Squirtle can be encountered and caught in the wild across thematic Kanto routes.
+- **Wild Starters**: Bulbasaur (Route 2 & Viridian Forest), Charmander (Routes 3 & 4), and Squirtle (Routes 24 & 25) can be encountered and caught in the wild across thematic Kanto routes.
 - **Version Exclusives & Missing Pokémon**: All version-locked Pokémon from Red, Blue, and Yellow are cross-available in counterpart wild habitats.
 - **Safari Zone Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes, allowing conventional battle and capture without fleeing or Safari Balls.
-- **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Mutually Exclusive & Single-Choice Lines**: Wild encounters for unchosen fossils (Omanyte & Kabuto in Seafoam Islands water), Fighting Dojo fighters (Hitmonlee & Hitmonchan in Victory Road and Route 10), and wild Eevee (Routes 25, 8 & 17, allowing all three Eeveelutions on a single save file). In-game trade-only mons (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary & Snorlax Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon exiting and re-entering their map/room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Stationary interactable Lv. 50 Mew rests on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing, respawning on room re-entry if not caught.
 - **Celadon Department Store Moon Stone**: Sold on 4F (Wiseman Gifts) alongside Fire, Water, Thunder, and Leaf Stones at standard ¥2,100 with infinite stock, ensuring Moon Stone evolutions are never blocked.
@@ -227,6 +246,15 @@ OmniQoL/
 - **Freely Overwrite HM Moves**: Overwrites and replaces HM moves (Cut, Fly, Surf, Strength, Flash) whenever learning any new move (whether through Level-Up, TM items, or the Move Relearner).
 - **No More Trapped Movesets**: Removes the permanent HM lock present in vanilla Gen 1, eliminating the need to save/carry dedicated HM slaves.
 - **Dedicated Independent Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`FORGET HMS`), enabled by default.
+
+### Module 7: Improved Inventory (Gen 1)
+- **Expanded Bag Capacity**: Holds up to 99 unique items (expanded from vanilla 20), preserving standard 99 quantity stacks.
+- **Expanded PC Item Storage**: Holds up to 99 unique items (expanded from vanilla 50), preventing storage bottlenecks when depositing items from the Bag.
+- **Deterministic Automatic Sorting**:
+  - Regular items and Key Items are always kept cleanly sorted in alphabetical order (A–Z).
+  - TMs (`TM01` through `TM50`) and HMs (`HM01` through `HM05`) are grouped together at the bottom and sorted numerically.
+- **Page-Jumping Navigation**: Press Left or Right on the D-Pad while browsing Bag or PC Item lists to jump by 5 items per press for rapid scrolling, preserving `SELECT` and standard controls.
+- **Safe Toggle-OFF Protection**: Toggling OFF in the Options menu (`INVENTORY`) automatically deposits excess items (>20) to PC Item Storage. If PC storage cannot fit all excess items, disabling is safely blocked with a notification to prevent any item loss.
 
 ---
 

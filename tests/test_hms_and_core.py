@@ -49,6 +49,7 @@ class TestHMsAndCore(unittest.TestCase):
             "modules/catch_151.lua",
             "modules/move_relearner.lua",
             "modules/forget_hms.lua",
+            "modules/improved_inventory.lua",
         ]
         for mod in expected_modules:
             self.assertIn(mod, content, f"Module {mod} not registered in init.lua")

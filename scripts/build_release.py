@@ -33,7 +33,7 @@ def build():
     with open(manifest_path, "r", encoding="utf-8") as f:
         manifest = json.load(f)
 
-    version = manifest.get("version", "0.2.1")
+    version = manifest.get("version", "0.2.2")
     archive_name = f"omni-qol-v{version}.zip"
     archive_path = os.path.join(root_dir, archive_name)
     source_dir = os.path.join(root_dir, "mods")
@@ -66,16 +66,19 @@ def build():
             parent_dir = os.path.dirname(target_mod_dir)
             if os.path.exists(parent_dir):
                 print(f"[OmniQoL] Synchronizing mod files to {target_mod_dir}...")
-                os.makedirs(target_mod_dir, exist_ok=True)
-                for root, dirs, files in os.walk(source_dir):
-                    rel = os.path.relpath(root, source_dir)
-                    dest_dir = os.path.join(target_mod_dir, rel) if rel != "." else target_mod_dir
-                    os.makedirs(dest_dir, exist_ok=True)
-                    for f in files:
-                        src_file = os.path.join(root, f)
-                        dest_file = os.path.join(dest_dir, f)
-                        shutil.copy2(src_file, dest_file)
-                print(f"[OmniQoL] Successfully synchronized to {target_mod_dir}!")
+                try:
+                    os.makedirs(target_mod_dir, exist_ok=True)
+                    for root, dirs, files in os.walk(source_dir):
+                        rel = os.path.relpath(root, source_dir)
+                        dest_dir = os.path.join(target_mod_dir, rel) if rel != "." else target_mod_dir
+                        os.makedirs(dest_dir, exist_ok=True)
+                        for f in files:
+                            src_file = os.path.join(root, f)
+                            dest_file = os.path.join(dest_dir, f)
+                            shutil.copy2(src_file, dest_file)
+                    print(f"[OmniQoL] Successfully synchronized to {target_mod_dir}!")
+                except OSError as e:
+                    print(f"[OmniQoL] Note: Could not synchronize to {target_mod_dir} ({e}).")
 
 if __name__ == "__main__":
     build()

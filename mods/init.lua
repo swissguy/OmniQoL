@@ -87,6 +87,9 @@ return function(mod)
   local MoveRelearnerModule = loadModule("modules/move_relearner.lua")
   MoveRelearnerModule.register(manager)
 
+  local ImprovedInventoryModule = loadModule("modules/improved_inventory.lua")
+  ImprovedInventoryModule.register(manager)
+
   -- Setup Options Menu injection & In-Game UI screen
   SettingsMenu.setup(mod, manager)
 
@@ -98,7 +101,7 @@ return function(mod)
   if gen == "gen2" then
     logMsg = string.format("OmniQoL suite loaded successfully for Gen 2 [%s] (Running Shoes active).", gameId:upper())
   else
-    logMsg = string.format("OmniQoL suite loaded successfully for Gen 1 [%s] (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner & Forget HMs active).", gameId:upper())
+    logMsg = string.format("OmniQoL suite loaded successfully for Gen 1 [%s] (Running Shoes, EXP Share, Trade Evos, Catch 151, Relearner, Forget HMs & Improved Inventory active).", gameId:upper())
   end
 
   if mod.log and type(mod.log.info) == "function" then

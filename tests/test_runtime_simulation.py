@@ -89,10 +89,11 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         modules = {
             "running.lua": {"gen1", "gen2"},
             "catch_151.lua": {"gen1"},
-            "exp_share.lua": {"gen1"},
+            "exp_share.lua": {"gen1", "gen2"},
             "forget_hms.lua": {"gen1"},
             "move_relearner.lua": {"gen1"},
             "trade_evos.lua": {"gen1"},
+            "improved_inventory.lua": {"gen1"},
         }
 
         for filename, expected_gens in modules.items():
@@ -131,11 +132,12 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         """Simulates how ModuleManager registers modules for Gen 1 vs Gen 2."""
         modules = [
             {"id": "running", "gens": ["gen1", "gen2"]},
-            {"id": "exp_share", "gens": ["gen1"]},
+            {"id": "exp_share", "gens": ["gen1", "gen2"]},
             {"id": "trade_evos", "gens": ["gen1"]},
             {"id": "catch_151", "gens": ["gen1"]},
             {"id": "forget_hms", "gens": ["gen1"]},
             {"id": "move_relearner", "gens": ["gen1"]},
+            {"id": "improved_inventory", "gens": ["gen1"]},
         ]
 
         def simulate_manager(target_gen):
@@ -145,14 +147,14 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
                     registered.append(m["id"])
             return registered
 
-        # In Gen 1, all 6 modules must be registered
+        # In Gen 1, all 7 modules must be registered
         gen1_registered = simulate_manager("gen1")
-        self.assertEqual(len(gen1_registered), 6)
-        self.assertEqual(gen1_registered, ["running", "exp_share", "trade_evos", "catch_151", "forget_hms", "move_relearner"])
+        self.assertEqual(len(gen1_registered), 7)
+        self.assertEqual(gen1_registered, ["running", "exp_share", "trade_evos", "catch_151", "forget_hms", "move_relearner", "improved_inventory"])
 
-        # In Gen 2, ONLY running must be registered
+        # In Gen 2, running and exp_share must be registered
         gen2_registered = simulate_manager("gen2")
-        self.assertEqual(gen2_registered, ["running"])
+        self.assertEqual(gen2_registered, ["running", "exp_share"])
 
     def test_simulated_running_speed_calculation(self):
         """Simulates the mathematical logic of the movement.speed hook in running.lua."""
@@ -196,11 +198,165 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         # 7. Gen 2 Ice Path puzzle sliding -> remains vanilla sliding frames
         self.assertEqual(calculate_speed(True, True, False, False, True), 16)
 
+    def test_simulated_exp_share_distribution_gen1_and_gen2(self):
+        """Simulates the party-wide EXP and Stat EXP distribution logic across Gen 1 and Gen 2."""
+        class MockMon:
+            def __init__(self, name, hp, stat_exp=0, exp=0):
+                self.name = name
+                self.hp = hp
+                self.statExp = stat_exp
+                self.exp = exp
+
+        class MockGen1Battle:
+            def __init__(self, party):
+                self.party = party
+                self.messages = []
+            def playerPartyView(self):
+                return self.party
+            def sayNext(self, msg):
+                self.messages.append(msg)
+
+        class MockGen2Battle:
+            def __init__(self, party):
+                self.party = party
+                self.events = []
+            def emit(self, event):
+                self.events.append(event)
+
+        class MockFallbackBattle:
+            def __init__(self, party):
+                self.party = party
+                # Neither sayNext nor emit present
+
+        # --- 1. Gen 1 Simulation (sayNext available -> consolidated announcement, silent benched shares) ---
+        mon1 = MockMon("Pikachu", hp=30)
+        mon2 = MockMon("Cyndaquil", hp=25)
+        mon3 = MockMon("FaintedMon", hp=0)
+
+        party = [mon1, mon2, mon3]
+        battle1 = MockGen1Battle(party)
+        alive1 = [mon1]
+
+        awarded1 = []
+        def apply_share1(mon, split, announce):
+            base = 100
+            gain = base if mon in alive1 else max(1, base // 2)
+            mon.exp += gain
+            mon.statExp += 50 * split
+            awarded1.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        for m in alive1:
+            apply_share1(m, 1, True)
+
+        benched1 = [m for m in party if m not in alive1 and m.hp > 0]
+        # In Gen 1, sayNext exists -> sayBattleMessage succeeds
+        has_msg1 = hasattr(battle1, "sayNext") and callable(battle1.sayNext)
+        if has_msg1:
+            battle1.sayNext("The rest of the\nteam gained EXP!")
+        announce_benched1 = not has_msg1
+        for m in benched1:
+            apply_share1(m, 1, announce_benched1)
+
+        # Active battler (Pikachu): 100 EXP (100%), 50 Stat EXP (100%), announce=True
+        self.assertEqual(mon1.exp, 100)
+        self.assertEqual(mon1.statExp, 50)
+        self.assertTrue(awarded1[0]["announce"])
+
+        # Benched living mon (Cyndaquil) in Gen 1: 50 EXP (50%), 50 Stat EXP (100%), announce=False
+        self.assertEqual(mon2.exp, 50)
+        self.assertEqual(mon2.statExp, 50)
+        self.assertFalse(awarded1[1]["announce"])
+
+        # Fainted mon: 0 EXP, 0 Stat EXP
+        self.assertEqual(mon3.exp, 0)
+        self.assertEqual(mon3.statExp, 0)
+        self.assertEqual(battle1.messages, ["The rest of the\nteam gained EXP!"])
+
+        # --- 2. Gen 2 Simulation (emit available -> single consolidated message, silent benched shares) ---
+        g2_mon1 = MockMon("Totodile", hp=35)
+        g2_mon2 = MockMon("Pidgey", hp=20)
+        g2_party = [g2_mon1, g2_mon2]
+        battle2 = MockGen2Battle(g2_party)
+        alive2 = [g2_mon1]
+
+        awarded2 = []
+        def apply_share2(mon, split, announce):
+            base = 120
+            gain = base if mon in alive2 else max(1, base // 2)
+            mon.exp += gain
+            mon.statExp += 60 * split
+            awarded2.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        for m in alive2:
+            apply_share2(m, 1, True)
+
+        benched2 = [m for m in g2_party if m not in alive2 and m.hp > 0]
+        # In Gen 2 recomp, battle.emit({ kind = "message", text = ... }) handles consolidated notification
+        has_emit = hasattr(battle2, "emit") and callable(battle2.emit)
+        if has_emit:
+            battle2.emit({"kind": "message", "text": "The rest of the\nteam gained EXP!"})
+        announce_benched2 = not has_emit
+        for m in benched2:
+            apply_share2(m, 1, announce_benched2)
+
+        # Active battler (Totodile): 120 EXP, announce=True
+        self.assertEqual(g2_mon1.exp, 120)
+        self.assertTrue(awarded2[0]["announce"])
+
+        # Benched living mon (Pidgey) in Gen 2: 60 EXP, announce=False (single consolidated message shown)
+        self.assertEqual(g2_mon2.exp, 60)
+        self.assertFalse(awarded2[1]["announce"])
+        self.assertEqual(len(battle2.events), 1)
+        self.assertEqual(battle2.events[0], {"kind": "message", "text": "The rest of the\nteam gained EXP!"})
+
+        # --- 3. Fallback Simulation (neither sayNext nor emit available -> announce per mon) ---
+        fb_mon1 = MockMon("Chikorita", hp=30)
+        fb_mon2 = MockMon("Sentret", hp=18)
+        fb_party = [fb_mon1, fb_mon2]
+        battle3 = MockFallbackBattle(fb_party)
+        alive3 = [fb_mon1]
+
+        awarded3 = []
+        def apply_share3(mon, split, announce):
+            base = 100
+            gain = base if mon in alive3 else max(1, base // 2)
+            mon.exp += gain
+            awarded3.append({"mon": mon.name, "exp": gain, "announce": announce})
+
+        for m in alive3:
+            apply_share3(m, 1, True)
+
+        benched3 = [m for m in fb_party if m not in alive3 and m.hp > 0]
+        announce_benched3 = True
+        for m in benched3:
+            apply_share3(m, 1, announce_benched3)
+
+        self.assertTrue(awarded3[0]["announce"])
+        self.assertTrue(awarded3[1]["announce"])
+
+    def test_gen2_battle_shape_and_priority_in_exp_share(self):
+        """Verifies exp_share.lua handles Gen 2 battle shape (battle.party, battle.player) and priority 90."""
+        exp_share_path = os.path.join(self.mods_dir, "modules", "exp_share.lua")
+        with open(exp_share_path, "r", encoding="utf-8") as f:
+            code = f.read()
+
+        # Priority 90 registration
+        self.assertIn(', 90)', code, "exp_share hooks must run at priority 90 to preempt conflicting overhaul hooks")
+
+        # Gen 2 battle shape support
+        self.assertIn("battle.party", code, "exp_share must resolve battle.party for Gen 2 battle shape")
+        self.assertIn("battle.emit", code, "exp_share must support Gen 2 battle:emit for consolidated message emission")
+        self.assertIn('kind = "message"', code, "exp_share must emit message events in Gen 2")
+        self.assertIn("resolvePlayerParty", code, "exp_share must implement robust multi-gen party resolution")
+        self.assertIn("sayBattleMessage", code, "exp_share must implement defensive battle message emission")
+        self.assertIn("announceBenched", code, "exp_share must dynamically announce EXP when consolidated text is unavailable")
+        self.assertIn("consolidatedAnnounced", code, "exp_share must track consolidated message emission")
+
     def test_zip_release_archive_content_and_integrity(self):
         """Builds and inspects the distribution archive for 100% path accuracy."""
         with open(self.manifest_path, "r", encoding="utf-8") as f:
             source_manifest = json.load(f)
-        version = source_manifest.get("version", "0.2.1")
+        version = source_manifest.get("version", "0.2.2")
         archive_path = os.path.join(ROOT_DIR, f"omni-qol-v{version}.zip")
 
         # If running in a clean checkout or CI runner prior to build_release.py,
