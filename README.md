@@ -174,7 +174,7 @@ OmniQoL/
 │       ├── meta.json           # Index metadata & compatibility schema
 │       ├── description.md      # Public mod description
 │       └── thumbnail.png       # Mod artwork thumbnail
-├── tests/                      # Automated test suite (Python unittest, 49 tests)
+├── tests/                      # Automated test suite (Python unittest, 51 tests)
 │   ├── test_manifest.py        # Metadata & config validation
 │   ├── test_gen2_running.py    # Gen 2 compatibility, detection & Running module tests
 │   ├── test_runtime_simulation.py # End-to-end engine mock, syntax & speed math tests

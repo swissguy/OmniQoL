@@ -60,7 +60,7 @@
 ### 7. Improved Inventory (Module 7) — Gen 1
 - **Expanded Bag Capacity**: Holds up to 99 unique items (expanded from vanilla 20), preserving standard 99-item quantity stacks.
 - **Expanded PC Item Storage**: Holds up to 99 unique items (expanded from vanilla 50), preventing PC storage bottlenecks.
-- **Automatic Organization**: Regular items and Key Items are always kept cleanly sorted alphabetically (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) in numerical sequence.
+- **Automatic Organization**: Regular items and Key Items are always kept cleanly sorted alphabetically (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) in numerical sequence., with menu exit and CANCEL options anchored at the absolute bottom.
 - **Page-Jumping Ergonomics**: Press Left or Right D-Pad while browsing Bag or PC Item lists to jump by 5 items per press for fast scrolling.
 - **Safe Toggle-OFF Guard**: Toggling OFF in the Options menu automatically deposits excess items (>20) to PC storage; safely blocks disabling with user feedback if PC storage cannot fit all excess items.
 

@@ -62,7 +62,7 @@ Every feature is designed as an independent module that can be turned on or off 
 ### 🎒 Module 7: Improved Inventory (Gen 1)
 - **99 Unique Bag Items**: Expands player inventory capacity from 20 up to 99 unique item slots, preserving standard 99 quantity stacks.
 - **99 Unique PC Storage Items**: Expands PC Item Storage capacity from 50 up to 99 unique item slots to match the Bag and prevent storage bottlenecks.
-- **Automatic Organization**: Regular items and Key Items are always kept strictly sorted in alphabetical order (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) grouped in numerical sequence.
+- **Automatic Organization**: Regular items and Key Items are always kept strictly sorted in alphabetical order (A–Z), followed by TMs (`TM01`–`TM50`) and HMs (`HM01`–`HM05`) grouped in numerical sequence., with menu exit and CANCEL options anchored at the absolute bottom.
 - **Page-Jumping Ergonomics**: Press Left or Right D-Pad while browsing Bag or PC Item lists to jump by 5 items per press, while keeping `SELECT` and standard inputs intact.
 - **Safe Toggle-OFF Guard**: Toggling OFF in the Options menu automatically deposits excess items (>20) to PC Item Storage; if PC storage is full and cannot fit all excess items, disabling is safely blocked to protect player items against data loss.
 - **Dedicated Toggle**: Separately toggleable under `OPTION ➔ OMNIQOL` (`INVENTORY`), enabled by default.
