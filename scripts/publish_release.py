@@ -24,7 +24,7 @@ def get_token():
     creds = dict(line.split("=", 1) for line in stdout.strip().splitlines() if "=" in line)
     return creds.get("password")
 
-def publish(tag="v0.2.1", version="0.2.1"):
+def publish(tag="v0.2.2", version="0.2.2"):
     token = get_token()
     if not token:
         print("[Error] Could not retrieve GitHub credentials from Git Credential Manager.")
@@ -146,7 +146,7 @@ OmniQoL is now a single, cross-generation release supporting both Generation 1 a
     print(f"\n[OmniQoL] Successfully published {tag} to GitHub!")
 
 if __name__ == "__main__":
-    v = "0.2.1"
+    v = "0.2.2"
     t = f"v{v}"
     if len(sys.argv) > 1:
         t = sys.argv[1]

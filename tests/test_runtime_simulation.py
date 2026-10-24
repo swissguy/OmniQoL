@@ -354,7 +354,7 @@ class TestRuntimeSimulationAndIntegrity(unittest.TestCase):
         """Builds and inspects the distribution archive for 100% path accuracy."""
         with open(self.manifest_path, "r", encoding="utf-8") as f:
             source_manifest = json.load(f)
-        version = source_manifest.get("version", "0.2.1")
+        version = source_manifest.get("version", "0.2.2")
         archive_path = os.path.join(ROOT_DIR, f"omni-qol-v{version}.zip")
 
         # If running in a clean checkout or CI runner prior to build_release.py,

@@ -33,7 +33,7 @@ def build():
     with open(manifest_path, "r", encoding="utf-8") as f:
         manifest = json.load(f)
 
-    version = manifest.get("version", "0.2.1")
+    version = manifest.get("version", "0.2.2")
     archive_name = f"omni-qol-v{version}.zip"
     archive_path = os.path.join(root_dir, archive_name)
     source_dir = os.path.join(root_dir, "mods")
