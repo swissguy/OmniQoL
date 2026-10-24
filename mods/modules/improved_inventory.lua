@@ -15,6 +15,7 @@
 --   * Regular items and Key Items are always sorted alphabetically (A-Z).
 --   * TMs and HMs are grouped at the bottom and sorted numerically:
 --     TM01 through TM50, followed by HM01 through HM05.
+--   * Directly sorts save.bagOrder and save.pcOrder (Gen1Recomp inventory model).
 -- - D-Pad Left / Right Page-Jumping Navigation:
 --   * Jump up or down by 5 items per press in Bag and PC menus (BagMenu, ItemMenu, PlayerPC).
 --   * Preserves standard SELECT (item swapping) and directional navigation.
@@ -158,6 +159,19 @@ function ImprovedInventory.compareItems(a, b)
   return tostring(keyA.id) < tostring(keyB.id)
 end
 
+--- Returns whether a list is already sorted according to the compareItems contract.
+function ImprovedInventory.isListSorted(items)
+  if type(items) ~= "table" or #items <= 1 then
+    return true
+  end
+  for i = 1, #items - 1 do
+    if ImprovedInventory.compareItems(items[i + 1], items[i]) then
+      return false
+    end
+  end
+  return true
+end
+
 --- Sorts a list of items in-place according to the alphabetical + TM numerical order.
 -- @param items Table (array of item objects or item IDs)
 -- @return Table The sorted items array
@@ -165,8 +179,34 @@ function ImprovedInventory.sortItems(items)
   if type(items) ~= "table" or #items <= 1 then
     return items
   end
-  table.sort(items, ImprovedInventory.compareItems)
+  if not ImprovedInventory.isListSorted(items) then
+    table.sort(items, ImprovedInventory.compareItems)
+  end
   return items
+end
+
+--- Enforces sorting across all inventory collections in a save object.
+-- Specifically targets save.bagOrder and save.pcOrder (the Gen1Recomp native model).
+function ImprovedInventory.enforceSortingOnSave(save)
+  if not save or type(save) ~= "table" then return end
+
+  -- 1. Gen1Recomp native model: save.bagOrder and save.pcOrder
+  if type(save.bagOrder) == "table" and #save.bagOrder > 1 then
+    ImprovedInventory.sortItems(save.bagOrder)
+  end
+
+  if type(save.pcOrder) == "table" and #save.pcOrder > 1 then
+    ImprovedInventory.sortItems(save.pcOrder)
+  end
+
+  -- 2. Fallback / alternative object models
+  if type(save.bag) == "table" and type(save.bag.items) == "table" and #save.bag.items > 1 then
+    ImprovedInventory.sortItems(save.bag.items)
+  end
+
+  if type(save.pcItems) == "table" and #save.pcItems > 1 then
+    ImprovedInventory.sortItems(save.pcItems)
+  end
 end
 
 --- Calculates target cursor position after a page-jump navigation step.
@@ -196,32 +236,51 @@ end
 -- Returns canDisable (boolean), reason (string or nil), excessItems (table or nil)
 function ImprovedInventory.canSafelyDisable(mod, moduleManager, save)
   save = save or (mod and mod.save) or {}
-  local bag = save.bag or save.inventory or (mod and mod.bag)
-  local bagItems = (type(bag) == "table" and (bag.items or bag)) or {}
-  if type(bagItems) ~= "table" then bagItems = {} end
 
-  local totalBagItems = #bagItems
+  -- Count bag items from save.bagOrder (Gen1Recomp) or save.bag.items / save.inventory
+  local totalBagItems = 0
+  local excessList = {}
+
+  if type(save.bagOrder) == "table" then
+    totalBagItems = #save.bagOrder
+    if totalBagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
+      for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
+        table.insert(excessList, save.bagOrder[i])
+      end
+    end
+  else
+    local bag = save.bag or save.inventory or (mod and mod.bag)
+    local bagItems = (type(bag) == "table" and (bag.items or bag)) or {}
+    if type(bagItems) ~= "table" then bagItems = {} end
+    totalBagItems = #bagItems
+    if totalBagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
+      for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
+        table.insert(excessList, bagItems[i])
+      end
+    end
+  end
+
   if totalBagItems <= ImprovedInventory.VANILLA_BAG_CAPACITY then
     return true, nil, {}
   end
 
-  -- Excess items that must be deposited into PC storage
   local excessCount = totalBagItems - ImprovedInventory.VANILLA_BAG_CAPACITY
-  local pc = save.pcItems or save.boxItems or save.storage or (mod and mod.pcItems)
-  local pcItems = (type(pc) == "table" and (pc.items or pc)) or {}
-  if type(pcItems) ~= "table" then pcItems = {} end
 
-  local currentPCItems = #pcItems
+  -- Calculate available PC storage
+  local currentPCItems = 0
+  if type(save.pcOrder) == "table" then
+    currentPCItems = #save.pcOrder
+  else
+    local pc = save.pcItems or save.boxItems or save.storage or (mod and mod.pcItems)
+    local pcItems = (type(pc) == "table" and (pc.items or pc)) or {}
+    if type(pcItems) ~= "table" then pcItems = {} end
+    currentPCItems = #pcItems
+  end
+
   local availablePCSpace = ImprovedInventory.VANILLA_PC_CAPACITY - currentPCItems
-
   if excessCount > availablePCSpace then
     local errMsg = string.format("Cannot disable: PC needs %d free slots for excess items (has %d).", excessCount, math.max(0, availablePCSpace))
     return false, errMsg, nil
-  end
-
-  local excessList = {}
-  for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
-    table.insert(excessList, bagItems[i])
   end
 
   return true, nil, excessList
@@ -233,39 +292,54 @@ end
 function ImprovedInventory.autoDepositExcessToPC(save)
   if not save then return true end
 
-  local bag = save.bag or save.inventory
-  local bagItems = type(bag) == "table" and (bag.items or bag)
-  if type(bagItems) ~= "table" or #bagItems <= ImprovedInventory.VANILLA_BAG_CAPACITY then
-    return true
-  end
-
   local canDisable, err, excessList = ImprovedInventory.canSafelyDisable(nil, nil, save)
   if not canDisable then
     return false, err
   end
 
-  local pc = save.pcItems or save.boxItems or save.storage
-  if type(pc) ~= "table" then
-    save.pcItems = {}
-    pc = save.pcItems
-  end
-  local pcItems = pc.items or pc
+  -- 1. Gen1Recomp native model: save.bagOrder, save.inventory, save.pcOrder, save.pcItems
+  if type(save.bagOrder) == "table" and #save.bagOrder > ImprovedInventory.VANILLA_BAG_CAPACITY then
+    save.pcOrder = save.pcOrder or {}
+    save.pcItems = save.pcItems or {}
+    local inv = save.inventory or {}
 
-  -- Move excess items to PC
-  for _, item in ipairs(excessList) do
-    table.insert(pcItems, item)
+    for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, #save.bagOrder do
+      local itemId = save.bagOrder[i]
+      local qty = inv[itemId] or 1
+      table.insert(save.pcOrder, itemId)
+      save.pcItems[itemId] = (save.pcItems[itemId] or 0) + qty
+      inv[itemId] = nil
+    end
+
+    for i = #save.bagOrder, ImprovedInventory.VANILLA_BAG_CAPACITY + 1, -1 do
+      table.remove(save.bagOrder, i)
+    end
+
+    ImprovedInventory.enforceSortingOnSave(save)
+    return true
   end
 
-  -- Truncate bag items to 20
-  for i = #bagItems, ImprovedInventory.VANILLA_BAG_CAPACITY + 1, -1 do
-    table.remove(bagItems, i)
-  end
+  -- 2. Fallback object model: save.bag / save.pcItems
+  local bag = save.bag or save.inventory
+  local bagItems = type(bag) == "table" and (bag.items or bag)
+  if type(bagItems) == "table" and #bagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
+    local pc = save.pcItems or save.boxItems or save.storage
+    if type(pc) ~= "table" then
+      save.pcItems = {}
+      pc = save.pcItems
+    end
+    local pcItems = pc.items or pc
 
-  if bag.count then
-    bag.count = #bagItems
-  end
-  if pc.count then
-    pc.count = #pcItems
+    for _, item in ipairs(excessList) do
+      table.insert(pcItems, item)
+    end
+
+    for i = #bagItems, ImprovedInventory.VANILLA_BAG_CAPACITY + 1, -1 do
+      table.remove(bagItems, i)
+    end
+
+    if bag.count then bag.count = #bagItems end
+    if pc.count then pc.count = #pcItems end
   end
 
   return true
@@ -280,7 +354,6 @@ function ImprovedInventory.register(moduleManager)
     default = true,
     supportedGenerations = { "gen1" },
     beforeChange = function(mod, mgr, nextVal)
-      -- If transitioning to disabled (false or 'OFF')
       local willBeEnabled = (nextVal == true or (nextVal ~= false and nextVal ~= "OFF" and nextVal ~= "off"))
       if not willBeEnabled then
         local save = (mod and mod.save) or {}
@@ -288,7 +361,6 @@ function ImprovedInventory.register(moduleManager)
         if not ok then
           return false, err
         end
-        -- Perform the auto-deposit before switching state
         local depositOk, depositErr = ImprovedInventory.autoDepositExcessToPC(save)
         if not depositOk then
           return false, depositErr
@@ -299,6 +371,9 @@ function ImprovedInventory.register(moduleManager)
     onChange = function(mod, mgr, newVal)
       local isEnabled = (newVal == true or (newVal ~= false and newVal ~= "OFF" and newVal ~= "off"))
       ImprovedInventory.applyConstants(mod, isEnabled)
+      if isEnabled and mod and mod.save then
+        ImprovedInventory.enforceSortingOnSave(mod.save)
+      end
     end,
     init = function(mod, mgr)
       ImprovedInventory.initHooks(mod, mgr)
@@ -327,8 +402,32 @@ function ImprovedInventory.initHooks(mod, moduleManager)
   -- Apply initial Gen1Recomp constants patch
   ImprovedInventory.applyConstants(mod, moduleManager:isEnabled("improved_inventory"))
 
-  -- 1. Hook engine capacity checks via mod.hooks if available
+  -- 1. Hook engine capacity & lifecycle checks via mod.hooks
   if mod.hooks and type(mod.hooks.wrap) == "function" then
+    -- Per-frame / input step hook: ensure save.bagOrder and save.pcOrder stay sorted
+    mod.hooks:wrap("input.step", function(next, game, dt)
+      if game and game.save and moduleManager:isEnabled("improved_inventory", game) then
+        ImprovedInventory.enforceSortingOnSave(game.save)
+      end
+      return next and next(game, dt)
+    end)
+
+    -- Overworld map load hook: ensure save is sorted upon entering maps
+    mod.hooks:wrap("overworld.load_map", function(next, game, ...)
+      if game and game.save and moduleManager:isEnabled("improved_inventory", game) then
+        ImprovedInventory.enforceSortingOnSave(game.save)
+      end
+      return next and next(game, ...)
+    end)
+
+    -- Start Menu hook: ensure items are sorted before the player clicks ITEM
+    mod.hooks:wrap("ui.start_menu.items", function(next, game, items, ...)
+      if game and game.save and moduleManager:isEnabled("improved_inventory", game) then
+        ImprovedInventory.enforceSortingOnSave(game.save)
+      end
+      return next and next(game, items, ...)
+    end)
+
     -- Bag capacity hooks
     mod.hooks:wrap("bag.capacity", function(next, game, ...)
       if moduleManager:isEnabled("improved_inventory", game) then
@@ -383,8 +482,7 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     -- Can Add hooks
     mod.hooks:wrap("bag.can_add", function(next, bagOrGame, item, count, ...)
       if moduleManager:isEnabled("improved_inventory") then
-        local items = type(bagOrGame) == "table" and (bagOrGame.items or bagOrGame) or {}
-        -- If already in bag, it stacks (up to 99 quantity)
+        local items = type(bagOrGame) == "table" and (bagOrGame.items or bagOrGame.bagOrder or bagOrGame) or {}
         if type(items) == "table" then
           for _, it in ipairs(items) do
             local itId = type(it) == "table" and (it.id or it[1]) or it
@@ -405,20 +503,28 @@ function ImprovedInventory.initHooks(mod, moduleManager)
 
     -- Bag & PC open / add hooks to enforce sorting
     mod.hooks:wrap("bag.open", function(next, game, bag, ...)
-      if moduleManager:isEnabled("improved_inventory", game) and bag then
-        local items = bag.items or bag
-        if type(items) == "table" then
-          ImprovedInventory.sortItems(items)
+      local save = (game and game.save) or (bag and bag.save) or (mod and mod.save)
+      if moduleManager:isEnabled("improved_inventory", game) then
+        ImprovedInventory.enforceSortingOnSave(save)
+        if bag then
+          local items = bag.items or bag.bagOrder or bag
+          if type(items) == "table" then
+            ImprovedInventory.sortItems(items)
+          end
         end
       end
       return next and next(game, bag, ...)
     end)
 
     mod.hooks:wrap("pc_items.open", function(next, game, pc, ...)
-      if moduleManager:isEnabled("improved_inventory", game) and pc then
-        local items = pc.items or pc
-        if type(items) == "table" then
-          ImprovedInventory.sortItems(items)
+      local save = (game and game.save) or (pc and pc.save) or (mod and mod.save)
+      if moduleManager:isEnabled("improved_inventory", game) then
+        ImprovedInventory.enforceSortingOnSave(save)
+        if pc then
+          local items = pc.items or pc.pcOrder or pc
+          if type(items) == "table" then
+            ImprovedInventory.sortItems(items)
+          end
         end
       end
       return next and next(game, pc, ...)
@@ -426,10 +532,14 @@ function ImprovedInventory.initHooks(mod, moduleManager)
 
     mod.hooks:wrap("bag.add", function(next, bag, item, count, ...)
       local res = next and next(bag, item, count, ...)
-      if moduleManager:isEnabled("improved_inventory") and bag then
-        local items = bag.items or bag
-        if type(items) == "table" then
-          ImprovedInventory.sortItems(items)
+      local save = (bag and bag.save) or (mod and mod.save)
+      if moduleManager:isEnabled("improved_inventory") then
+        ImprovedInventory.enforceSortingOnSave(save)
+        if bag then
+          local items = bag.items or bag.bagOrder or bag
+          if type(items) == "table" then
+            ImprovedInventory.sortItems(items)
+          end
         end
       end
       return res
@@ -460,71 +570,115 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     end
   end
 
-  -- 3. Hook BagMenu, ItemMenu, and PlayerPC UI for Left / Right page-jumping
-  local function wrapMenuInput(MenuClass)
-    if not MenuClass or type(MenuClass.handleInput) ~= "function" then return end
-    local origHandle = MenuClass.handleInput
+  -- 3. Hook BagMenu, ItemMenu, and PlayerPC UI for Left / Right page-jumping and auto-sort on open
+  local function wrapMenu(MenuClass)
+    if not MenuClass then return end
 
-    MenuClass.handleInput = function(self, input, ...)
-      if moduleManager:isEnabled("improved_inventory") and input then
-        local totalItems = self.items and #self.items or (self.getItemCount and self:getItemCount()) or 0
-        local maxSelectable = self.showCancel and (totalItems + 1) or totalItems
-
-        if maxSelectable > 1 then
-          local jumpDir = 0
-          if (type(input.wasPressed) == "function" and input:wasPressed("left")) or input == "left" then
-            jumpDir = -1
-          elseif (type(input.wasPressed) == "function" and input:wasPressed("right")) or input == "right" then
-            jumpDir = 1
+    -- Hook instantiation / initialization to sort items
+    if type(MenuClass.new) == "function" then
+      local origNew = MenuClass.new
+      MenuClass.new = function(...)
+        local instance = origNew(...)
+        if instance and moduleManager:isEnabled("improved_inventory") then
+          local save = (instance.game and instance.game.save) or (mod and mod.save)
+          ImprovedInventory.enforceSortingOnSave(save)
+          if instance.items and type(instance.items) == "table" then
+            ImprovedInventory.sortItems(instance.items)
           end
+          if instance.bagOrder and type(instance.bagOrder) == "table" then
+            ImprovedInventory.sortItems(instance.bagOrder)
+          end
+          if instance.pcOrder and type(instance.pcOrder) == "table" then
+            ImprovedInventory.sortItems(instance.pcOrder)
+          end
+        end
+        return instance
+      end
+    end
 
-          if jumpDir ~= 0 then
-            local curIndex = self.cursor or self.selectedIndex or self.index or 1
-            local newIndex = ImprovedInventory.handlePageJump(curIndex, maxSelectable, jumpDir, ImprovedInventory.PAGE_JUMP_SIZE)
-            if newIndex ~= curIndex then
-              if self.cursor then self.cursor = newIndex end
-              if self.selectedIndex then self.selectedIndex = newIndex end
-              if self.index then self.index = newIndex end
+    if type(MenuClass.init) == "function" then
+      local origInit = MenuClass.init
+      MenuClass.init = function(self, ...)
+        local res = origInit(self, ...)
+        if moduleManager:isEnabled("improved_inventory") then
+          local save = (self.game and self.game.save) or (mod and mod.save)
+          ImprovedInventory.enforceSortingOnSave(save)
+          if self.items and type(self.items) == "table" then
+            ImprovedInventory.sortItems(self.items)
+          end
+          if self.bagOrder and type(self.bagOrder) == "table" then
+            ImprovedInventory.sortItems(self.bagOrder)
+          end
+          if self.pcOrder and type(self.pcOrder) == "table" then
+            ImprovedInventory.sortItems(self.pcOrder)
+          end
+        end
+        return res
+      end
+    end
 
-              -- Keep visible window synchronized
-              if self.scrollOffset and self.maxVisible then
-                if newIndex <= self.scrollOffset then
-                  self.scrollOffset = math.max(0, newIndex - 1)
-                elseif newIndex > self.scrollOffset + self.maxVisible then
-                  self.scrollOffset = math.min(math.max(0, maxSelectable - self.maxVisible), newIndex - self.maxVisible)
+    -- Hook input handler for Left / Right D-Pad page navigation
+    if type(MenuClass.handleInput) == "function" then
+      local origHandle = MenuClass.handleInput
+      MenuClass.handleInput = function(self, input, ...)
+        if moduleManager:isEnabled("improved_inventory") and input then
+          local totalItems = self.items and #self.items or (self.getItemCount and self:getItemCount()) or 0
+          local maxSelectable = self.showCancel and (totalItems + 1) or totalItems
+
+          if maxSelectable > 1 then
+            local jumpDir = 0
+            if (type(input.wasPressed) == "function" and input:wasPressed("left")) or input == "left" then
+              jumpDir = -1
+            elseif (type(input.wasPressed) == "function" and input:wasPressed("right")) or input == "right" then
+              jumpDir = 1
+            end
+
+            if jumpDir ~= 0 then
+              local curIndex = self.cursor or self.selectedIndex or self.index or 1
+              local newIndex = ImprovedInventory.handlePageJump(curIndex, maxSelectable, jumpDir, ImprovedInventory.PAGE_JUMP_SIZE)
+              if newIndex ~= curIndex then
+                if self.cursor then self.cursor = newIndex end
+                if self.selectedIndex then self.selectedIndex = newIndex end
+                if self.index then self.index = newIndex end
+
+                if self.scrollOffset and self.maxVisible then
+                  if newIndex <= self.scrollOffset then
+                    self.scrollOffset = math.max(0, newIndex - 1)
+                  elseif newIndex > self.scrollOffset + self.maxVisible then
+                    self.scrollOffset = math.min(math.max(0, maxSelectable - self.maxVisible), newIndex - self.maxVisible)
+                  end
                 end
+
+                pcall(function()
+                  local Sound = require("src.core.Sound")
+                  if Sound and type(Sound.play) == "function" then
+                    Sound.play("cursor")
+                  end
+                end)
+
+                return true
               end
-
-              -- Play menu sound if available
-              pcall(function()
-                local Sound = require("src.core.Sound")
-                if Sound and type(Sound.play) == "function" then
-                  Sound.play("cursor")
-                end
-              end)
-
-              return true
             end
           end
         end
+        return origHandle(self, input, ...)
       end
-      return origHandle(self, input, ...)
     end
   end
 
   local okBagUI, BagMenu = pcall(require, "src.ui.BagMenu")
   if okBagUI and BagMenu then
-    wrapMenuInput(BagMenu)
+    wrapMenu(BagMenu)
   end
 
   local okItemUI, ItemMenu = pcall(require, "src.ui.ItemMenu")
   if okItemUI and ItemMenu then
-    wrapMenuInput(ItemMenu)
+    wrapMenu(ItemMenu)
   end
 
   local okPCUI, PCItemMenu = pcall(require, "src.ui.PCItemMenu")
   if okPCUI and PCItemMenu then
-    wrapMenuInput(PCItemMenu)
+    wrapMenu(PCItemMenu)
   end
 
   local okPlayerPC, PlayerPC = pcall(require, "src.ui.PlayerPC")
@@ -532,7 +686,7 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     if PlayerPC.pcItemCap then
       PlayerPC.pcItemCap = ImprovedInventory.EXPANDED_PC_CAPACITY
     end
-    wrapMenuInput(PlayerPC)
+    wrapMenu(PlayerPC)
   end
 end
 

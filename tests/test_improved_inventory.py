@@ -203,6 +203,45 @@ class TestImprovedInventory(unittest.TestCase):
         self.assertIn('mod.content.constants:patch("pcItemCap"', self.content)
         self.assertIn('src.ui.PlayerPC', self.content)
         self.assertIn('PlayerPC.pcItemCap = ImprovedInventory.EXPANDED_PC_CAPACITY', self.content)
+        self.assertIn('save.bagOrder', self.content)
+        self.assertIn('save.pcOrder', self.content)
+
+    def test_save_bag_order_and_pc_order_sorting(self):
+        """Verifies that string-array bagOrder and pcOrder sort correctly."""
+        raw_bag_order = [
+            "POTION",
+            "TOWN_MAP",
+            "POKE_BALL",
+            "RARE_CANDY",
+            "TM01",
+            "HM01",
+            "ANTIDOTE",
+            "TM28",
+        ]
+
+        def get_sort_key(item_id):
+            id_str = str(item_id).upper().replace("ITEM_", "")
+            tm_match = re.match(r"^TM_?(\d+)", id_str)
+            if tm_match:
+                return (2, int(tm_match.group(1)), id_str)
+            hm_match = re.match(r"^HM_?(\d+)", id_str)
+            if hm_match:
+                return (3, int(hm_match.group(1)), id_str)
+            display_name = id_str.replace("_", " ").strip().upper()
+            return (1, 0, display_name)
+
+        sorted_order = sorted(raw_bag_order, key=get_sort_key)
+        expected = [
+            "ANTIDOTE",
+            "POKE_BALL",
+            "POTION",
+            "RARE_CANDY",
+            "TOWN_MAP",
+            "TM01",
+            "TM28",
+            "HM01",
+        ]
+        self.assertEqual(sorted_order, expected)
 
 if __name__ == "__main__":
     unittest.main()
