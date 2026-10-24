@@ -145,6 +145,58 @@ class TestImprovedInventory(unittest.TestCase):
         ]
         self.assertEqual(sorted_inv, expected)
 
+    def test_list_menu_object_shape_sorting(self):
+        """Verifies sorting on ListMenu/BagMenu entries ({value='...', label='...'})
+        where TMs have value='TM_DIG' and label='TM28', Town Map has value='TOWN_MAP'
+        and label='TOWN MAP', and Cancel has cancel=True.
+        """
+        self.assertIn('item.value', self.content)
+        self.assertIn('res.pageJump = true', self.content)
+
+        gen1_tm_map = { "TM_DIG": 28, "TM_MEGA_PUNCH": 1 }
+        gen1_hm_map = { "HM_CUT": 1 }
+
+        def get_sort_key(item):
+            raw_id = item.get("value") or item.get("id") or item.get("name") if isinstance(item, dict) else str(item)
+            raw_name = item.get("label") or item.get("name") if isinstance(item, dict) else None
+            id_str = str(raw_id or "").upper().replace("ITEM_", "")
+            name_str = str(raw_name or "").upper()
+
+            if isinstance(item, dict) and item.get("cancel"):
+                return (4, 0, "CANCEL")
+            if id_str in gen1_tm_map:
+                return (2, gen1_tm_map[id_str], name_str or id_str)
+            if id_str in gen1_hm_map:
+                return (3, gen1_hm_map[id_str], name_str or id_str)
+            tm_match = re.match(r"^TM[\s_\-]?(\d+)", id_str) or re.match(r"^TM[\s_\-]?(\d+)", name_str)
+            if tm_match:
+                return (2, int(tm_match.group(1)), name_str or id_str)
+            display_name = name_str or id_str.replace("_", " ").strip().upper()
+            return (1, 0, display_name)
+
+        list_menu_items = [
+            {"value": "TM_DIG", "label": "TM28"},
+            {"value": "TOWN_MAP", "label": "TOWN MAP"},
+            {"value": "X_SPECIAL", "label": "X SPECIAL"},
+            {"cancel": True, "label": "CANCEL"},
+            {"value": "POTION", "label": "POTION"},
+            {"value": "HM_CUT", "label": "HM01"},
+            {"value": "TM_MEGA_PUNCH", "label": "TM01"},
+        ]
+
+        sorted_items = sorted(list_menu_items, key=get_sort_key)
+        result_labels = [it["label"] for it in sorted_items]
+        expected_labels = [
+            "POTION",
+            "TOWN MAP",
+            "X SPECIAL",
+            "TM01",      # Group 2: TM01
+            "TM28",      # Group 2: TM28
+            "HM01",      # Group 3: HM01
+            "CANCEL",    # Group 4: CANCEL
+        ]
+        self.assertEqual(result_labels, expected_labels)
+
     def test_sorting_order_full_inventory_with_cancel_at_bottom(self):
         """Verifies full list sorting: Items A-Z, then TMs 1-50, then HMs 1-5, and CANCEL always at the bottom."""
         def get_sort_key(item):

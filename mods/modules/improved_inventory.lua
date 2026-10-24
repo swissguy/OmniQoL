@@ -38,11 +38,11 @@ ImprovedInventory.EXPANDED_PC_CAPACITY = 99
 ImprovedInventory.PAGE_JUMP_SIZE = 5
 
 -- Standard Gen 1 TM and HM numeric ID mappings
--- (In Gen 1 hex: TM01 = 0xC4 (196) .. TM50 = 0xF5 (245), HM01 = 0xF6 (246) .. HM05 = 0xFA (250))
-local TM_MIN_ID = 196
-local TM_MAX_ID = 245
-local HM_MIN_ID = 246
-local HM_MAX_ID = 250
+-- (In Gen 1 hex: HM01 = 0xC4 (196) .. HM05 = 0xC8 (200), TM01 = 0xC9 (201) .. TM50 = 0xFA (250))
+local HM_MIN_ID = 196
+local HM_MAX_ID = 200
+local TM_MIN_ID = 201
+local TM_MAX_ID = 250
 
 -- Gen1Recomp named TM identifiers -> TM numbers (1..50)
 local GEN1_TM_NUMBERS = {
@@ -131,11 +131,21 @@ function ImprovedInventory.getItemSortKey(item)
     return { group = 1, index = 0, name = "", id = "" }
   end
 
-  local rawId = type(item) == "table" and (item.id or item.name or item[1]) or item
-  local rawName = type(item) == "table" and (item.name or item.label or item.displayName) or nil
+  local rawId = type(item) == "table" and (item.value or item.id or item.itemId or item.item or item.name or item[1]) or item
+  local rawName = type(item) == "table" and (item.label or item.name or item.displayName) or nil
   local idStr = tostring(rawId or ""):upper():gsub("^ITEM_", "")
+  local nameStr = tostring(rawName or ""):upper()
 
   -- 0. Check for CANCEL / Exit menu entries (Group 4: Must remain at the absolute bottom)
+  if item == "CANCEL" or item == "CANCEL_MENU" or item == "EXIT" or item == "QUIT" or item == 0xFF or item == 255 then
+    return {
+      group = 4,
+      index = 0,
+      name = "CANCEL",
+      id = "CANCEL",
+    }
+  end
+
   if rawId == "CANCEL" or rawId == "CANCEL_MENU" or rawId == "EXIT" or rawId == "QUIT" or rawId == 0xFF or rawId == 255 then
     return {
       group = 4,
@@ -154,7 +164,7 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  if type(item) == "table" and (item.isCancel or item.cancel or item.isExit) then
+  if type(item) == "table" and (item.cancel or item.isCancel or item.isExit) then
     return {
       group = 4,
       index = 0,
@@ -163,7 +173,7 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  if rawName and tostring(rawName):upper():gsub("[^%w]", "") == "CANCEL" then
+  if rawName and nameStr:gsub("[^%w]", "") == "CANCEL" then
     return {
       group = 4,
       index = 0,
@@ -212,8 +222,8 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 3. Check for TM by string ID with numeric suffix (e.g., 'TM01', 'TM_01', 'TM1', 'TM28_DIG')
-  local tmNum = idStr:match("^TM_?(%d+)")
+  -- 3. Check for TM by string ID or label (e.g., 'TM01', 'TM_01', 'TM 01', 'TM-01', 'TM28 DIG', 'TM 28 DIG')
+  local tmNum = idStr:match("^TM[%s_%-]?(%d+)") or nameStr:match("^TM[%s_%-]?(%d+)")
   if tmNum then
     return {
       group = 2,
@@ -223,8 +233,8 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 4. Check for HM by string ID with numeric suffix (e.g., 'HM01', 'HM_01', 'HM1', 'HM01_CUT')
-  local hmNum = idStr:match("^HM_?(%d+)")
+  -- 4. Check for HM by string ID or label (e.g., 'HM01', 'HM_01', 'HM 01', 'HM-01', 'HM01 CUT')
+  local hmNum = idStr:match("^HM[%s_%-]?(%d+)") or nameStr:match("^HM[%s_%-]?(%d+)")
   if hmNum then
     return {
       group = 3,
@@ -234,7 +244,7 @@ function ImprovedInventory.getItemSortKey(item)
     }
   end
 
-  -- 5. Check for TM or HM by numeric ID (standard Gen 1 RAM values: 196..245 for TM, 246..250 for HM)
+  -- 5. Check for TM or HM by numeric ID (standard Gen 1 RAM values: 196..200 for HM, 201..250 for TM)
   if type(rawId) == "number" then
     if rawId >= TM_MIN_ID and rawId <= TM_MAX_ID then
       return {
@@ -593,6 +603,15 @@ function ImprovedInventory.initHooks(mod, moduleManager)
       return next and next(game, items, ...)
     end)
 
+    -- ListMenu hook: enable pageJump navigation for bag and PC item lists
+    mod.hooks:wrap("ui.list_menu", function(next, opts, meta, ...)
+      local res = next and next(opts, meta, ...) or opts or {}
+      if moduleManager:isEnabled("improved_inventory") then
+        res.pageJump = true
+      end
+      return res
+    end)
+
     -- Bag capacity hooks
     mod.hooks:wrap("bag.capacity", function(next, game, ...)
       if moduleManager:isEnabled("improved_inventory", game) then
@@ -726,12 +745,49 @@ function ImprovedInventory.initHooks(mod, moduleManager)
         return origGetMax(self, ...)
       end
     end
+    if type(BagClass.order) == "function" then
+      local origOrder = BagClass.order
+      BagClass.order = function(save, data, ...)
+        local order = origOrder(save, data, ...)
+        if moduleManager:isEnabled("improved_inventory") and type(order) == "table" and #order > 1 then
+          ImprovedInventory.sortItems(order)
+        end
+        return order
+      end
+    end
+    if type(BagClass.pcOrder) == "function" then
+      local origPCOrder = BagClass.pcOrder
+      BagClass.pcOrder = function(save, data, ...)
+        local order = origPCOrder(save, data, ...)
+        if moduleManager:isEnabled("improved_inventory") and type(order) == "table" and #order > 1 then
+          ImprovedInventory.sortItems(order)
+        end
+        return order
+      end
+    end
   end
 
   local okPC, PCClass = pcall(require, "src.inventory.PCItems")
   if okPC and PCClass then
     if PCClass.MAX_ITEMS then
       PCClass.MAX_ITEMS = ImprovedInventory.EXPANDED_PC_CAPACITY
+    end
+  end
+
+  -- Hook ListMenu.new to ensure any bag/PC list is sorted upon construction
+  local okList, ListMenu = pcall(require, "src.ui.ListMenu")
+  if okList and ListMenu and type(ListMenu.new) == "function" then
+    local origListNew = ListMenu.new
+    ListMenu.new = function(game, title, items, opts)
+      if moduleManager:isEnabled("improved_inventory", game) then
+        if type(items) == "table" and #items > 1 then
+          opts = opts or {}
+          if opts.kind == "bag" or opts.itemBox or opts.onSelectKey or (title and tostring(title):find("ITEM")) then
+            ImprovedInventory.sortItems(items)
+          end
+        end
+      end
+      return origListNew(game, title, items, opts)
     end
   end
 
@@ -742,10 +798,13 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     -- Hook instantiation / initialization to sort items
     if type(MenuClass.new) == "function" then
       local origNew = MenuClass.new
-      MenuClass.new = function(...)
-        local instance = origNew(...)
+      MenuClass.new = function(game, ...)
+        if game and game.save and moduleManager:isEnabled("improved_inventory", game) then
+          ImprovedInventory.enforceSortingOnSave(game.save)
+        end
+        local instance = origNew(game, ...)
         if instance and moduleManager:isEnabled("improved_inventory") then
-          local save = (instance.game and instance.game.save) or (mod and mod.save)
+          local save = (instance.game and instance.game.save) or (game and game.save) or (mod and mod.save)
           ImprovedInventory.enforceSortingOnSave(save)
           if instance.items and type(instance.items) == "table" then
             ImprovedInventory.sortItems(instance.items)
