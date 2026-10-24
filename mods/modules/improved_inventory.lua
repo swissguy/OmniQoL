@@ -15,6 +15,7 @@
 --   * Regular items and Key Items are always sorted alphabetically (A-Z).
 --   * TMs and HMs are grouped at the bottom and sorted numerically:
 --     TM01 through TM50, followed by HM01 through HM05.
+--   * CANCEL / Exit options are strictly grouped at the absolute bottom (Group 4).
 --   * Directly sorts save.bagOrder and save.pcOrder (Gen1Recomp inventory model).
 -- - D-Pad Left / Right Page-Jumping Navigation:
 --   * Jump up or down by 5 items per press in Bag and PC menus (BagMenu, ItemMenu, PlayerPC).
@@ -57,10 +58,11 @@ function ImprovedInventory.applyConstants(mod, enabled)
 end
 
 --- Extracts a sorting key for any item representation (table, string, or number).
--- Returns { group = 1|2|3, index = number, name = string, id = any }
+-- Returns { group = 1|2|3|4, index = number, name = string, id = any }
 -- Group 1: General Items & Key Items (sorted alphabetically A-Z by name)
 -- Group 2: TMs (sorted numerically 1..50)
 -- Group 3: HMs (sorted numerically 1..5)
+-- Group 4: CANCEL / Exit options (always placed at the very bottom)
 function ImprovedInventory.getItemSortKey(item)
   if not item then
     return { group = 1, index = 0, name = "", id = "" }
@@ -69,6 +71,43 @@ function ImprovedInventory.getItemSortKey(item)
   local rawId = type(item) == "table" and (item.id or item.name or item[1]) or item
   local rawName = type(item) == "table" and (item.name or item.label or item.displayName) or nil
   local idStr = tostring(rawId or ""):upper():gsub("^ITEM_", "")
+
+  -- 0. Check for CANCEL / Exit menu entries (Group 4: Must remain at the absolute bottom)
+  if rawId == "CANCEL" or rawId == "CANCEL_MENU" or rawId == "EXIT" or rawId == "QUIT" or rawId == 0xFF or rawId == 255 then
+    return {
+      group = 4,
+      index = 0,
+      name = "CANCEL",
+      id = rawId,
+    }
+  end
+
+  if idStr == "CANCEL" or idStr == "CANCEL_MENU" or idStr == "EXIT" or idStr == "QUIT" then
+    return {
+      group = 4,
+      index = 0,
+      name = "CANCEL",
+      id = rawId,
+    }
+  end
+
+  if type(item) == "table" and (item.isCancel or item.cancel or item.isExit) then
+    return {
+      group = 4,
+      index = 0,
+      name = "CANCEL",
+      id = rawId,
+    }
+  end
+
+  if rawName and tostring(rawName):upper():gsub("[^%w]", "") == "CANCEL" then
+    return {
+      group = 4,
+      index = 0,
+      name = "CANCEL",
+      id = rawId,
+    }
+  end
 
   -- 1. Check for TM by string ID (e.g., 'TM01', 'TM_01', 'TM1', 'TM28_DIG')
   local tmNum = idStr:match("^TM_?(%d+)")
@@ -133,12 +172,12 @@ function ImprovedInventory.getItemSortKey(item)
 end
 
 --- Comparator function for sorting two items according to the specification.
--- Group 1 (Items A-Z) < Group 2 (TMs 1..50) < Group 3 (HMs 1..5)
+-- Group 1 (Items A-Z) < Group 2 (TMs 1..50) < Group 3 (HMs 1..5) < Group 4 (CANCEL)
 function ImprovedInventory.compareItems(a, b)
   local keyA = ImprovedInventory.getItemSortKey(a)
   local keyB = ImprovedInventory.getItemSortKey(b)
 
-  -- Compare group (Group 1 < Group 2 < Group 3)
+  -- Compare group (Group 1 < Group 2 < Group 3 < Group 4)
   if keyA.group ~= keyB.group then
     return keyA.group < keyB.group
   end
@@ -152,10 +191,14 @@ function ImprovedInventory.compareItems(a, b)
   end
 
   -- Groups 2 & 3: Compare TM / HM numeric index (e.g. TM01 < TM02)
-  if keyA.index ~= keyB.index then
-    return keyA.index < keyB.index
+  if keyA.group == 2 or keyA.group == 3 then
+    if keyA.index ~= keyB.index then
+      return keyA.index < keyB.index
+    end
+    return tostring(keyA.id) < tostring(keyB.id)
   end
 
+  -- Group 4: CANCEL entries (stable comparison)
   return tostring(keyA.id) < tostring(keyB.id)
 end
 
@@ -238,43 +281,57 @@ function ImprovedInventory.canSafelyDisable(mod, moduleManager, save)
   save = save or (mod and mod.save) or {}
 
   -- Count bag items from save.bagOrder (Gen1Recomp) or save.bag.items / save.inventory
-  local totalBagItems = 0
-  local excessList = {}
+  local realBagItems = {}
 
   if type(save.bagOrder) == "table" then
-    totalBagItems = #save.bagOrder
-    if totalBagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
-      for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
-        table.insert(excessList, save.bagOrder[i])
+    for _, it in ipairs(save.bagOrder) do
+      local key = ImprovedInventory.getItemSortKey(it)
+      if key.group ~= 4 then
+        table.insert(realBagItems, it)
       end
     end
   else
     local bag = save.bag or save.inventory or (mod and mod.bag)
     local bagItems = (type(bag) == "table" and (bag.items or bag)) or {}
     if type(bagItems) ~= "table" then bagItems = {} end
-    totalBagItems = #bagItems
-    if totalBagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
-      for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
-        table.insert(excessList, bagItems[i])
+    for _, it in ipairs(bagItems) do
+      local key = ImprovedInventory.getItemSortKey(it)
+      if key.group ~= 4 then
+        table.insert(realBagItems, it)
       end
     end
   end
 
+  local totalBagItems = #realBagItems
   if totalBagItems <= ImprovedInventory.VANILLA_BAG_CAPACITY then
     return true, nil, {}
   end
 
   local excessCount = totalBagItems - ImprovedInventory.VANILLA_BAG_CAPACITY
+  local excessList = {}
+  for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, totalBagItems do
+    table.insert(excessList, realBagItems[i])
+  end
 
   -- Calculate available PC storage
   local currentPCItems = 0
   if type(save.pcOrder) == "table" then
-    currentPCItems = #save.pcOrder
+    for _, it in ipairs(save.pcOrder) do
+      local key = ImprovedInventory.getItemSortKey(it)
+      if key.group ~= 4 then
+        currentPCItems = currentPCItems + 1
+      end
+    end
   else
     local pc = save.pcItems or save.boxItems or save.storage or (mod and mod.pcItems)
     local pcItems = (type(pc) == "table" and (pc.items or pc)) or {}
     if type(pcItems) ~= "table" then pcItems = {} end
-    currentPCItems = #pcItems
+    for _, it in ipairs(pcItems) do
+      local key = ImprovedInventory.getItemSortKey(it)
+      if key.group ~= 4 then
+        currentPCItems = currentPCItems + 1
+      end
+    end
   end
 
   local availablePCSpace = ImprovedInventory.VANILLA_PC_CAPACITY - currentPCItems
@@ -298,21 +355,24 @@ function ImprovedInventory.autoDepositExcessToPC(save)
   end
 
   -- 1. Gen1Recomp native model: save.bagOrder, save.inventory, save.pcOrder, save.pcItems
-  if type(save.bagOrder) == "table" and #save.bagOrder > ImprovedInventory.VANILLA_BAG_CAPACITY then
+  if type(save.bagOrder) == "table" then
     save.pcOrder = save.pcOrder or {}
     save.pcItems = save.pcItems or {}
     local inv = save.inventory or {}
 
-    for i = ImprovedInventory.VANILLA_BAG_CAPACITY + 1, #save.bagOrder do
-      local itemId = save.bagOrder[i]
+    for _, itemId in ipairs(excessList) do
       local qty = inv[itemId] or 1
       table.insert(save.pcOrder, itemId)
       save.pcItems[itemId] = (save.pcItems[itemId] or 0) + qty
       inv[itemId] = nil
-    end
 
-    for i = #save.bagOrder, ImprovedInventory.VANILLA_BAG_CAPACITY + 1, -1 do
-      table.remove(save.bagOrder, i)
+      -- Remove from bagOrder
+      for i = #save.bagOrder, 1, -1 do
+        if save.bagOrder[i] == itemId then
+          table.remove(save.bagOrder, i)
+          break
+        end
+      end
     end
 
     ImprovedInventory.enforceSortingOnSave(save)
@@ -322,7 +382,7 @@ function ImprovedInventory.autoDepositExcessToPC(save)
   -- 2. Fallback object model: save.bag / save.pcItems
   local bag = save.bag or save.inventory
   local bagItems = type(bag) == "table" and (bag.items or bag)
-  if type(bagItems) == "table" and #bagItems > ImprovedInventory.VANILLA_BAG_CAPACITY then
+  if type(bagItems) == "table" then
     local pc = save.pcItems or save.boxItems or save.storage
     if type(pc) ~= "table" then
       save.pcItems = {}
@@ -332,10 +392,12 @@ function ImprovedInventory.autoDepositExcessToPC(save)
 
     for _, item in ipairs(excessList) do
       table.insert(pcItems, item)
-    end
-
-    for i = #bagItems, ImprovedInventory.VANILLA_BAG_CAPACITY + 1, -1 do
-      table.remove(bagItems, i)
+      for i = #bagItems, 1, -1 do
+        if bagItems[i] == item then
+          table.remove(bagItems, i)
+          break
+        end
+      end
     end
 
     if bag.count then bag.count = #bagItems end

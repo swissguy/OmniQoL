@@ -78,12 +78,16 @@ class TestImprovedInventory(unittest.TestCase):
         self.assertEqual(hm03_key[0], 3)
         self.assertEqual(hm03_key[1], 3)
 
-    def test_sorting_order_full_inventory(self):
-        """Verifies full list sorting: Items A-Z, then TMs 1-50, then HMs 1-5."""
+    def test_sorting_order_full_inventory_with_cancel_at_bottom(self):
+        """Verifies full list sorting: Items A-Z, then TMs 1-50, then HMs 1-5, and CANCEL always at the bottom."""
         def get_sort_key(item):
             raw_id = item.get("id", item.get("name", "")) if isinstance(item, dict) else str(item)
             raw_name = item.get("name") if isinstance(item, dict) else None
             id_str = str(raw_id).upper().replace("ITEM_", "")
+
+            # Group 4: CANCEL / Exit menu entries
+            if id_str in ("CANCEL", "CANCEL_MENU", "EXIT", "QUIT") or raw_id == 255:
+                return (4, 0, "CANCEL")
 
             tm_match = re.match(r"^TM_?(\d+)", id_str)
             if tm_match:
@@ -98,6 +102,7 @@ class TestImprovedInventory(unittest.TestCase):
 
         unsorted_items = [
             {"id": "ULTRA_BALL", "count": 10},
+            {"id": "CANCEL"},
             {"id": "HM02", "count": 1},
             {"id": "ANTIDOTE", "count": 3},
             {"id": "TM28", "count": 1},
@@ -123,8 +128,50 @@ class TestImprovedInventory(unittest.TestCase):
             "TM28",
             "HM01",
             "HM02",
+            "CANCEL",
         ]
         self.assertEqual(sorted_ids, expected_ids)
+
+    def test_save_bag_order_and_pc_order_sorting(self):
+        """Verifies that string-array bagOrder and pcOrder sort correctly with CANCEL at bottom."""
+        raw_bag_order = [
+            "POTION",
+            "CANCEL",
+            "TOWN_MAP",
+            "POKE_BALL",
+            "RARE_CANDY",
+            "TM01",
+            "HM01",
+            "ANTIDOTE",
+            "TM28",
+        ]
+
+        def get_sort_key(item_id):
+            id_str = str(item_id).upper().replace("ITEM_", "")
+            if id_str in ("CANCEL", "CANCEL_MENU", "EXIT", "QUIT") or item_id == 255:
+                return (4, 0, "CANCEL")
+            tm_match = re.match(r"^TM_?(\d+)", id_str)
+            if tm_match:
+                return (2, int(tm_match.group(1)), id_str)
+            hm_match = re.match(r"^HM_?(\d+)", id_str)
+            if hm_match:
+                return (3, int(hm_match.group(1)), id_str)
+            display_name = id_str.replace("_", " ").strip().upper()
+            return (1, 0, display_name)
+
+        sorted_order = sorted(raw_bag_order, key=get_sort_key)
+        expected = [
+            "ANTIDOTE",
+            "POKE_BALL",
+            "POTION",
+            "RARE_CANDY",
+            "TOWN_MAP",
+            "TM01",
+            "TM28",
+            "HM01",
+            "CANCEL",
+        ]
+        self.assertEqual(sorted_order, expected)
 
     def test_page_jump_navigation(self):
         """Simulates D-Pad Left / Right page jumping (jump size 5)."""
@@ -205,43 +252,6 @@ class TestImprovedInventory(unittest.TestCase):
         self.assertIn('PlayerPC.pcItemCap = ImprovedInventory.EXPANDED_PC_CAPACITY', self.content)
         self.assertIn('save.bagOrder', self.content)
         self.assertIn('save.pcOrder', self.content)
-
-    def test_save_bag_order_and_pc_order_sorting(self):
-        """Verifies that string-array bagOrder and pcOrder sort correctly."""
-        raw_bag_order = [
-            "POTION",
-            "TOWN_MAP",
-            "POKE_BALL",
-            "RARE_CANDY",
-            "TM01",
-            "HM01",
-            "ANTIDOTE",
-            "TM28",
-        ]
-
-        def get_sort_key(item_id):
-            id_str = str(item_id).upper().replace("ITEM_", "")
-            tm_match = re.match(r"^TM_?(\d+)", id_str)
-            if tm_match:
-                return (2, int(tm_match.group(1)), id_str)
-            hm_match = re.match(r"^HM_?(\d+)", id_str)
-            if hm_match:
-                return (3, int(hm_match.group(1)), id_str)
-            display_name = id_str.replace("_", " ").strip().upper()
-            return (1, 0, display_name)
-
-        sorted_order = sorted(raw_bag_order, key=get_sort_key)
-        expected = [
-            "ANTIDOTE",
-            "POKE_BALL",
-            "POTION",
-            "RARE_CANDY",
-            "TOWN_MAP",
-            "TM01",
-            "TM28",
-            "HM01",
-        ]
-        self.assertEqual(sorted_order, expected)
 
 if __name__ == "__main__":
     unittest.main()
