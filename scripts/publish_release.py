@@ -47,26 +47,28 @@ def publish(tag="v0.2.2", version="0.2.2"):
     print(f"[Release] Publishing {tag} to GitHub ({repo})...")
 
     # Release Notes
-    body = f"""## 🌟 OmniQoL v{version} — Cross-Generation Support & Gen 2 Running Shoes
+    body = f"""## 🌟 OmniQoL v{version}
 
-### 🏃 Gen 2 Running Shoes (Gold, Silver, Crystal)
-OmniQoL is now a single, cross-generation release supporting both Generation 1 and Generation 2:
-- ✅ **Running Shoes in Gen 2**: Hold B to run at 2x speed outdoors, indoors, and in caves/dungeons across Pokémon Gold, Silver, and Crystal.
-- ✅ **Preserved Mechanics**: Natural Bicycle and Surf speeds preserved.
-- ✅ **Dynamic Detection**: Engine automatically detects active generation, safely isolating Gen 1-specific modules until future ports are completed.
+### 📋 What's Changed
+- **🎒 Improved Inventory (Module 7)**: 99-item Bag & PC capacity, D-Pad Left/Right page-jump navigation, deterministic auto-sorting (A–Z items, TMs 01–50, HMs 01–05, Cancel anchored at bottom), and safe PC deposit on toggle-off.
+- **🎓 Gen 2 EXP Share**: Enabled modern Gen 6+ EXP Share and 100% Stat EXP distribution across Pokémon Gold, Silver, and Crystal with consolidated benched dialogue.
+- **✨ Encounter Restorations**: Expanded wild uniform rosters across Routes 5, 6, 9, 10, 11, Diglett's Cave, and Rock Tunnel for 151 Pokédex completion.
+- **🧪 Documentation & Verification**: 51 automated unit tests and synchronized guide documentation.
+
+**Full Changelog**: https://github.com/swissguy/OmniQoL/compare/v0.2.1...v{version}
 
 ---
 
 ### 📦 Installation
 1. Download `{zip_name}` below.
-2. Extract the `omni_qol` folder into your game's `mods` directory (e.g. `%APPDATA%\\pokemon-love2d\\mods\\omni_qol` or `%APPDATA%\\pokemon-crystal-love2d\\mods\\omni_qol`).
+2. Extract the `omni_qol` folder into your game's `mods` directory (e.g. `%APPDATA%\pokemon-love2d\mods\omni_qol` or `%APPDATA%\pokemon-crystal-love2d\mods\omni_qol`).
 3. Launch Pokémon Red, Blue, Yellow, Gold, Silver, or Crystal!
 """
 
     release_payload = {
         "tag_name": tag,
         "target_commitish": "main",
-        "name": f"v{version}: Cross-Generation Mod Suite & Gen 2 Running Shoes",
+        "name": f"v{version}",
         "body": body,
         "draft": False,
         "prerelease": False,
