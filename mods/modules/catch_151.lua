@@ -12,7 +12,7 @@
 --    - Sandshrew / Sandslash: Route 3, Route 4, Route 9, Route 11, Route 23 (Red)
 --    - Oddish / Gloom: Route 24, Route 25, Route 12, Route 13 (Blue)
 --    - Bellsprout / Weepinbell: Route 24, Route 25, Route 12, Route 13 (Red)
---    - Mankey / Primeape: Route 22, Route 3, Route 4, Route 5, Route 6 (Blue/Red/Yellow)
+--    - Mankey / Primeape: Route 22, Route 3, Route 4, Route 5, Route 6, Route 8 (Blue/Red/Yellow)
 --    - Meowth / Persian: Route 5, Route 6, Route 7, Route 8 (Red & Yellow)
 --    - Growlithe / Arcanine: Route 7, Route 8, Pokémon Mansion (Blue)
 --    - Vulpix / Ninetales: Route 7, Route 8, Pokémon Mansion (Red)
@@ -34,7 +34,8 @@
 -- 4. Mutually Exclusive & In-Game Trade Pokémon Made Wild:
 --    - Fossils: Omanyte & Kabuto in Seafoam Islands B3F/B4F Water (Lv 28-32)
 --    - Fighting Dojo: Hitmonlee & Hitmonchan in Victory Road 2F (Lv 40-44) & Route 10 (Lv 18-22)
---    - Eevee: Route 25 (Lv 12-17), Route 8 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
+--    - Eevee: Route 25 (Lv 12-17), Route 7 (Lv 18-22) & Route 17 (Lv 22-25) allowing all 3 Eeveelutions
+--    - Kadabra: Route 8 (Lv 18-22)
 --    - Porygon: Route 7 (Lv 18-22) & Cerulean Cave 1F (Lv 48-52)
 --    - Farfetch'd: Route 12 (Lv 22-24) & Route 13 (Lv 24-26)
 --    - Mr. Mime: Route 21 (Lv 20-24) & Route 11 (Lv 16-20)
@@ -236,6 +237,16 @@ local ROUTE_ROSTERS = {
       { species = "GRAVELER",   minLevel = 20, maxLevel = 24 },
     },
   },
+  ROUTE_8 = {
+    mode = "uniform", -- 5 species with equal probability (20% each)
+    grass = {
+      { species = "VULPIX",     minLevel = 18, maxLevel = 22 },
+      { species = "GROWLITHE",  minLevel = 18, maxLevel = 22 },
+      { species = "MEOWTH",     minLevel = 18, maxLevel = 22 },
+      { species = "MANKEY",     minLevel = 18, maxLevel = 22 },
+      { species = "KADABRA",    minLevel = 18, maxLevel = 22 },
+    },
+  },
 }
 
 -- ----------------------------------------------------------------------------
@@ -248,11 +259,6 @@ local WILD_ADDITIONS = {
     { species = "VULPIX",     minLevel = 18, maxLevel = 20, rate = 0.15, type = "grass", game = "red" },
     { species = "GROWLITHE",  minLevel = 18, maxLevel = 20, rate = 0.15, type = "grass", game = "blue" },
     { species = "PORYGON",    minLevel = 18, maxLevel = 20, rate = 0.05, type = "grass" },
-  },
-  ROUTE_8 = {
-    { species = "VULPIX",     minLevel = 18, maxLevel = 22, rate = 0.15, type = "grass", game = "red" },
-    { species = "GROWLITHE",  minLevel = 18, maxLevel = 22, rate = 0.15, type = "grass", game = "blue" },
-    { species = "EEVEE",      minLevel = 18, maxLevel = 22, rate = 0.08, type = "grass" },
   },
   ROUTE_10 = {
     { species = "DRATINI",    minLevel = 15, maxLevel = 20, rate = 0.10, type = "water" },

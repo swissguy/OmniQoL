@@ -51,7 +51,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#013** | **Weedle** | Bug / Poison | **Wild**: Viridian Forest, Route 2. |
 | **#014** | **Kakuna** | Bug / Poison | Evolve Weedle at **Level 7** OR **Wild**: Viridian Forest *(Red/Blue; added to Yellow in Viridian Forest)*. |
 | **#015** | **Beedrill** | Bug / Poison | Evolve Kakuna at **Level 10**. |
-| **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 7, 8, 12, 21, Viridian Forest. |
+| **#016** | **Pidgey** | Normal / Flying | **Wild**: Routes 1, 2, 3, 7, 12, 21, Viridian Forest. |
 | **#017** | **Pidgeotto** | Normal / Flying | Evolve Pidgey at **Level 18** OR **Wild**: Routes 14, 15, 21, Viridian Forest. |
 | **#018** | **Pidgeot** | Normal / Flying | Evolve Pidgeotto at **Level 36**. |
 | **#019** | **Rattata** | Normal | **Wild**: Routes 1, 2, 4, 16, 21, 22. |
@@ -91,7 +91,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#053** | **Persian** | Normal | Evolve Meowth at **Level 28**. |
 | **#054** | **Psyduck** | Water | **Wild**: Route 6 (Lv 15–18) *(Grass)*; Route 24, Safari Zone, Cerulean Cave *(Surfing)*; Cerulean Gym, Routes 4, 24, 25 *(Super Rod)*. |
 | **#055** | **Golduck** | Water | Evolve Psyduck at **Level 33** OR **Wild**: Seafoam Islands, Cerulean Cave. |
-| **#056** | **Mankey** | Fighting | **Wild**: Routes 3, 4, 5, 6, 22 *(Native to Routes 3, 4, 22 in Yellow, Routes 5, 6 in Red; added across Routes 3, 4, 5, 6, 22 in Red, Blue, and Yellow)*. |
+| **#056** | **Mankey** | Fighting | **Wild**: Routes 3, 4, 5, 6, 8, 22 *(Native to Routes 3, 4, 22 in Yellow, Routes 5, 6, 8 in Red; added across Routes 3, 4, 5, 6, 8, 22 in Red, Blue, and Yellow)*. |
 | **#057** | **Primeape** | Fighting | Evolve Mankey at **Level 28** OR **Wild**: Route 23 *(Red/Yellow)*. |
 | **#058** | **Growlithe** | Fire | **Wild**: Routes 7, 8, Pokémon Mansion *(Red; added to Blue on Routes 7, 8, Mansion)*. |
 | **#059** | **Arcanine** | Fire | Evolve Growlithe with **Fire Stone** *(Celadon Dept. Store)*. |
@@ -99,7 +99,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#061** | **Poliwhirl** | Water | Evolve Poliwag at **Level 25** OR **Wild**: Route 23 *(Surfing in Yellow)*; Super Rod in Cerulean City, Route 23, Cerulean Cave (Lv 23). |
 | **#062** | **Poliwrath** | Water / Fighting | Evolve Poliwhirl with **Water Stone** *(Celadon Dept. Store)*. |
 | **#063** | **Abra** | Psychic | **Wild**: Routes 5, 6, 24, 25; Prize at Celadon Game Corner. |
-| **#064** | **Kadabra** | Psychic | Evolve Abra at **Level 16** OR **Wild**: Cerulean Cave. |
+| **#064** | **Kadabra** | Psychic | Evolve Abra at **Level 16** OR **Wild**: Route 8 (Lv 18–22), Cerulean Cave. |
 | **#065** | **Alakazam** | Psychic | Evolve Kadabra at **Level 40+** *(via OmniQoL Trade Evos)* OR Link Trade. |
 | **#066** | **Machop** | Fighting | **Wild**: Route 10 (Lv 18–22), Rock Tunnel, Victory Road. |
 | **#067** | **Machoke** | Fighting | Evolve Machop at **Level 28** OR **Wild**: Victory Road. |
@@ -168,7 +168,7 @@ With OmniQoL enabled, **100% of the Pokédex can be completed on a single save f
 | **#130** | **Gyarados** | Water / Flying | Evolve Magikarp at **Level 20** OR **Wild**: Safari Zone, Cerulean Cave. |
 | **#131** | **Lapras** | Water / Ice | **Gift**: Silph Co. 7F from the receptionist after defeating the rival. |
 | **#132** | **Ditto** | Normal | **Wild**: Route 5 (Lv 14–18), Routes 13, 14, 15, 23, Cerulean Cave. |
-| **#133** | **Eevee** | Normal | **Gift**: Rooftop room of Celadon Mansion (1 free).<br>**Wild**: Route 25 (Lv 12–17), Route 8 (Lv 18–22), Route 17 (Lv 22–25) *(allows evolving all 3 Eeveelutions)*. |
+| **#133** | **Eevee** | Normal | **Gift**: Rooftop room of Celadon Mansion (1 free).<br>**Wild**: Route 25 (Lv 12–17), Route 7 (Lv 18–22), Route 17 (Lv 22–25) *(allows evolving all 3 Eeveelutions)*. |
 | **#134** | **Vaporeon** | Water | Evolve Eevee with **Water Stone** *(Celadon Dept. Store)*. |
 | **#135** | **Jolteon** | Electric | Evolve Eevee with **Thunder Stone** *(Celadon Dept. Store)*. |
 | **#136** | **Flareon** | Fire | Evolve Eevee with **Fire Stone** *(Celadon Dept. Store)*. |
@@ -268,7 +268,7 @@ The following tables list every location in Kanto in chronological progression o
 | Location | Method / Terrain | Pokémon Available & Levels | OmniQoL Notes & Highlights |
 |---|---|---|---|
 | **Route 7** | Wild Grass | Pidgey, Pidgeotto, Rattata, Raticate, Vulpix, Growlithe, Meowth, Jigglypuff, Abra, **Porygon** (Lv 18–22) | **OmniQoL**: Wild Porygon added; Vulpix/Growlithe cross-version restored. |
-| **Route 8** | Wild Grass | Pidgey, Pidgeotto, Rattata, Ekans, Sandshrew, Vulpix, Growlithe, Meowth, **Eevee** (Lv 18–22) | **OmniQoL**: Wild Eevee added (enabling all 3 Eeveelutions); Vulpix/Growlithe restored. |
+| ✅ **Route 8** | Wild Grass | Vulpix, Growlithe, Meowth, Mankey, Kadabra (Lv 18–22) | **OmniQoL**: Custom uniform roster with 20% equal chance for all 5 species across Red, Blue, and Yellow; Vulpix & Growlithe version rivals, Meowth & Mankey rivals, and early wild Kadabra. |
 | **Celadon City** | Gift (Mansion) | **Eevee** (Lv 25) | Free Eevee on the rooftop room of Celadon Mansion. |
 | | Game Corner | Abra, Clefairy, Pinsir, Scyther, Dratini, Porygon | Redeem prizes using Game Corner coins. |
 | **Celadon Dept. Store 4F** | Mart Counter | Fire Stone, Water Stone, Thunder Stone, Leaf Stone, **Moon Stone** (¥2,100 each) | **OmniQoL**: Unlimited Moon Stones added to 4F Wiseman Gifts for ¥2,100! |
