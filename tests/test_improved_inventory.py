@@ -197,6 +197,54 @@ class TestImprovedInventory(unittest.TestCase):
         ]
         self.assertEqual(result_labels, expected_labels)
 
+    def test_is_player_inventory_list_scoping(self):
+        """Verifies that sorting is strictly restricted to player inventory lists,
+        and excludes Mart buy stock, PC Pokémon boxes, elevator floors, and badge descriptions.
+        """
+        self.assertIn("function ImprovedInventory.isPlayerInventoryList", self.content)
+        self.assertIn('kind == "bag"', self.content)
+        self.assertIn('kind:find("^pc_item_")', self.content)
+        self.assertIn('kind:find("^pc_box_")', self.content)
+        self.assertIn('elevator_floors', self.content)
+        self.assertIn('badge_descriptions', self.content)
+
+        def is_player_inventory_list(title, items, opts):
+            opts = opts or {}
+            kind = opts.get("kind")
+            if kind in ("bag", "pc"):
+                return True
+            if isinstance(kind, str) and kind.startswith("pc_item_"):
+                return True
+            if isinstance(kind, str):
+                if kind.startswith("pc_box_") or kind in ("elevator_floors", "badge_descriptions", "pokedex", "moves", "controls"):
+                    return False
+            if opts.get("dialogue") and opts.get("money") and not opts.get("onSelectKey"):
+                return False
+            if opts.get("script"):
+                return False
+            if title and (title == "ITEMS" or str(title).startswith("ITEMS")) and not opts.get("dialogue"):
+                return True
+            return False
+
+        # 1. Allowed: Bag & PC items
+        self.assertTrue(is_player_inventory_list("ITEMS", [], {"kind": "bag"}))
+        self.assertTrue(is_player_inventory_list(None, [], {"kind": "pc_item_withdraw"}))
+        self.assertTrue(is_player_inventory_list(None, [], {"kind": "pc_item_deposit"}))
+        self.assertTrue(is_player_inventory_list(None, [], {"kind": "pc_item_toss"}))
+
+        # 2. Excluded: Non-inventory menus
+        self.assertFalse(is_player_inventory_list(None, [], {"kind": "pc_box_deposit"}))
+        self.assertFalse(is_player_inventory_list(None, [], {"kind": "pc_box_release"}))
+        self.assertFalse(is_player_inventory_list(None, [], {"kind": "pc_box_withdraw"}))
+        self.assertFalse(is_player_inventory_list(None, [], {"kind": "elevator_floors"}))
+        self.assertFalse(is_player_inventory_list(None, [], {"kind": "badge_descriptions"}))
+
+        # 3. Excluded: ShopMenu Buy stock
+        self.assertFalse(is_player_inventory_list(None, [], {"dialogue": True, "money": lambda: 500, "itemBox": True}))
+
+        # 4. Excluded: Battle script / tutorial
+        self.assertFalse(is_player_inventory_list("ITEMS", [], {"script": lambda l: None, "itemBox": True}))
+
     def test_sorting_order_full_inventory_with_cancel_at_bottom(self):
         """Verifies full list sorting: Items A-Z, then TMs 1-50, then HMs 1-5, and CANCEL always at the bottom."""
         def get_sort_key(item):

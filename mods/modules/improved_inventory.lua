@@ -365,6 +365,55 @@ function ImprovedInventory.enforceSortingOnSave(save)
   end
 end
 
+--- Determines if a ListMenu items array corresponds strictly to the player's Bag or PC item storage.
+-- Explicitly excludes non-inventory menus like Mart buy stock, PC box Pokémon lists, elevator floors, etc.
+-- @param title string|nil Menu title
+-- @param items table Array of list items
+-- @param opts table|nil ListMenu constructor options
+-- @return boolean
+function ImprovedInventory.isPlayerInventoryList(title, items, opts)
+  opts = opts or {}
+  local kind = opts.kind
+
+  -- 1. Explicit player inventory kinds
+  if kind == "bag" or kind == "pc" then
+    return true
+  end
+  if type(kind) == "string" and kind:find("^pc_item_") ~= nil then
+    -- pc_item_withdraw, pc_item_deposit, pc_item_toss
+    return true
+  end
+
+  -- 2. Explicit exclusions (never sort non-inventory lists)
+  if type(kind) == "string" then
+    if kind:find("^pc_box_") ~= nil
+        or kind == "elevator_floors"
+        or kind == "badge_descriptions"
+        or kind == "pokedex"
+        or kind == "moves"
+        or kind == "controls" then
+      return false
+    end
+  end
+
+  -- 3. Exclude ShopMenu Buy stock (clerk dialogue + money callback)
+  if opts.dialogue and opts.money and not opts.onSelectKey then
+    return false
+  end
+
+  -- 4. Exclude BattleState tutorial / scripted menus
+  if opts.script then
+    return false
+  end
+
+  -- 5. Fallback check for title == "ITEMS" when not in a dialogue/shop flow
+  if title and (title == "ITEMS" or tostring(title):find("^ITEMS")) and not opts.dialogue then
+    return true
+  end
+
+  return false
+end
+
 --- Calculates target cursor position after a page-jump navigation step.
 -- @param currentIndex number (1-based current cursor index)
 -- @param maxIndex number (total selectable items or max selectable row)
@@ -603,11 +652,14 @@ function ImprovedInventory.initHooks(mod, moduleManager)
       return next and next(game, items, ...)
     end)
 
-    -- ListMenu hook: enable pageJump navigation for bag and PC item lists
+    -- ListMenu hook: enable pageJump navigation strictly for bag and PC item lists
     mod.hooks:wrap("ui.list_menu", function(next, opts, meta, ...)
       local res = next and next(opts, meta, ...) or opts or {}
       if moduleManager:isEnabled("improved_inventory") then
-        res.pageJump = true
+        local kind = (meta and meta.kind) or (opts and opts.kind)
+        if kind == "bag" or (type(kind) == "string" and kind:find("^pc_item_") ~= nil) then
+          res.pageJump = true
+        end
       end
       return res
     end)
@@ -774,28 +826,25 @@ function ImprovedInventory.initHooks(mod, moduleManager)
     end
   end
 
-  -- Hook ListMenu.new to ensure any bag/PC list is sorted upon construction
+  -- Hook ListMenu.new to ensure only player bag and PC item lists are sorted upon construction
   local okList, ListMenu = pcall(require, "src.ui.ListMenu")
   if okList and ListMenu and type(ListMenu.new) == "function" then
     local origListNew = ListMenu.new
     ListMenu.new = function(game, title, items, opts)
       if moduleManager:isEnabled("improved_inventory", game) then
-        if type(items) == "table" and #items > 1 then
-          opts = opts or {}
-          if opts.kind == "bag" or opts.itemBox or opts.onSelectKey or (title and tostring(title):find("ITEM")) then
-            ImprovedInventory.sortItems(items)
-          end
+        if type(items) == "table" and #items > 1 and ImprovedInventory.isPlayerInventoryList(title, items, opts) then
+          ImprovedInventory.sortItems(items)
         end
       end
       return origListNew(game, title, items, opts)
     end
   end
 
-  -- 3. Hook BagMenu, ItemMenu, and PlayerPC UI for Left / Right page-jumping and auto-sort on open
+  -- 3. Hook BagMenu and PlayerPC UI to enforce sorted save data on open
   local function wrapMenu(MenuClass)
     if not MenuClass then return end
 
-    -- Hook instantiation / initialization to sort items
+    -- Hook instantiation / initialization to ensure save collections are sorted
     if type(MenuClass.new) == "function" then
       local origNew = MenuClass.new
       MenuClass.new = function(game, ...)
@@ -806,15 +855,6 @@ function ImprovedInventory.initHooks(mod, moduleManager)
         if instance and moduleManager:isEnabled("improved_inventory") then
           local save = (instance.game and instance.game.save) or (game and game.save) or (mod and mod.save)
           ImprovedInventory.enforceSortingOnSave(save)
-          if instance.items and type(instance.items) == "table" then
-            ImprovedInventory.sortItems(instance.items)
-          end
-          if instance.bagOrder and type(instance.bagOrder) == "table" then
-            ImprovedInventory.sortItems(instance.bagOrder)
-          end
-          if instance.pcOrder and type(instance.pcOrder) == "table" then
-            ImprovedInventory.sortItems(instance.pcOrder)
-          end
         end
         return instance
       end
@@ -827,65 +867,8 @@ function ImprovedInventory.initHooks(mod, moduleManager)
         if moduleManager:isEnabled("improved_inventory") then
           local save = (self.game and self.game.save) or (mod and mod.save)
           ImprovedInventory.enforceSortingOnSave(save)
-          if self.items and type(self.items) == "table" then
-            ImprovedInventory.sortItems(self.items)
-          end
-          if self.bagOrder and type(self.bagOrder) == "table" then
-            ImprovedInventory.sortItems(self.bagOrder)
-          end
-          if self.pcOrder and type(self.pcOrder) == "table" then
-            ImprovedInventory.sortItems(self.pcOrder)
-          end
         end
         return res
-      end
-    end
-
-    -- Hook input handler for Left / Right D-Pad page navigation
-    if type(MenuClass.handleInput) == "function" then
-      local origHandle = MenuClass.handleInput
-      MenuClass.handleInput = function(self, input, ...)
-        if moduleManager:isEnabled("improved_inventory") and input then
-          local totalItems = self.items and #self.items or (self.getItemCount and self:getItemCount()) or 0
-          local maxSelectable = self.showCancel and (totalItems + 1) or totalItems
-
-          if maxSelectable > 1 then
-            local jumpDir = 0
-            if (type(input.wasPressed) == "function" and input:wasPressed("left")) or input == "left" then
-              jumpDir = -1
-            elseif (type(input.wasPressed) == "function" and input:wasPressed("right")) or input == "right" then
-              jumpDir = 1
-            end
-
-            if jumpDir ~= 0 then
-              local curIndex = self.cursor or self.selectedIndex or self.index or 1
-              local newIndex = ImprovedInventory.handlePageJump(curIndex, maxSelectable, jumpDir, ImprovedInventory.PAGE_JUMP_SIZE)
-              if newIndex ~= curIndex then
-                if self.cursor then self.cursor = newIndex end
-                if self.selectedIndex then self.selectedIndex = newIndex end
-                if self.index then self.index = newIndex end
-
-                if self.scrollOffset and self.maxVisible then
-                  if newIndex <= self.scrollOffset then
-                    self.scrollOffset = math.max(0, newIndex - 1)
-                  elseif newIndex > self.scrollOffset + self.maxVisible then
-                    self.scrollOffset = math.min(math.max(0, maxSelectable - self.maxVisible), newIndex - self.maxVisible)
-                  end
-                end
-
-                pcall(function()
-                  local Sound = require("src.core.Sound")
-                  if Sound and type(Sound.play) == "function" then
-                    Sound.play("cursor")
-                  end
-                end)
-
-                return true
-              end
-            end
-          end
-        end
-        return origHandle(self, input, ...)
       end
     end
   end

@@ -53,7 +53,7 @@ def publish(tag="v0.2.3", version="0.2.3"):
 - **🎒 Improved Inventory (Module 7)**: 99-item Bag & PC capacity, D-Pad Left/Right page-jump navigation, deterministic auto-sorting (A–Z items, TMs 01–50, HMs 01–05, Cancel anchored at bottom), and safe PC deposit on toggle-off.
 - **🎓 Gen 2 EXP Share**: Enabled modern Gen 6+ EXP Share and 100% Stat EXP distribution across Pokémon Gold, Silver, and Crystal with consolidated benched dialogue.
 - **✨ Encounter Restorations**: Expanded wild uniform rosters across Routes 5, 6, 9, 10, 11, Diglett's Cave, and Rock Tunnel for 151 Pokédex completion.
-- **🧪 Documentation & Verification**: 51 automated unit tests and synchronized guide documentation.
+- **🧪 Documentation & Verification**: 52 automated unit tests and synchronized guide documentation.
 
 **Full Changelog**: https://github.com/swissguy/OmniQoL/compare/v0.2.1...v{version}
 
