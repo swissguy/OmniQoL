@@ -46,7 +46,7 @@
 - **Wild Starters**: Bulbasaur (Viridian Forest, Route 2), Charmander (Routes 3 & 4), and Squirtle (Routes 24 & 25) can be caught in the wild in authentic thematic habitats.
 - **Version Exclusives & Missing Pokémon**: Cross-pollinates Red, Blue, and Yellow version exclusives across all three games (e.g. Ekans/Arbok, Sandshrew/Sandslash, Oddish/Bellsprout, Meowth/Mankey, Vulpix/Growlithe, Koffing, Weedle line in Yellow, Electabuzz, Magmar, and wild Raichu).
 - **Safari Exclusives Outside Safari Zone**: Chansey, Kangaskhan, Tauros, Scyther, Pinsir, Dratini, and Tangela spawn in overworld routes so players can battle and catch them with normal Pokéballs without fleeing mechanics.
-- **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 25, 7 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
+- **Mutually Exclusive & Single-Choice Lines**: Omanyte & Kabuto (Seafoam Islands water), Hitmonlee & Hitmonchan (Victory Road / Route 10), and wild Eevee (Routes 25 & 17) allowing all three Eeveelutions on a single save file. Trade-only species (Jynx, Farfetch'd, Mr. Mime, Lickitung, Porygon) also spawn in the wild.
 - **Immediate Legendary Respawns**: Articuno, Zapdos, Moltres, Mewtwo, and Snorlax immediately respawn upon leaving and re-entering the map or room if defeated or fled without catching.
 - **Mythical Mew Encounter**: Encounter a stationary Lv. 50 Mew on the deepest floor of Cerulean Cave (Unknown Dungeon B1F) with authentic cry and battle sequencing.
 
